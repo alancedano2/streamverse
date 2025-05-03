@@ -2,152 +2,33 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>StreamVerse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #0d47a1, #1976d2);
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-    }
-    .logo {
-      width: 180px;
-      margin-bottom: 20px;
-    }
-    .player-container {
-      width: 100%;
-      max-width: 800px;
-      aspect-ratio: 16/9;
-      margin: 0 auto 30px;
-    }
-    .live-box {
-      background: #fff;
-      color: #000;
-      border-radius: 12px;
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto 30px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    }
-    .live-box .status {
-      color: red;
-      font-weight: bold;
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-    }
-    .live-box h2 {
-      margin: 0 0 10px;
-    }
-    .live-box p {
-      margin: 0;
-      line-height: 1.4;
-    }
-    .redirect-button {
-      background-color: #1976d2;
-      color: white;
-      border: none;
-      padding: 15px 25px;
-      font-size: 1.2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      margin-top: 20px;
-    }
-    .redirect-button:hover {
-      background-color: #1565c0;
-    }
-  </style>
+  <title>KQ 105 - En Vivo</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="container">
+    <img src="logo.png" alt="Logo" class="logo"/>
 
-  <img src="logo.png" alt="KQ105 Logo" class="logo" />
+    <div class="player-container">
+      <iframe
+        src="https://ssh101stream.ssh101.com/akamaissh101/ssh101/kq105/playlist.m3u8"
+        frameborder="0"
+        allowfullscreen
+        class="video-player"
+      ></iframe>
+    </div>
 
-  <div class="live-box">
-    <div class="status">🔴 EN VIVO</div>
-    <h2 id="program-title">Cargando programa...</h2>
-    <p id="program-description">Espere un momento...</p>
+    <div class="live-box">
+      <div class="live-header">
+        <span class="live-dot"></span> EN VIVO AHORA
+      </div>
+      <div class="program-title">William Scull vs Canelo Álvarez</div>
+      <div class="program-description">
+        Desde Riad, Arabia Saudita, Canelo Álvarez defiende sus títulos WBA, WBC y WBO del peso supermediano ante el campeón invicto William Scull, quien pone en juego su cinturón IBF. Una pelea de unificación por el campeonato indiscutido.
+      </div>
+      <a href="https://kq105.vercel.app/" target="_blank" class="button-colab">Colaboración</a>
+    </div>
   </div>
-
-  <div class="player-container" id="player"></div>
-
-  <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
-  <script>
-    // Inicializa el reproductor Clappr
-    new Clappr.Player({
-      source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
-      parentId: "#player",
-      autoPlay: true,
-      width: "100%",
-      height: "100%",
-      mute: false,
-    });
-  </script>
-
-  <script>
-    // Definición de la programación completa
-    const schedule = {
-      Monday: [
-        { start: "00:00", end: "15:00", title: "OFF Air", description: "Fuera del aire" },
-        { start: "15:00", end: "20:00", title: "WWE TV", description: "WWE TV te trae toda la acción de RAW, SmackDown, NXT y más." },
-        { start: "20:00", end: "23:00", title: "WWE RAW Live", description: "En esta innovadora serie, las Superestrellas llenan el ring de acción, drama y acrobacias." },
-        { start: "23:00", end: "24:00", title: "WWE TV", description: "Resumen y repeticiones de la jornada." }
-      ],
-      Tuesday: [
-        { start: "00:00", end: "15:00", title: "OFF Air", description: "Fuera del aire" },
-        { start: "15:00", end: "20:00", title: "WWE TV", description: "WWE TV te trae toda la acción de RAW, SmackDown, NXT y más." },
-        { start: "20:00", end: "23:00", title: "WWE NXT Live", description: "La nueva generación de Superestrellas en eventos premium y TakeOvers." },
-        { start: "23:00", end: "24:00", title: "WWE TV", description: "Resumen y repeticiones de la jornada." }
-      ],
-      Friday: [
-        { start: "00:00", end: "15:00", title: "OFF Air", description: "Fuera del aire" },
-        { start: "15:00", end: "20:00", title: "WWE TV", description: "WWE TV te trae toda la acción de RAW, SmackDown, NXT y más." },
-        { start: "20:00", end: "23:00", title: "WWE SmackDown Live", description: "Las Superestrellas más destacadas resuelven rivalidades a pura acción." },
-        { start: "23:00", end: "24:00", title: "WWE TV", description: "Resumen y repeticiones de la jornada." }
-      ],
-      Saturday: [
-        { start: "00:00", end: "08:00", title: "OFF Air", description: "Fuera del aire" },
-        { start: "08:00", end: "11:00", title: "eWo El Update", description: "Lo último en lucha libre boricua: eventos, entrevistas y rivalidades." },
-        { start: "11:00", end: "20:00", title: "Evento Disponible", description: "Transmisiones en vivo de BSN, NBA, WWE y otros eventos de gran impacto." }
-      ]
-    };
-
-    // Convierte "HH:MM" a minutos totales
-    function toMinutes(time) {
-      const [h, m] = time.split(":").map(Number);
-      return h * 60 + m;
-    }
-
-    // Obtiene el programa actual según fecha y hora
-    function updateCurrentProgram() {
-      const now = new Date();
-      const day = now.toLocaleDateString('en-US', { weekday: 'long' });
-      const minutesNow = now.getHours() * 60 + now.getMinutes();
-
-      const today = schedule[day] || [];
-      let current = { title: "OFF Air", description: "Fuera del aire" };
-
-      for (let slot of today) {
-        if (minutesNow >= toMinutes(slot.start) && minutesNow < toMinutes(slot.end)) {
-          current = slot;
-          break;
-        }
-      }
-
-      document.getElementById("program-title").textContent = current.title;
-      document.getElementById("program-description").textContent = current.description;
-    }
-
-    // Primera llamada y actualización cada minuto
-    updateCurrentProgram();
-    setInterval(updateCurrentProgram, 60000);
-  </script>
-
-  <!-- Botón de redirección a colaboración -->
-  <a href="https://kq105.vercel.app/" class="redirect-button">Colaboración con KQ105 (FanPage)</a>
-
 </body>
 </html>
