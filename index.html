@@ -1,34 +1,118 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KQ 105 - En Vivo</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>StreamVerse</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: linear-gradient(to bottom, #0d47a1, #1976d2);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    #player {
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      margin: 0 auto 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .live-box {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: 0 auto 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .live-status {
+      color: red;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .schedule-item {
+      text-align: left;
+      margin: 5px 0;
+    }
+    .schedule-item .on-air {
+      color: red;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <img src="logo.png" alt="Logo" class="logo"/>
 
-    <div class="player-container">
-      <iframe
-        src="https://ssh101stream.ssh101.com/akamaissh101/ssh101/kq105/playlist.m3u8"
-        frameborder="0"
-        allowfullscreen
-        class="video-player"
-      ></iframe>
-    </div>
+  <div id="player"></div>
 
-    <div class="live-box">
-      <div class="live-header">
-        <span class="live-dot"></span> EN VIVO AHORA
-      </div>
-      <div class="program-title">William Scull vs Canelo Álvarez</div>
-      <div class="program-description">
-        Desde Riad, Arabia Saudita, Canelo Álvarez defiende sus títulos WBA, WBC y WBO del peso supermediano ante el campeón invicto William Scull, quien pone en juego su cinturón IBF. Una pelea de unificación por el campeonato indiscutido.
-      </div>
-      <a href="https://kq105.vercel.app/" target="_blank" class="button-colab">Colaboración</a>
-    </div>
+  <div class="live-box">
+    <div class="live-status">🔴 EN VIVO</div>
+    <h2 id="program-title">Cargando programa...</h2>
+    <p id="program-description">Espere un momento...</p>
+    <h3>Programación de Sábado</h3>
+    <div id="full-schedule"></div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+  <script>
+    // Inicializa Clappr
+    new Clappr.Player({
+      source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
+      parentId: "#player",
+      autoPlay: true,
+      height: "100%",
+      width: "100%"
+    });
+
+    // Programación de Sábado
+    const saturdaySchedule = [
+      { start: "00:00", end: "08:00", title: "OFF Air", description: "Fuera del aire" },
+      { start: "08:00", end: "11:00", title: "eWo El Update", description: "Lo último de la lucha libre boricua: resumen de eventos, entrevistas y rivalidades al día." },
+      { start: "11:00", end: "18:00", title: "Evento Disponible", description: "Transmisiones en vivo de BSN, NBA, WWE y otros eventos de gran impacto." },
+      { start: "18:00", end: "24:00", title: "William Scull vs Canelo Álvarez", description: "Desde Riad, Arabia Saudita, Canelo Álvarez defiende sus títulos WBA, WBC y WBO del peso supermediano ante el campeón invicto William Scull, quien pone en juego su cinturón IBF. Una pelea de unificación por el campeonato indiscutido." }
+    ];
+
+    function toMins(t) {
+      const [h,m] = t.split(':').map(Number);
+      return h*60 + m;
+    }
+
+    function update() {
+      const now = new Date();
+      const minsNow = now.getHours()*60 + now.getMinutes();
+      let current = saturdaySchedule[0];
+
+      // Encuentra el slot actual
+      saturdaySchedule.forEach(slot => {
+        if (minsNow >= toMins(slot.start) && minsNow < toMins(slot.end)) {
+          current = slot;
+        }
+      });
+
+      // Muestra actual
+      document.getElementById('program-title').textContent = current.title;
+      document.getElementById('program-description').textContent = current.description;
+
+      // Lista completa
+      const listEl = document.getElementById('full-schedule');
+      listEl.innerHTML = '';
+      saturdaySchedule.forEach(slot => {
+        const div = document.createElement('div');
+        div.className = 'schedule-item';
+        div.textContent = `${slot.start} - ${slot.end}: ${slot.title}`;
+        if (slot.title === current.title) {
+          div.innerHTML += `<span class="on-air">EN VIVO</span>`;
+        }
+        listEl.appendChild(div);
+      });
+    }
+
+    update();
+    setInterval(update, 60000);
+  </script>
 </body>
 </html>
