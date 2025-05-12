@@ -1,118 +1,169 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>StreamVerse</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Página de Transmisión</title>
+  <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
-      background: linear-gradient(to bottom, #0d47a1, #1976d2);
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #0a1f44, #0f3460);
       color: #fff;
-      padding: 20px;
+    }
+
+    header {
+      background-color: #001f3f;
+      padding: 1rem;
       text-align: center;
     }
+
+    .logo {
+      max-width: 220px;
+      filter: drop-shadow(0px 0px 6px rgba(255,255,255,0.5));
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .left-panel {
+      flex: 3;
+      background-color: #112d4e;
+      padding: 1rem;
+      border-radius: 12px;
+    }
+
+    .right-panel {
+      flex: 1;
+      background-color: #1f4068;
+      padding: 1rem;
+      border-radius: 12px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
     #player {
       width: 100%;
-      max-width: 800px;
-      height: 450px;
-      margin: 0 auto 20px;
+      height: 360px;
+      margin-bottom: 1rem;
       border-radius: 10px;
       overflow: hidden;
     }
-    .live-box {
-      background: #fff;
-      color: #000;
-      padding: 20px;
+
+    .programming {
+      background-color: #16213e;
+      padding: 1rem;
       border-radius: 10px;
-      max-width: 800px;
-      margin: 0 auto 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-    .live-status {
-      color: red;
-      font-weight: bold;
-      margin-bottom: 10px;
+
+    .programming h2, .right-panel h2 {
+      border-bottom: 2px solid #00adb5;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
-    .schedule-item {
-      text-align: left;
-      margin: 5px 0;
+
+    .event-card {
+      background-color: #0f3057;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-left: 4px solid #00adb5;
+      border-radius: 10px;
     }
-    .schedule-item .on-air {
-      color: red;
-      font-weight: bold;
-      margin-left: 8px;
+
+    .event-card h3 {
+      margin-top: 0;
+      color: #00fff5;
     }
   </style>
 </head>
 <body>
+  <header>
+    <img src="logo.png" alt="Logo" class="logo" />
+  </header>
 
-  <div id="player"></div>
+  <div class="container">
+    <div class="left-panel">
+      <div id="player"></div>
+      <div class="programming">
+        <h2>📺 Programación</h2>
+        <ul>
+          <li>6:00 p.m - Noticias en Vivo</li>
+          <li>7:00 p.m - NBA Playoffs</li>
+          <li>9:00 p.m - WWE RAW</li>
+        </ul>
+      </div>
+    </div>
 
-  <div class="live-box">
-    <div class="live-status">🔴 EN VIVO</div>
-    <h2 id="program-title">Cargando programa...</h2>
-    <p id="program-description">Espere un momento...</p>
-    <h3>Programación de Sábado</h3>
-    <div id="full-schedule"></div>
+    <div class="right-panel">
+      <h2>🎬 Eventos</h2>
+
+      <div class="event-card">
+        <h3>🏀 NBA – Playoffs 2025</h3>
+        <p>
+          <strong>Lunes, 12 de mayo:</strong><br>
+          7:30 p.m. – Knicks vs. Celtics<br>
+          10:00 p.m. – Warriors vs. Timberwolves<br><br>
+          <strong>Martes, 13 de mayo:</strong><br>
+          7:00 p.m. – Pacers vs. Cavaliers<br>
+          9:30 p.m. – Nuggets vs. Thunder<br><br>
+          <strong>Miércoles, 14 de mayo:</strong><br>
+          7:00 p.m. – Knicks vs. Celtics<br>
+          9:30 p.m. – Warriors vs. Timberwolves
+        </p>
+      </div>
+
+      <div class="event-card">
+        <h3>⚾ MLB – Yankees</h3>
+        <p>
+          12 de mayo, 9:40 p.m – Yankees vs. Mariners<br>
+          13 de mayo, 9:40 p.m – Yankees vs. Mariners<br>
+          14 de mayo, 4:10 p.m – Yankees vs. Mariners
+        </p>
+      </div>
+
+      <div class="event-card">
+        <h3>🏀 BSN Puerto Rico</h3>
+        <p>
+          Lunes, 8:00 p.m – Bayamón vs. San Germán<br>
+          Martes, 8:00 p.m – Ponce vs. Aguada<br>
+          Miércoles, 8:00 p.m – Aguada vs. Guaynabo
+        </p>
+      </div>
+
+      <div class="event-card">
+        <h3>🤼 WWE – Shows</h3>
+        <p>
+          Lunes, 8:30 p.m – RAW<br>
+          Martes, 8:00 p.m – NXT<br>
+          Viernes, 8:00 p.m – SmackDown<br>
+          Sábado 24, 7:30 p.m – Main Event
+        </p>
+      </div>
+
+      <div class="event-card">
+        <h3>🤼 AEW – Programación</h3>
+        <p>
+          Miércoles, 5:30 p.m – Dynamite & Collision<br>
+          Domingo 25, 5:00 p.m – Double or Nothing
+        </p>
+      </div>
+    </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <script>
-    // Inicializa Clappr
-    new Clappr.Player({
-      source: "https://storage.googleapis.com/potrqwdcvgfew3/mux_video_ts/index-1.m3u8",
+    var player = new Clappr.Player({
+      source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
       parentId: "#player",
-      autoPlay: true,
+      width: "100%",
       height: "100%",
-      width: "100%"
+      autoPlay: true,
+      mute: false,
     });
-
-    // Programación de Sábado
-    const saturdaySchedule = [
-      { start: "00:00", end: "08:00", title: "OFF Air", description: "Fuera del aire" },
-      { start: "08:00", end: "11:00", title: "eWo El Update", description: "Lo último de la lucha libre boricua: resumen de eventos, entrevistas y rivalidades al día." },
-      { start: "11:00", end: "18:00", title: "Evento Disponible", description: "Transmisiones en vivo de BSN, NBA, WWE y otros eventos de gran impacto." },
-      { start: "18:00", end: "24:00", title: "William Scull vs Canelo Álvarez", description: "Desde Riad, Arabia Saudita, Canelo Álvarez defiende sus títulos WBA, WBC y WBO del peso supermediano ante el campeón invicto William Scull, quien pone en juego su cinturón IBF. Una pelea de unificación por el campeonato indiscutido." }
-    ];
-
-    function toMins(t) {
-      const [h,m] = t.split(':').map(Number);
-      return h*60 + m;
-    }
-
-    function update() {
-      const now = new Date();
-      const minsNow = now.getHours()*60 + now.getMinutes();
-      let current = saturdaySchedule[0];
-
-      // Encuentra el slot actual
-      saturdaySchedule.forEach(slot => {
-        if (minsNow >= toMins(slot.start) && minsNow < toMins(slot.end)) {
-          current = slot;
-        }
-      });
-
-      // Muestra actual
-      document.getElementById('program-title').textContent = current.title;
-      document.getElementById('program-description').textContent = current.description;
-
-      // Lista completa
-      const listEl = document.getElementById('full-schedule');
-      listEl.innerHTML = '';
-      saturdaySchedule.forEach(slot => {
-        const div = document.createElement('div');
-        div.className = 'schedule-item';
-        div.textContent = `${slot.start} - ${slot.end}: ${slot.title}`;
-        if (slot.title === current.title) {
-          div.innerHTML += `<span class="on-air">EN VIVO</span>`;
-        }
-        listEl.appendChild(div);
-      });
-    }
-
-    update();
-    setInterval(update, 60000);
   </script>
 </body>
 </html>
