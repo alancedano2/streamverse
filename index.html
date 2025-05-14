@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>StreamVerse</title>
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <style>
@@ -18,16 +18,20 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.5rem 1rem;
+      padding: 0.3rem 1rem;
+      height: 50px;
     }
 
     .logo {
-      max-width: 180px;
+      max-width: 160px;
       filter: drop-shadow(0px 0px 6px rgba(255,255,255,0.5));
+      height: 40px;
+      object-fit: contain;
     }
 
     .kq105-link img {
-      height: 40px;
+      height: 36px;
+      object-fit: contain;
     }
 
     .container {
@@ -35,6 +39,8 @@
       flex-direction: row;
       padding: 1rem;
       gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .left-panel {
@@ -65,6 +71,7 @@
       border-bottom: 2px solid #00adb5;
       padding-bottom: 0.5rem;
       margin-bottom: 1rem;
+      font-size: 1.5rem;
     }
 
     .event-card {
@@ -78,28 +85,71 @@
     .event-card h3 {
       margin-top: 0;
       color: #00fff5;
+      font-size: 1.1rem;
     }
 
     .countdown {
       margin-top: 0.5rem;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: #ffffff;
       background-color: #003554;
       padding: 0.5rem;
       border-radius: 8px;
       text-align: center;
+      user-select: none;
     }
 
     a.kq105-link {
       text-decoration: none;
+    }
+
+    /* Responsive Mobile */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 0.5rem 1rem;
+      }
+
+      .left-panel, .right-panel {
+        flex: unset;
+        width: 100%;
+        max-height: none;
+        margin-bottom: 1rem;
+      }
+
+      header {
+        height: 45px;
+        padding: 0 1rem;
+      }
+
+      .logo {
+        max-width: 140px;
+        height: 35px;
+      }
+
+      .kq105-link img {
+        height: 30px;
+      }
+
+      .right-panel h2 {
+        font-size: 1.3rem;
+      }
+
+      .event-card h3 {
+        font-size: 1rem;
+      }
+
+      .countdown {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
 <body>
   <header>
     <img src="logo.png" alt="Logo" class="logo" />
-    <a href="https://kq105-ebon.vercel.app/" class="kq105-link" target="_blank">
+    <a href="https://kq105.vercel.app" class="kq105-link" target="_blank" rel="noopener noreferrer" title="Ir a KQ105">
       <img src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184" alt="KQ105 Logo">
     </a>
   </header>
@@ -136,15 +186,23 @@
       mute: false,
     });
 
-    function startCountdown(id, eventTime) {
+    function startCountdown(id, eventHour, eventMinute) {
+      const countdownElem = document.getElementById(id);
+
       function updateCountdown() {
         const now = new Date();
-        const diff = eventTime - now;
-        const countdown = document.getElementById(id);
+        const eventTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), eventHour, eventMinute, 0);
+
+        let diff = eventTime - now;
+
+        // Si el evento ya pasó hoy, asumimos que será mañana
+        if (diff < 0) {
+          eventTime.setDate(eventTime.getDate() + 1);
+          diff = eventTime - now;
+        }
 
         if (diff <= 0) {
-          countdown.textContent = "¡Ya comenzó!";
-          clearInterval(interval);
+          countdownElem.textContent = "¡Ya comenzó!";
           return;
         }
 
@@ -152,19 +210,15 @@
         const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
         const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
 
-        countdown.textContent = `${hours}:${minutes}:${seconds}`;
+        countdownElem.textContent = `${hours}:${minutes}:${seconds}`;
       }
 
       updateCountdown();
-      const interval = setInterval(updateCountdown, 1000);
+      setInterval(updateCountdown, 1000);
     }
 
-    // Fechas en formato: Año, Mes (0-11), Día, Hora, Minuto
-    const today = new Date();
-    const y = today.getFullYear(), m = today.getMonth(), d = today.getDate();
-
-    startCountdown("countdown1", new Date(y, m, d, 19, 0, 0));  // 7:00 PM
-    startCountdown("countdown2", new Date(y, m, d, 21, 30, 0)); // 9:30 PM
+    startCountdown("countdown1", 19, 0);   // 7:00 PM
+    startCountdown("countdown2", 21, 30);  // 9:30 PM
   </script>
 </body>
 </html>
