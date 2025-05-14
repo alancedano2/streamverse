@@ -155,39 +155,28 @@
       mute: false,
     });
 
-    // Función para obtener la hora actual en Puerto Rico
-    function getCurrentTimeInPuertoRico() {
-      const now = new Date();
-
-      // Convierte a string en hora PR (zona America/Puerto_Rico)
-      const prTimeStr = now.toLocaleString("en-US", {timeZone: "America/Puerto_Rico"});
-
-      // Convierte string a Date en base local, pero con hora ajustada a PR
-      return new Date(prTimeStr);
-    }
-
     function startCountdown(id, targetHour, targetMinute) {
       const countdownEl = document.getElementById(id);
 
       function updateCountdown() {
-        const nowPR = getCurrentTimeInPuertoRico();
+        const now = new Date();
 
-        // Construir la fecha objetivo hoy en PR
+        // Fecha objetivo hoy
         let targetDate = new Date(
-          nowPR.getFullYear(),
-          nowPR.getMonth(),
-          nowPR.getDate(),
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
           targetHour,
           targetMinute,
           0
         );
 
-        // Si ya pasó la hora hoy, pasar al día siguiente
-        if (nowPR > targetDate) {
+        // Si ya pasó, lo ponemos para mañana
+        if (now > targetDate) {
           targetDate.setDate(targetDate.getDate() + 1);
         }
 
-        let diff = targetDate - nowPR; // ms
+        let diff = targetDate - now; // ms
 
         if (diff <= 0) {
           countdownEl.textContent = "¡En vivo ahora!";
