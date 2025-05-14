@@ -15,28 +15,19 @@
 
     header {
       background-color: #001f3f;
-      padding: 0.3rem 1rem;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      height: 55px;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
     }
 
     .logo {
-      height: 35px;
-      filter: drop-shadow(0px 0px 5px rgba(255,255,255,0.5));
+      max-width: 180px;
+      filter: drop-shadow(0px 0px 6px rgba(255,255,255,0.5));
     }
 
-    .nav-link {
-      color: #00fff5;
-      text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    .nav-link:hover {
-      color: #00adb5;
+    .kq105-link img {
+      height: 40px;
     }
 
     .container {
@@ -78,7 +69,7 @@
 
     .event-card {
       background-color: #0f3057;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       padding: 1rem;
       border-left: 4px solid #00adb5;
       border-radius: 10px;
@@ -90,17 +81,27 @@
     }
 
     .countdown {
-      font-size: 1.2rem;
-      color: #ffdb58;
       margin-top: 0.5rem;
+      font-size: 1.1rem;
       font-weight: bold;
+      color: #ffffff;
+      background-color: #003554;
+      padding: 0.5rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    a.kq105-link {
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184" alt="KQ105 Logo" class="logo" />
-    <a class="nav-link" href="https://kq105.vercel.app" target="_blank">KQ105</a>
+    <img src="logo.png" alt="Logo" class="logo" />
+    <a href="https://kq105.vercel.app" class="kq105-link" target="_blank">
+      <img src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184" alt="KQ105 Logo">
+    </a>
   </header>
 
   <div class="container">
@@ -109,24 +110,24 @@
     </div>
 
     <div class="right-panel">
-      <h2>🎬 Eventos en Vivo</h2>
+      <h2>🎬 Eventos</h2>
 
       <div class="event-card">
-        <h3>🏀 NBA – Celtics vs. Knicks</h3>
-        <p><strong>Hora:</strong> Hoy a las 7:00 p.m.</p>
-        <div class="countdown" id="countdown1"></div>
+        <h3>🏀 NBA – Boston Celtics vs New York Knicks</h3>
+        <p><strong>Hora:</strong> 7:00 p.m</p>
+        <div class="countdown" id="countdown1">Cargando...</div>
       </div>
 
       <div class="event-card">
-        <h3>🏀 NBA – Warriors vs. Timberwolves</h3>
-        <p><strong>Hora:</strong> Hoy a las 9:30 p.m.</p>
-        <div class="countdown" id="countdown2"></div>
+        <h3>🏀 NBA – Golden State Warriors vs Minnesota Timberwolves</h3>
+        <p><strong>Hora:</strong> 9:30 p.m</p>
+        <div class="countdown" id="countdown2">Cargando...</div>
       </div>
     </div>
   </div>
 
   <script>
-    var player = new Clappr.Player({
+    new Clappr.Player({
       source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
       parentId: "#player",
       width: "100%",
@@ -135,36 +136,35 @@
       mute: false,
     });
 
-    function startCountdown(elementId, targetHour, targetMinute) {
-      const now = new Date();
-      const target = new Date();
-      target.setHours(targetHour);
-      target.setMinutes(targetMinute);
-      target.setSeconds(0);
-      if (target < now) target.setDate(target.getDate() + 1);
-
+    function startCountdown(id, eventTime) {
       function updateCountdown() {
         const now = new Date();
-        const diff = target - now;
+        const diff = eventTime - now;
+        const countdown = document.getElementById(id);
+
         if (diff <= 0) {
-          document.getElementById(elementId).innerText = "¡En vivo ahora!";
+          countdown.textContent = "¡Ya comenzó!";
+          clearInterval(interval);
           return;
         }
 
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+        const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
 
-        document.getElementById(elementId).innerText =
-          `Comienza en ${hours}h ${minutes}m ${seconds}s`;
+        countdown.textContent = `${hours}:${minutes}:${seconds}`;
       }
 
       updateCountdown();
-      setInterval(updateCountdown, 1000);
+      const interval = setInterval(updateCountdown, 1000);
     }
 
-    startCountdown("countdown1", 19, 0);
-    startCountdown("countdown2", 21, 30);
+    // Fechas en formato: Año, Mes (0-11), Día, Hora, Minuto
+    const today = new Date();
+    const y = today.getFullYear(), m = today.getMonth(), d = today.getDate();
+
+    startCountdown("countdown1", new Date(y, m, d, 19, 0, 0));  // 7:00 PM
+    startCountdown("countdown2", new Date(y, m, d, 21, 30, 0)); // 9:30 PM
   </script>
 </body>
 </html>
