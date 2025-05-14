@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>StreamVerse</title>
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <style>
@@ -13,39 +13,32 @@
       color: #fff;
     }
 
-    /* Navbar */
     header {
       background-color: #001f3f;
+      padding: 0.4rem 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.5rem 1rem;
-      height: 60px;
+      height: 50px;
     }
 
     .logo-left {
       max-width: 220px;
       filter: drop-shadow(0px 0px 6px rgba(255,255,255,0.5));
-      cursor: default;
+      height: 40px;
+      object-fit: contain;
     }
 
-    .kq105-link {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      font-size: 1.1rem;
+    .logo-right-link {
+      display: inline-block;
+      height: 40px;
     }
 
-    .kq105-logo {
-      max-height: 30px;
-      width: auto;
-      filter: drop-shadow(0px 0px 4px rgba(255,255,255,0.6));
+    .logo-right-link img {
+      height: 100%;
+      object-fit: contain;
     }
 
-    /* Layout */
     .container {
       display: flex;
       flex-direction: row;
@@ -77,6 +70,12 @@
       overflow: hidden;
     }
 
+    h2 {
+      border-bottom: 2px solid #00adb5;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
     .event-card {
       background-color: #0f3057;
       margin-bottom: 1rem;
@@ -90,17 +89,18 @@
       color: #00fff5;
     }
 
-    .timer-box {
+    .countdown {
       margin-top: 0.5rem;
-      background: #16213e;
-      padding: 0.5rem;
-      border-radius: 8px;
+      background: #00adb5;
+      color: #001f3f;
       font-weight: bold;
-      font-size: 1rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      display: inline-block;
+      min-width: 140px;
       text-align: center;
-      color: #00adb5;
-      letter-spacing: 1px;
-      user-select: none;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
     }
 
     /* Responsive */
@@ -110,16 +110,16 @@
       }
       .right-panel {
         max-height: none;
+        margin-top: 1rem;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Logo" class="logo-left" />
-    <a href="https://kq105.vercel.app" target="_blank" rel="noopener" class="kq105-link">
-      <img src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184" alt="KQ105" class="kq105-logo" />
-      KQ105
+    <img src="logo.png" alt="Logo StreamVerse" class="logo-left" />
+    <a href="https://kq105.vercel.app" target="_blank" rel="noopener" class="logo-right-link">
+      <img src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184" alt="KQ105" />
     </a>
   </header>
 
@@ -132,15 +132,15 @@
       <h2>🎬 Eventos</h2>
 
       <div class="event-card">
-        <h3>🏀 NBA - Boston Celtics vs New York Knicks</h3>
-        <div>Hora: 7:00 p.m.</div>
-        <div id="timer1" class="timer-box">Cargando...</div>
+        <h3>🏀 NBA – Boston Celtics vs New York Knicks</h3>
+        <p>Hora: 7:00 p.m.</p>
+        <div class="countdown" id="countdown-1">Cargando...</div>
       </div>
 
       <div class="event-card">
-        <h3>🏀 NBA - Golden State Warriors vs Minnesota Timberwolves</h3>
-        <div>Hora: 9:30 p.m.</div>
-        <div id="timer2" class="timer-box">Cargando...</div>
+        <h3>🏀 NBA – Golden State Warriors vs Minnesota Timberwolves</h3>
+        <p>Hora: 9:30 p.m.</p>
+        <div class="countdown" id="countdown-2">Cargando...</div>
       </div>
     </div>
   </div>
@@ -156,45 +156,78 @@
     });
 
     function getPuertoRicoTime() {
-      // Usa Intl para obtener hora en zona America/Puerto_Rico
       const now = new Date();
-      const prTime = now.toLocaleString("es-US", {timeZone: "America/Puerto_Rico"});
-      return new Date(prTime);
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Puerto_Rico",
+        hour12: false,
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric"
+      });
+      const parts = formatter.formatToParts(now);
+
+      let year, month, day, hour, minute, second;
+      for (const part of parts) {
+        switch(part.type) {
+          case "year": year = parseInt(part.value); break;
+          case "month": month = parseInt(part.value); break;
+          case "day": day = parseInt(part.value); break;
+          case "hour": hour = parseInt(part.value); break;
+          case "minute": minute = parseInt(part.value); break;
+          case "second": second = parseInt(part.value); break;
+        }
+      }
+
+      return new Date(year, month - 1, day, hour, minute, second);
     }
 
-    function updateTimer(eventHour, eventMinute, elementId) {
-      const timerEl = document.getElementById(elementId);
+    function startCountdown(id, targetHour, targetMinute) {
+      const countdownEl = document.getElementById(id);
 
-      function update() {
-        const now = getPuertoRicoTime();
-        const eventTime = new Date(now);
-        eventTime.setHours(eventHour, eventMinute, 0, 0);
+      function updateCountdown() {
+        const nowPR = getPuertoRicoTime();
 
-        let diff = eventTime - now;
+        // Creamos fecha objetivo para hoy en PR
+        let targetDate = new Date(
+          nowPR.getFullYear(),
+          nowPR.getMonth(),
+          nowPR.getDate(),
+          targetHour,
+          targetMinute,
+          0
+        );
 
-        if (diff < 0) {
-          // Evento ya comenzó, mostrar mensaje y parar el timer
-          timerEl.textContent = "El evento ya comenzó";
-          clearInterval(intervalId);
+        // Si ya pasó la hora, sumamos un día (mostrará tiempo para el evento de mañana)
+        if (nowPR > targetDate) {
+          targetDate.setDate(targetDate.getDate() + 1);
+        }
+
+        let diff = targetDate - nowPR; // ms
+
+        if (diff <= 0) {
+          countdownEl.textContent = "¡En vivo ahora!";
           return;
         }
 
-        const hrs = Math.floor(diff / (1000 * 60 * 60));
-        diff -= hrs * (1000 * 60 * 60);
-        const mins = Math.floor(diff / (1000 * 60));
-        diff -= mins * (1000 * 60);
-        const secs = Math.floor(diff / 1000);
+        let seconds = Math.floor(diff / 1000) % 60;
+        let minutes = Math.floor(diff / (1000 * 60)) % 60;
+        let hours = Math.floor(diff / (1000 * 60 * 60));
 
-        timerEl.textContent = `${hrs.toString().padStart(2,'0')}h : ${mins.toString().padStart(2,'0')}m : ${secs.toString().padStart(2,'0')}s`;
+        countdownEl.textContent =
+          (hours < 10 ? "0" + hours : hours) + ":" +
+          (minutes < 10 ? "0" + minutes : minutes) + ":" +
+          (seconds < 10 ? "0" + seconds : seconds);
       }
 
-      update();
-      const intervalId = setInterval(update, 1000);
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
     }
 
-    // Inicializa los timers con las horas correctas en PR (7:00 pm y 9:30 pm)
-    updateTimer(19, 0, "timer1");
-    updateTimer(21, 30, "timer2");
+    startCountdown("countdown-1", 19, 0);   // 7:00 p.m.
+    startCountdown("countdown-2", 21, 30);  // 9:30 p.m.
   </script>
 </body>
 </html>
