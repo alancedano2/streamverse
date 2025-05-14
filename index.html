@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>StreamVerse</title>
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <style>
@@ -155,42 +155,24 @@
       mute: false,
     });
 
-    function getPuertoRicoTime() {
+    // Función para obtener la hora actual en Puerto Rico
+    function getCurrentTimeInPuertoRico() {
       const now = new Date();
-      const formatter = new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/Puerto_Rico",
-        hour12: false,
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric"
-      });
-      const parts = formatter.formatToParts(now);
 
-      let year, month, day, hour, minute, second;
-      for (const part of parts) {
-        switch(part.type) {
-          case "year": year = parseInt(part.value); break;
-          case "month": month = parseInt(part.value); break;
-          case "day": day = parseInt(part.value); break;
-          case "hour": hour = parseInt(part.value); break;
-          case "minute": minute = parseInt(part.value); break;
-          case "second": second = parseInt(part.value); break;
-        }
-      }
+      // Convierte a string en hora PR (zona America/Puerto_Rico)
+      const prTimeStr = now.toLocaleString("en-US", {timeZone: "America/Puerto_Rico"});
 
-      return new Date(year, month - 1, day, hour, minute, second);
+      // Convierte string a Date en base local, pero con hora ajustada a PR
+      return new Date(prTimeStr);
     }
 
     function startCountdown(id, targetHour, targetMinute) {
       const countdownEl = document.getElementById(id);
 
       function updateCountdown() {
-        const nowPR = getPuertoRicoTime();
+        const nowPR = getCurrentTimeInPuertoRico();
 
-        // Creamos fecha objetivo para hoy en PR
+        // Construir la fecha objetivo hoy en PR
         let targetDate = new Date(
           nowPR.getFullYear(),
           nowPR.getMonth(),
@@ -200,7 +182,7 @@
           0
         );
 
-        // Si ya pasó la hora, sumamos un día (mostrará tiempo para el evento de mañana)
+        // Si ya pasó la hora hoy, pasar al día siguiente
         if (nowPR > targetDate) {
           targetDate.setDate(targetDate.getDate() + 1);
         }
