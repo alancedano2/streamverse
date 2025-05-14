@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>StreamVerse</title>
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <style>
@@ -14,38 +14,38 @@
     }
 
     /* Navbar */
-    nav {
+    header {
       background-color: #001f3f;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 0.3rem 1rem;
-      height: 50px;
-      box-sizing: border-box;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      height: 60px;
     }
 
-    .nav-left img.logo {
+    .logo-left {
       max-width: 220px;
-      max-height: 40px;
       filter: drop-shadow(0px 0px 6px rgba(255,255,255,0.5));
+      cursor: default;
     }
 
-    .nav-right a {
+    .kq105-link {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: #00adb5;
       text-decoration: none;
+      color: white;
       font-weight: bold;
       font-size: 1.1rem;
     }
 
-    .nav-right a img {
-      height: 24px;
+    .kq105-logo {
+      max-height: 30px;
       width: auto;
-      filter: drop-shadow(0 0 2px rgba(0, 173, 181, 0.8));
+      filter: drop-shadow(0px 0px 4px rgba(255,255,255,0.6));
     }
 
+    /* Layout */
     .container {
       display: flex;
       flex-direction: row;
@@ -77,12 +77,6 @@
       overflow: hidden;
     }
 
-    h2 {
-      border-bottom: 2px solid #00adb5;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
     .event-card {
       background-color: #0f3057;
       margin-bottom: 1rem;
@@ -94,54 +88,40 @@
     .event-card h3 {
       margin-top: 0;
       color: #00fff5;
-      margin-bottom: 0.5rem;
     }
 
-    .countdown {
-      font-size: 1.2rem;
-      font-weight: bold;
-      background: #00adb5;
-      color: #001f3f;
-      padding: 0.3rem 0.6rem;
+    .timer-box {
+      margin-top: 0.5rem;
+      background: #16213e;
+      padding: 0.5rem;
       border-radius: 8px;
-      display: inline-block;
-      min-width: 110px;
+      font-weight: bold;
+      font-size: 1rem;
       text-align: center;
+      color: #00adb5;
+      letter-spacing: 1px;
       user-select: none;
     }
 
     /* Responsive */
-
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
-        padding: 0.5rem;
       }
-
       .right-panel {
         max-height: none;
-        margin-top: 1rem;
       }
     }
   </style>
 </head>
 <body>
-
-  <nav>
-  <div class="nav-left">
-    <img src="logo.png" alt="Logo" class="logo" />
-  </div>
-  <div class="nav-right">
-    <a href="https://kq105.vercel.app" target="_blank" rel="noopener noreferrer">
+  <header>
+    <img src="logo.png" alt="Logo" class="logo-left" />
+    <a href="https://kq105.vercel.app" target="_blank" rel="noopener" class="kq105-link">
+      <img src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184" alt="KQ105" class="kq105-logo" />
       KQ105
-      <img
-        src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184"
-        alt="KQ105 Logo"
-        style="cursor:pointer;"
-      />
     </a>
-  </div>
-</nav>
+  </header>
 
   <div class="container">
     <div class="left-panel">
@@ -149,24 +129,23 @@
     </div>
 
     <div class="right-panel">
-      <h2>🎬 Próximos Eventos</h2>
+      <h2>🎬 Eventos</h2>
 
       <div class="event-card">
         <h3>🏀 NBA - Boston Celtics vs New York Knicks</h3>
-        <p><strong>Hora:</strong> 7:00 p.m. (Puerto Rico)</p>
-        <div>Inicia en: <span id="countdown1" class="countdown">Cargando...</span></div>
+        <div>Hora: 7:00 p.m.</div>
+        <div id="timer1" class="timer-box">Cargando...</div>
       </div>
 
       <div class="event-card">
         <h3>🏀 NBA - Golden State Warriors vs Minnesota Timberwolves</h3>
-        <p><strong>Hora:</strong> 9:30 p.m. (Puerto Rico)</p>
-        <div>Inicia en: <span id="countdown2" class="countdown">Cargando...</span></div>
+        <div>Hora: 9:30 p.m.</div>
+        <div id="timer2" class="timer-box">Cargando...</div>
       </div>
     </div>
   </div>
 
   <script>
-    // Inicializa el reproductor Clappr
     var player = new Clappr.Player({
       source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
       parentId: "#player",
@@ -176,45 +155,46 @@
       mute: false,
     });
 
-    // Obtiene la hora actual en Puerto Rico (UTC-4, sin horario de verano)
-    function getCurrentPRTime() {
-      const nowUTC = new Date(new Date().toISOString());
-      const prOffset = -4 * 60; // minutos
-      return new Date(nowUTC.getTime() + prOffset * 60 * 1000);
+    function getPuertoRicoTime() {
+      // Usa Intl para obtener hora en zona America/Puerto_Rico
+      const now = new Date();
+      const prTime = now.toLocaleString("es-US", {timeZone: "America/Puerto_Rico"});
+      return new Date(prTime);
     }
 
-    function startCountdown(id, eventHour, eventMinute) {
-      const countdownElem = document.getElementById(id);
+    function updateTimer(eventHour, eventMinute, elementId) {
+      const timerEl = document.getElementById(elementId);
 
-      function updateCountdown() {
-        const now = getCurrentPRTime();
-        let eventTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), eventHour, eventMinute, 0);
+      function update() {
+        const now = getPuertoRicoTime();
+        const eventTime = new Date(now);
+        eventTime.setHours(eventHour, eventMinute, 0, 0);
 
-        if (now > eventTime) {
-          eventTime.setDate(eventTime.getDate() + 1);
-        }
+        let diff = eventTime - now;
 
-        const diff = eventTime - now;
-
-        if (diff <= 0) {
-          countdownElem.textContent = "¡Ya comenzó!";
+        if (diff < 0) {
+          // Evento ya comenzó, mostrar mensaje y parar el timer
+          timerEl.textContent = "El evento ya comenzó";
+          clearInterval(intervalId);
           return;
         }
 
-        const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, "0");
-        const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0");
-        const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, "0");
+        const hrs = Math.floor(diff / (1000 * 60 * 60));
+        diff -= hrs * (1000 * 60 * 60);
+        const mins = Math.floor(diff / (1000 * 60));
+        diff -= mins * (1000 * 60);
+        const secs = Math.floor(diff / 1000);
 
-        countdownElem.textContent = `${hours}:${minutes}:${seconds}`;
+        timerEl.textContent = `${hrs.toString().padStart(2,'0')}h : ${mins.toString().padStart(2,'0')}m : ${secs.toString().padStart(2,'0')}s`;
       }
 
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
+      update();
+      const intervalId = setInterval(update, 1000);
     }
 
-    startCountdown("countdown1", 19, 0);
-    startCountdown("countdown2", 21, 30);
+    // Inicializa los timers con las horas correctas en PR (7:00 pm y 9:30 pm)
+    updateTimer(19, 0, "timer1");
+    updateTimer(21, 30, "timer2");
   </script>
-
 </body>
 </html>
