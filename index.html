@@ -16,12 +16,27 @@
     header {
       background-color: #001f3f;
       padding: 1rem;
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .logo {
-      max-width: 220px;
+      max-height: 50px;
+      margin-right: 1rem;
       filter: drop-shadow(0px 0px 6px rgba(255,255,255,0.5));
+    }
+
+    header a {
+      color: #00fff5;
+      text-decoration: none;
+      font-size: 1.4rem;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    header a:hover {
+      color: #00adb5;
     }
 
     .container {
@@ -63,7 +78,7 @@
 
     .event-card {
       background-color: #0f3057;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       padding: 1rem;
       border-left: 4px solid #00adb5;
       border-radius: 10px;
@@ -75,19 +90,19 @@
     }
 
     .countdown {
+      font-size: 1.2rem;
+      color: #ffdb58;
       margin-top: 0.5rem;
-      background-color: #001f3f;
-      padding: 0.5rem;
-      border-radius: 8px;
       font-weight: bold;
-      text-align: center;
-      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Logo" class="logo" loading="lazy" />
+    <div style="display: flex; align-items: center;">
+      <img src="logo.png" alt="Logo" class="logo" />
+      <a href="https://kq105.vercel.app" target="_blank">KQ105</a>
+    </div>
   </header>
 
   <div class="container">
@@ -96,23 +111,24 @@
     </div>
 
     <div class="right-panel">
-      <h2>🎬 Eventos</h2>
+      <h2>🎬 Eventos en Vivo</h2>
 
       <div class="event-card">
-        <h3>🏀 NBA – Celtics vs Knicks</h3>
-        <p>Hora de inicio: <strong>Hoy a las 7:00 p.m.</strong></p>
-        <div class="countdown" id="countdown1">Cargando cuenta regresiva...</div>
+        <h3>🏀 NBA – Celtics vs. Knicks</h3>
+        <p><strong>Hora:</strong> Hoy a las 7:00 p.m.</p>
+        <div class="countdown" id="countdown1"></div>
       </div>
 
       <div class="event-card">
-        <h3>🏀 NBA – Warriors vs Timberwolves</h3>
-        <p>Hora de inicio: <strong>Hoy a las 9:30 p.m.</strong></p>
-        <div class="countdown" id="countdown2">Cargando cuenta regresiva...</div>
+        <h3>🏀 NBA – Warriors vs. Timberwolves</h3>
+        <p><strong>Hora:</strong> Hoy a las 9:30 p.m.</p>
+        <div class="countdown" id="countdown2"></div>
       </div>
     </div>
   </div>
 
   <script>
+    // Clappr player
     var player = new Clappr.Player({
       source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
       parentId: "#player",
@@ -122,42 +138,37 @@
       mute: false,
     });
 
-    // Configura la fecha de hoy para ambos juegos
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth();
-    const date = now.getDate();
-
-    const events = [
-      {
-        id: "countdown1",
-        time: new Date(year, month, date, 19, 0, 0) // 7:00 PM
-      },
-      {
-        id: "countdown2",
-        time: new Date(year, month, date, 21, 30, 0) // 9:30 PM
-      }
-    ];
-
-    function updateCountdown(id, time) {
+    // Cuenta regresiva
+    function startCountdown(elementId, targetHour, targetMinute) {
       const now = new Date();
-      const distance = time - now;
+      const target = new Date();
+      target.setHours(targetHour);
+      target.setMinutes(targetMinute);
+      target.setSeconds(0);
+      if (target < now) target.setDate(target.getDate() + 1); // para el día siguiente si ya pasó
 
-      if (distance < 0) {
-        document.getElementById(id).innerText = "¡En vivo ahora!";
-        return;
+      function updateCountdown() {
+        const now = new Date();
+        const diff = target - now;
+        if (diff <= 0) {
+          document.getElementById(elementId).innerText = "¡En vivo ahora!";
+          return;
+        }
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById(elementId).innerText =
+          `Comienza en ${hours}h ${minutes}m ${seconds}s`;
       }
 
-      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((distance / (1000 * 60)) % 60);
-      const seconds = Math.floor((distance / 1000) % 60);
-
-      document.getElementById(id).innerText = `Faltan ${hours}h ${minutes}m ${seconds}s`;
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
     }
 
-    setInterval(() => {
-      events.forEach(evt => updateCountdown(evt.id, evt.time));
-    }, 1000);
+    startCountdown("countdown1", 19, 0);  // 7:00 p.m.
+    startCountdown("countdown2", 21, 30); // 9:30 p.m.
   </script>
 </body>
 </html>
