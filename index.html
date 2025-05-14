@@ -15,27 +15,27 @@
 
     header {
       background-color: #001f3f;
-      padding: 1rem;
+      padding: 0.5rem 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      height: 60px;
     }
 
     .logo {
-      max-height: 50px;
-      margin-right: 1rem;
+      height: 35px;
       filter: drop-shadow(0px 0px 6px rgba(255,255,255,0.5));
     }
 
-    header a {
+    .nav-link {
       color: #00fff5;
       text-decoration: none;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: bold;
       transition: color 0.3s;
     }
 
-    header a:hover {
+    .nav-link:hover {
       color: #00adb5;
     }
 
@@ -99,10 +99,8 @@
 </head>
 <body>
   <header>
-    <div style="display: flex; align-items: center;">
-      <img src="logo.png" alt="Logo" class="logo" />
-      <a href="https://kq105.vercel.app" target="_blank">KQ105</a>
-    </div>
+    <img src="logo.png" alt="Logo" class="logo" />
+    <a class="nav-link" href="https://kq105.vercel.app" target="_blank">KQ105</a>
   </header>
 
   <div class="container">
@@ -128,7 +126,6 @@
   </div>
 
   <script>
-    // Clappr player
     var player = new Clappr.Player({
       source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
       parentId: "#player",
@@ -138,14 +135,13 @@
       mute: false,
     });
 
-    // Cuenta regresiva
     function startCountdown(elementId, targetHour, targetMinute) {
       const now = new Date();
       const target = new Date();
       target.setHours(targetHour);
       target.setMinutes(targetMinute);
       target.setSeconds(0);
-      if (target < now) target.setDate(target.getDate() + 1); // para el día siguiente si ya pasó
+      if (target < now) target.setDate(target.getDate() + 1);
 
       function updateCountdown() {
         const now = new Date();
@@ -167,8 +163,8 @@
       setInterval(updateCountdown, 1000);
     }
 
-    startCountdown("countdown1", 19, 0);  // 7:00 p.m.
-    startCountdown("countdown2", 21, 30); // 9:30 p.m.
+    startCountdown("countdown1", 19, 0);
+    startCountdown("countdown2", 21, 30);
   </script>
 </body>
 </html>
