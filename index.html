@@ -26,7 +26,7 @@
       filter: drop-shadow(0px 0px 6px rgba(255,255,255,0.5));
     }
 
-    .kq105-logo {
+    .kq-logo {
       max-height: 40px;
     }
 
@@ -35,6 +35,7 @@
       flex-direction: row;
       padding: 1rem;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .left-panel {
@@ -42,6 +43,7 @@
       background-color: #112d4e;
       padding: 1rem;
       border-radius: 12px;
+      min-width: 300px;
     }
 
     .right-panel {
@@ -51,6 +53,7 @@
       border-radius: 12px;
       max-height: 90vh;
       overflow-y: auto;
+      min-width: 280px;
     }
 
     #player {
@@ -59,18 +62,6 @@
       margin-bottom: 1rem;
       border-radius: 10px;
       overflow: hidden;
-    }
-
-    .event-section {
-      background-color: #16213e;
-      padding: 1rem;
-      border-radius: 10px;
-    }
-
-    .event-section h2 {
-      border-bottom: 2px solid #00adb5;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
     }
 
     .event-card {
@@ -86,22 +77,33 @@
       color: #00fff5;
     }
 
-    .countdown-box {
-      margin-top: 0.5rem;
+    .countdown {
+      background-color: #16213e;
       padding: 0.5rem 1rem;
-      background-color: #112d4e;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      text-align: center;
+      border-radius: 10px;
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .countdown span {
+      font-size: 1rem;
+    }
+
+    .countdown button {
+      background-color: #00adb5;
+      border: none;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
-      }
-
-      .right-panel {
-        max-height: none;
       }
     }
   </style>
@@ -109,8 +111,8 @@
 <body>
   <header>
     <img src="logo.png" alt="Logo" class="logo" />
-    <a href="https://kq105-ebon.vercel.app/" target="_blank">
-      <img src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184" alt="KQ105" class="kq105-logo">
+    <a href="https://kq105.vercel.app" target="_blank">
+      <img src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184" class="kq-logo" alt="KQ105" />
     </a>
   </header>
 
@@ -120,26 +122,30 @@
     </div>
 
     <div class="right-panel">
-      <div class="event-section">
-        <h2>🎬 Eventos</h2>
+      <h2>🎬 Eventos</h2>
 
-        <div class="event-card">
-          <h3>🏀 NBA – Boston Celtics vs. New York Knicks</h3>
-          <p>Hoy a las 7:00 p.m.</p>
-          <div class="countdown-box" id="countdown1"></div>
+      <div class="event-card">
+        <h3>🤼 WWE SmackDown</h3>
+        <p>Hoy a las 8:00 p.m hasta las 11:00 p.m</p>
+        <div class="countdown">
+          <span id="countdown-smack">Cargando...</span>
+          <button onclick="changeStream('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
         </div>
+      </div>
 
-        <div class="event-card">
-          <h3>🏀 NBA – Golden State Warriors vs. Minnesota Timberwolves</h3>
-          <p>Hoy a las 9:30 p.m.</p>
-          <div class="countdown-box" id="countdown2"></div>
+      <div class="event-card">
+        <h3>🏀 NBA: Boston Celtics vs New York Knicks</h3>
+        <p>Hoy a las 8:00 p.m</p>
+        <div class="countdown">
+          <span id="countdown-nba">Cargando...</span>
+          <button onclick="changeStream('https://a1xs.vip/40000011')">Ver</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    new Clappr.Player({
+    var player = new Clappr.Player({
       source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
       parentId: "#player",
       width: "100%",
@@ -148,24 +154,38 @@
       mute: false,
     });
 
-    function updateCountdown(targetId, hour, minute) {
-      const now = new Date();
-      const target = new Date();
-      target.setHours(hour, minute, 0, 0);
-      if (now > target) return document.getElementById(targetId).textContent = "Ya comenzó.";
-
-      const diff = target - now;
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById(targetId).textContent = `Comienza en ${hours}h ${minutes}m ${seconds}s`;
+    function changeStream(url) {
+      player.load(url);
     }
 
-    setInterval(() => {
-      updateCountdown("countdown1", 19, 0); // 7:00 p.m.
-      updateCountdown("countdown2", 21, 30); // 9:30 p.m.
-    }, 1000);
+    function startCountdown(targetHour, targetMinute, elementId) {
+      function updateCountdown() {
+        const now = new Date();
+        const target = new Date();
+        target.setHours(targetHour);
+        target.setMinutes(targetMinute);
+        target.setSeconds(0);
+
+        if (now > target) {
+          document.getElementById(elementId).textContent = "En curso o finalizado";
+          return;
+        }
+
+        const diff = target - now;
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById(elementId).textContent = `${hours}h ${minutes}m ${seconds}s`;
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    }
+
+    startCountdown(20, 0, "countdown-smack"); // 8:00 PM
+    startCountdown(20, 0, "countdown-nba"); // 8:00 PM
   </script>
 </body>
 </html>
