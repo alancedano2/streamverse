@@ -2,108 +2,110 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>StreamVerse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventos en Vivo</title>
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #0a1f44, #0f3460);
-      color: #fff;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #111;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      padding-bottom: 50px;
     }
 
     header {
-      background-color: #001f3f;
-      padding: 0.5rem 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background-color: #000;
+      padding: 10px 20px;
+      border-bottom: 2px solid #333;
     }
 
-    .logo {
-      max-width: 220px;
-      filter: drop-shadow(0px 0px 6px rgba(255,255,255,0.5));
+    header img.logo {
+      height: 40px;
     }
 
-    .kq-logo {
-      max-height: 40px;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: row;
-      padding: 1rem;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .left-panel {
-      flex: 3;
-      background-color: #112d4e;
-      padding: 1rem;
-      border-radius: 12px;
-      min-width: 300px;
-    }
-
-    .right-panel {
-      flex: 1;
-      background-color: #1f4068;
-      padding: 1rem;
-      border-radius: 12px;
-      max-height: 90vh;
-      overflow-y: auto;
-      min-width: 280px;
+    header a.kqlogo img {
+      height: 35px;
     }
 
     #player {
       width: 100%;
-      aspect-ratio: 16 / 9;
-      margin-bottom: 1rem;
-      border-radius: 10px;
+      max-width: 900px;
+      height: 500px;
+      margin: 20px auto;
+      border-radius: 8px;
       overflow: hidden;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     }
 
-    .event-card {
-      background-color: #0f3057;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      border-left: 4px solid #00adb5;
-      border-radius: 10px;
-    }
-
-    .event-card h3 {
-      margin-top: 0;
-      color: #00fff5;
-    }
-
-    .countdown {
-      background-color: #16213e;
-      padding: 0.5rem 1rem;
-      border-radius: 10px;
-      margin-top: 0.5rem;
+    .eventos {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 10px;
     }
 
-    .countdown span {
-      font-size: 1rem;
+    .evento {
+      background-color: #1c1c1c;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .countdown button {
-      background-color: #00adb5;
-      border: none;
+    .evento h2 {
+      font-size: 20px;
+      color: #f0f0f0;
+    }
+
+    .contador {
+      font-size: 18px;
+      font-weight: bold;
+      color: #00ff99;
+    }
+
+    .evento button {
+      background-color: #007bff;
       color: white;
-      padding: 0.3rem 1rem;
-      border-radius: 6px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
       cursor: pointer;
+      max-width: 100px;
+    }
+
+    .evento button:hover {
+      background-color: #0056b3;
     }
 
     @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
+      #player {
+        height: 250px;
+      }
+
+      .evento {
+        padding: 15px;
+      }
+
+      .evento h2 {
+        font-size: 18px;
+      }
+
+      .contador {
+        font-size: 16px;
       }
     }
   </style>
@@ -111,81 +113,78 @@
 <body>
   <header>
     <img src="logo.png" alt="Logo" class="logo" />
-    <a href="https://kq105.vercel.app" target="_blank">
-      <img src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184" class="kq-logo" alt="KQ105" />
+    <a href="https://kq105.vercel.app" target="_blank" class="kqlogo">
+      <img src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png?resize=640%2C184" alt="KQ105" />
     </a>
   </header>
 
-  <div class="container">
-    <div class="left-panel">
-      <div id="player"></div>
+  <div id="player"></div>
+
+  <div class="eventos">
+    <div class="evento">
+      <h2>WWE SmackDown - 8:00pm</h2>
+      <div class="contador" id="timer1">Cargando...</div>
+      <button onclick="cambiarStream('https://tu-stream-inicial.m3u8')">Ver WWE</button>
     </div>
 
-    <div class="right-panel">
-      <h2>🎬 Eventos</h2>
-
-      <div class="event-card">
-        <h3>🤼 WWE SmackDown</h3>
-        <p>Hoy a las 8:00 p.m hasta las 11:00 p.m</p>
-        <div class="countdown">
-          <span id="countdown-smack">Cargando...</span>
-          <button onclick="changeStream('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
-        </div>
-      </div>
-
-      <div class="event-card">
-        <h3>🏀 NBA: Boston Celtics vs New York Knicks</h3>
-        <p>Hoy a las 8:00 p.m</p>
-        <div class="countdown">
-          <span id="countdown-nba">Cargando...</span>
-          <button onclick="changeStream('https://a1xs.vip/40000011')">Ver</button>
-        </div>
-      </div>
+    <div class="evento">
+      <h2>NBA: Boston Celtics vs New York Knicks - 8:00pm</h2>
+      <div class="contador" id="timer2">Cargando...</div>
+      <button onclick="cambiarStream('https://a1xs.vip/40000011')">Ver</button>
     </div>
   </div>
 
   <script>
-    var player = new Clappr.Player({
-      source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
+    const player = new Clappr.Player({
+      source: "https://tu-stream-inicial.m3u8",
       parentId: "#player",
       width: "100%",
       height: "100%",
       autoPlay: true,
-      mute: false,
     });
 
-    function changeStream(url) {
-      player.load(url);
+    function cambiarStream(nuevoStream) {
+      player.load({ source: nuevoStream, mimeType: "application/x-mpegURL" });
     }
 
-    function startCountdown(targetHour, targetMinute, elementId) {
-      function updateCountdown() {
-        const now = new Date();
-        const target = new Date();
-        target.setHours(targetHour);
-        target.setMinutes(targetMinute);
-        target.setSeconds(0);
+    function iniciarContadores() {
+      const ahora = new Date();
+      const hoy = ahora.toLocaleDateString('en-CA'); // YYYY-MM-DD
 
-        if (now > target) {
-          document.getElementById(elementId).textContent = "En curso o finalizado";
-          return;
-        }
+      const eventos = [
+        {
+          id: 'timer1',
+          hora: `${hoy}T20:00:00`,
+        },
+        {
+          id: 'timer2',
+          hora: `${hoy}T20:00:00`,
+        },
+      ];
 
-        const diff = target - now;
+      eventos.forEach(evento => {
+        const targetDate = new Date(evento.hora);
+        setInterval(() => {
+          const ahoraLocal = new Date();
+          const diferencia = targetDate - ahoraLocal;
 
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+          const el = document.getElementById(evento.id);
 
-        document.getElementById(elementId).textContent = `${hours}h ${minutes}m ${seconds}s`;
-      }
+          if (diferencia <= 0) {
+            el.textContent = "¡En vivo!";
+            return;
+          }
 
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
+          const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+          const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+          const segundos = Math.floor((diferencia / 1000) % 60);
+
+          el.textContent = `Comienza en ${horas}h ${minutos}m ${segundos}s`;
+        }, 1000);
+      });
     }
 
-    startCountdown(20, 0, "countdown-smack"); // 8:00 PM
-    startCountdown(20, 0, "countdown-nba"); // 8:00 PM
+    iniciarContadores();
   </script>
 </body>
 </html>
