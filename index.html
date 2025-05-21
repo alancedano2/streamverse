@@ -2,153 +2,126 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Eventos en Vivo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventos Deportivos</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #0d1b2a;
+      background: linear-gradient(to right, #0057b8, #002244);
       color: white;
     }
-    .navbar {
+    header {
+      background-color: #001d3d;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
-      padding: 10px 20px;
-      background-color: #001427;
+      justify-content: space-between;
     }
-    .navbar img {
-      height: 40px;
+    header h1 {
+      margin: 0;
+      font-size: 24px;
     }
     .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
     }
-    .player-container {
+    .video-section {
       position: relative;
+      background-color: #000;
       width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
       aspect-ratio: 16 / 9;
-      background: #111;
     }
-    #video, iframe {
-      width: 100%;
-      height: 100%;
-    }
-    .events {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .event-card {
-      background: #1b263b;
-      border-radius: 10px;
+    .event {
+      background-color: #003566;
       padding: 15px;
-      width: 300px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
     }
-    .event-card h3 {
-      margin-bottom: 10px;
-      text-align: center;
+    .event h3 {
+      margin: 0 0 10px 0;
     }
-    .countdown-box {
-      background-color: #415a77;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-size: 1.1em;
-      margin-bottom: 12px;
-      text-align: center;
+    .event .actions {
+      margin-top: 10px;
     }
-    .event-card button {
-      padding: 8px 16px;
-      background-color: #0077cc;
+    button {
+      background-color: #ffc300;
+      color: #000;
       border: none;
-      border-radius: 5px;
-      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
       cursor: pointer;
+      font-weight: bold;
     }
-    .overlay-warning {
+    #overlayWarning {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      color: white;
+      background: rgba(0, 0, 0, 0.8);
       display: none;
-      justify-content: center;
       align-items: center;
-      text-align: center;
+      justify-content: center;
+      flex-direction: column;
       z-index: 10;
+      color: white;
+      text-align: center;
       padding: 20px;
     }
-    .overlay-warning button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: #ff4500;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-    }
-
-    @media (max-width: 600px) {
-      .events {
-        flex-direction: column;
-        align-items: center;
-      }
+    .timer-box {
+      background-color: #001d3d;
+      border-radius: 8px;
+      padding: 5px 10px;
+      display: inline-block;
     }
   </style>
 </head>
 <body>
-  <div class="navbar">
-    <img src="logo.png" alt="Logo">
-  </div>
+  <header>
+    <h1>StreamVerse Deportes</h1>
+  </header>
 
   <div class="container">
-    <div class="player-container">
-      <div id="overlayWarning" class="overlay-warning">
-        <div>
-          <p>Este contenido puede tener anuncios tipo pop-up. ¿Desea continuar?</p>
-          <button onclick="acceptWarning()">Aceptar</button>
-        </div>
-      </div>
-      <div id="video"></div>
+    <div class="video-section" id="video">
+      <!-- reproductor se carga aquí -->
     </div>
 
-    <div class="events">
-      <!-- Evento 1 -->
-      <div class="event-card">
-        <h3>MLB: Pirates vs Reds</h3>
-        <div id="timer1" class="countdown-box">Cargando...</div>
+    <div id="overlayWarning">
+      <p>Este contenido contiene anuncios emergentes (popup). ¿Deseas continuar?</p>
+      <button onclick="acceptWarning()">Aceptar</button>
+    </div>
+
+    <div class="event">
+      <h3>MLB: Pittsburgh Pirates vs Cincinnati Reds</h3>
+      <div class="timer-box"><span id="timer1"></span></div>
+      <div class="actions">
         <button onclick="loadIframe('https://streamtp4.com/global1.php?stream=mlb1', true)">Ver</button>
       </div>
+    </div>
 
-      <!-- Evento 2 -->
-      <div class="event-card">
-        <h3>MLB: Yankees vs Rangers</h3>
-        <div id="timer2" class="countdown-box">Cargando...</div>
+    <div class="event">
+      <h3>MLB: New York Yankees vs Texas Rangers</h3>
+      <div class="timer-box"><span id="timer2"></span></div>
+      <div class="actions">
         <button onclick="loadIframe('https://streamtp4.com/global1.php?stream=mlb11', true)">Ver</button>
       </div>
+    </div>
 
-      <!-- Evento 3 -->
-      <div class="event-card">
-        <h3>NBA: Knicks vs Pacers</h3>
-        <div id="timer3" class="countdown-box">Cargando...</div>
+    <div class="event">
+      <h3>NBA: New York Knicks vs Indiana Pacers</h3>
+      <div class="timer-box"><span id="timer3"></span></div>
+      <div class="actions">
         <button onclick="loadClappr('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
       </div>
+    </div>
 
-      <!-- Evento 4 -->
-      <div class="event-card">
-        <h3>AEW: Dynamite</h3>
-        <div id="timer4" class="countdown-box">Cargando...</div>
+    <div class="event">
+      <h3>AEW: Dynamite</h3>
+      <div class="timer-box"><span id="timer4"></span></div>
+      <div class="actions">
         <button onclick="loadIframe('https://streamtp4.com/global1.php?stream=tsn2', true)">Ver</button>
       </div>
     </div>
@@ -165,7 +138,7 @@
 
     function updateTimers() {
       const now = new Date();
-      const puertoRicoOffset = -4 * 60; // UTC-4
+      const puertoRicoOffset = -4 * 60;
       const localOffset = now.getTimezoneOffset();
       const offsetDiff = (puertoRicoOffset - localOffset) * 60 * 1000;
       const nowPR = new Date(now.getTime() + offsetDiff);
@@ -175,12 +148,12 @@
         const [h, m] = timer.time.split(':');
         target.setHours(parseInt(h), parseInt(m), 0, 0);
 
-        const diff = target - nowPR;
-
         const el = document.getElementById(timer.id);
-        if (diff <= 0) {
+
+        if (nowPR >= target) {
           el.textContent = '¡Ya comenzó!';
         } else {
+          const diff = target - nowPR;
           const hours = Math.floor(diff / (1000 * 60 * 60));
           const minutes = Math.floor((diff / (1000 * 60)) % 60);
           const seconds = Math.floor((diff / 1000) % 60);
