@@ -1,150 +1,355 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Eventos Deportivos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #001f3f, #003366);
-      color: #fff;
-    }
-    header {
-      background-color: #000c1a;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-    }
-    header img {
-      height: 40px;
-    }
-    .container {
-      padding: 20px;
-    }
-    .event-list {
-      display: flex;
-      flex-direction: row;
-      overflow-x: auto;
-      gap: 16px;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Eventos Stream</title>
+<style>
+  body {
+    margin: 0; font-family: Arial, sans-serif; background: #0d47a1;
+    color: #fff;
+    display: flex; flex-direction: column; min-height: 100vh;
+  }
+  /* Navbar */
+  header {
+    background: #09337a;
+    padding: 10px 20px;
+    display: flex; align-items: center;
+  }
+  header a.logo-link img {
+    height: 40px;
+    cursor: pointer;
+  }
+  /* Eventos container horizontal */
+  #events-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 15px 10px;
+    gap: 15px;
+    background: #124ea2;
+  }
+  .event-card {
+    background: #1565c0;
+    border-radius: 12px;
+    padding: 15px;
+    min-width: 260px;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  }
+  .event-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .event-time {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  .timer-box {
+    background: #0b2f61;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .btn-view {
+    background: #ffd700;
+    border: none;
+    color: #000;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  .btn-view:hover {
+    background: #ffbf00;
+  }
+
+  /* Player and iframe container */
+  #player-container {
+    flex-grow: 1;
+    background: #082c61;
+    margin: 15px 20px;
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    position: relative;
+  }
+
+  /* Clappr player */
+  #clappr-player {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: black;
+  }
+  /* iframe player */
+  #iframe-player {
+    width: 100%;
+    height: 450px;
+    border-radius: 14px;
+    border: none;
+  }
+
+  /* Advertencia overlay */
+  #adblock-warning {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    padding: 20px;
+    border-radius: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 10;
+    text-align: center;
+  }
+  #adblock-warning.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #adblock-warning button {
+    margin-top: 20px;
+    background: #ffd700;
+    border: none;
+    color: #000;
+    padding: 10px 24px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  /* Scrollbar styles for horizontal events container */
+  #events-container::-webkit-scrollbar {
+    height: 10px;
+  }
+  #events-container::-webkit-scrollbar-track {
+    background: #0d47a1;
+  }
+  #events-container::-webkit-scrollbar-thumb {
+    background: #0b2f61;
+    border-radius: 5px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    #events-container {
+      flex-direction: column;
+      overflow-x: visible;
+      padding: 10px 15px;
+      gap: 12px;
     }
     .event-card {
-      flex: 0 0 auto;
-      background-color: rgba(255, 255, 255, 0.05);
-      padding: 16px;
-      border-radius: 12px;
-      min-width: 300px;
-      max-width: 300px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      position: relative;
-    }
-    .event-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .timer {
-      background-color: rgba(255,255,255,0.1);
-      padding: 8px 12px;
-      border-radius: 8px;
-      margin-bottom: 12px;
-      font-size: 14px;
-    }
-    .watch-btn {
-      background-color: #007bff;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-    .watch-btn:hover {
-      background-color: #0056b3;
-    }
-    iframe, #video-player {
+      min-width: auto;
       width: 100%;
-      height: calc(100vw * 9 / 16);
-      max-height: 70vh;
-      border: none;
-      border-radius: 12px;
-      margin-top: 20px;
     }
-  </style>
+    #player-container {
+      margin: 10px 15px 20px 15px;
+    }
+    #iframe-player {
+      height: 250px;
+    }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Logo" />
-  </header>
-  <div class="container">
-    <div id="player-container"></div>
-    <div class="event-list">
-      <div class="event-card">
-        <div class="event-title">MLB: Pittsburgh Pirates vs Cincinnati Reds</div>
-        <div class="timer" data-time="2025-05-21T11:30:00-04:00"></div>
-        <button class="watch-btn" data-type="iframe" data-src="https://streamtp4.com/global1.php?stream=mlb1">Ver</button>
-      </div>
-      <div class="event-card">
-        <div class="event-title">MLB: New York Yankees vs Texas Rangers</div>
-        <div class="timer" data-time="2025-05-21T18:00:00-04:00"></div>
-        <button class="watch-btn" data-type="iframe" data-src="https://streamtp4.com/global1.php?stream=mlb11">Ver</button>
-      </div>
-      <div class="event-card">
-        <div class="event-title">NBA: New York Knicks vs Indiana Pacers</div>
-        <div class="timer" data-time="2025-05-21T19:00:00-04:00"></div>
-        <button class="watch-btn" data-type="clappr" data-src="https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8">Ver</button>
-      </div>
-      <div class="event-card">
-        <div class="event-title">AEW: Dynamite</div>
-        <div class="timer" data-time="2025-05-21T19:00:00-04:00"></div>
-        <button class="watch-btn" data-type="iframe" data-src="https://streamtp4.com/global1.php?stream=tsn2">Ver</button>
-      </div>
-    </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
-  <script>
-    const timers = document.querySelectorAll('.timer');
-    const now = new Date();
-    timers.forEach(timer => {
-      const eventTime = new Date(timer.dataset.time);
-      if (now > eventTime) {
-        timer.textContent = "Ya comenzó";
+<header>
+  <a href="https://kq105.vercel.app" target="_blank" class="logo-link" rel="noopener noreferrer">
+    <img src="logo.png" alt="StreamVerse Logo" />
+  </a>
+</header>
+
+<div id="events-container">
+  <div class="event-card" data-type="iframe" data-src="https://streamtp4.com/global1.php?stream=mlb1" data-hasads="true" data-time="11:30" data-title="MLB: Pittsburgh Pirates vs Cincinnati Reds">
+    <div class="event-title">MLB: Pittsburgh Pirates vs Cincinnati Reds</div>
+    <div class="event-time">11:30 AM</div>
+    <div class="timer-box" id="timer-mlb1">Cargando...</div>
+    <button class="btn-view">Ver</button>
+  </div>
+  <div class="event-card" data-type="iframe" data-src="https://streamtp4.com/global1.php?stream=mlb11" data-hasads="true" data-time="18:00" data-title="MLB: New York Yankees vs Texas Rangers">
+    <div class="event-title">MLB: New York Yankees vs Texas Rangers</div>
+    <div class="event-time">6:00 PM</div>
+    <div class="timer-box" id="timer-mlb2">Cargando...</div>
+    <button class="btn-view">Ver</button>
+  </div>
+  <div class="event-card" data-type="clappr" data-src="https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8" data-hasads="false" data-time="19:00" data-title="NBA: New York Knicks vs Indiana Pacers">
+    <div class="event-title">NBA: New York Knicks vs Indiana Pacers</div>
+    <div class="event-time">7:00 PM</div>
+    <div class="timer-box" id="timer-nba">Cargando...</div>
+    <button class="btn-view">Ver</button>
+  </div>
+  <div class="event-card" data-type="iframe" data-src="https://streamtp4.com/global1.php?stream=tsn2" data-hasads="true" data-time="19:00" data-title="AEW: Dynamite">
+    <div class="event-title">AEW: Dynamite</div>
+    <div class="event-time">7:00 PM</div>
+    <div class="timer-box" id="timer-aew">Cargando...</div>
+    <button class="btn-view">Ver</button>
+  </div>
+</div>
+
+<div id="player-container">
+  <div id="clappr-player" style="display:none;"></div>
+  <iframe id="iframe-player" style="display:none;" allowfullscreen></iframe>
+
+  <div id="adblock-warning">
+    <div>Este contenido puede contener anuncios emergentes y ventanas. ¿Deseas continuar?</div>
+    <button id="accept-adblock">Aceptar</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+<script>
+  // Get current PR time (UTC-4 fixed)
+  function getPRNow() {
+    let now = new Date();
+    // convert to UTC
+    let utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    // PR is UTC-4
+    return new Date(utc - 4*60*60000);
+  }
+
+  // Parse HH:mm string to Date object (today in PR)
+  function parseEventTime(timeStr) {
+    let [h, m] = timeStr.split(':').map(Number);
+    let d = getPRNow();
+    d.setHours(h, m, 0, 0);
+    return d;
+  }
+
+  // Timer update
+  function updateTimers() {
+    let now = getPRNow();
+    document.querySelectorAll('.event-card').forEach(card => {
+      let timerBox = card.querySelector('.timer-box');
+      let eventTimeStr = card.dataset.time;
+      let eventTime = parseEventTime(eventTimeStr);
+
+      if (now >= eventTime) {
+        timerBox.textContent = "Ya comenzó";
       } else {
-        const diff = eventTime - now;
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        timer.textContent = `Comienza en ${hours}h ${minutes}m`;
+        let diff = eventTime - now;
+        let hrs = Math.floor(diff / 3600000);
+        let mins = Math.floor((diff % 3600000) / 60000);
+        let secs = Math.floor((diff % 60000) / 1000);
+        timerBox.textContent = `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
       }
     });
+  }
 
-    document.querySelectorAll('.watch-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const container = document.getElementById('player-container');
-        container.innerHTML = '';
-        const type = btn.dataset.type;
-        const src = btn.dataset.src;
-        if (type === 'clappr') {
-          new Clappr.Player({
-            source: src,
-            parentId: "#player-container",
-            width: '100%',
-            height: '100%'
-          });
-        } else if (type === 'iframe') {
-          const iframe = document.createElement('iframe');
-          iframe.src = src;
-          iframe.allow = "encrypted-media";
-          iframe.allowFullscreen = true;
-          container.appendChild(iframe);
-        }
-      });
+  updateTimers();
+  setInterval(updateTimers, 1000);
+
+  const clapprPlayerContainer = document.getElementById('clappr-player');
+  const iframePlayer = document.getElementById('iframe-player');
+  const adblockWarning = document.getElementById('adblock-warning');
+  const acceptAdblockBtn = document.getElementById('accept-adblock');
+  let currentPlayerType = null;
+  let currentPlayer = null;
+  let waitingAdAccept = false;
+  let nextSrc = null;
+  let nextType = null;
+
+  function loadClappr(src) {
+    iframePlayer.style.display = 'none';
+    clapprPlayerContainer.style.display = 'block';
+    if(currentPlayer) {
+      currentPlayer.destroy();
+      currentPlayer = null;
+    }
+    currentPlayer = new Clappr.Player({
+      source: src,
+      parentId: '#clappr-player',
+      width: '100%',
+      height: '100%',
+      autoPlay: true,
+      mute: false,
+      // 16:9 aspect ratio handled by CSS aspect-ratio
     });
-  </script>
+  }
+
+  function loadIframe(src) {
+    clapprPlayerContainer.style.display = 'none';
+    if(currentPlayer) {
+      currentPlayer.destroy();
+      currentPlayer = null;
+    }
+    iframePlayer.src = src;
+    iframePlayer.style.display = 'block';
+  }
+
+  function showAdWarning(show) {
+    if(show) {
+      adblockWarning.classList.add('visible');
+    } else {
+      adblockWarning.classList.remove('visible');
+    }
+  }
+
+  acceptAdblockBtn.addEventListener('click', () => {
+    if(waitingAdAccept) {
+      waitingAdAccept = false;
+      showAdWarning(false);
+      if(nextType === 'clappr') {
+        loadClappr(nextSrc);
+      } else {
+        loadIframe(nextSrc);
+      }
+    }
+  });
+
+  // On clicking Ver buttons
+  document.querySelectorAll('.btn-view').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      let card = btn.closest('.event-card');
+      let src = card.dataset.src;
+      let type = card.dataset.type;
+      let hasAds = card.dataset.hasads === 'true';
+
+      if(hasAds) {
+        waitingAdAccept = true;
+        nextSrc = src;
+        nextType = type;
+        showAdWarning(true);
+      } else {
+        if(type === 'clappr') {
+          loadClappr(src);
+        } else {
+          loadIframe(src);
+        }
+      }
+    });
+  });
+
+  // Load first event by default
+  (function loadFirstEvent() {
+    let firstCard = document.querySelector('.event-card');
+    if(!firstCard) return;
+    let src = firstCard.dataset.src;
+    let type = firstCard.dataset.type;
+    let hasAds = firstCard.dataset.hasads === 'true';
+
+    if(hasAds) {
+      waitingAdAccept = true;
+      nextSrc = src;
+      nextType = type;
+      showAdWarning(true);
+    } else {
+      if(type === 'clappr') {
+        loadClappr(src);
+      } else {
+        loadIframe(src);
+      }
+    }
+  })();
+</script>
 </body>
 </html>
