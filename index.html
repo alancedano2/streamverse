@@ -2,126 +2,151 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Eventos en Vivo</title>
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0055ff, #6f00ff);
+      background: linear-gradient(to bottom right, #003366, #336699);
+      font-family: Arial, sans-serif;
       color: white;
     }
-    .container {
-      max-width: 900px;
+
+    .player-container {
+      width: 100%;
+      max-width: 960px;
       margin: auto;
+      padding: 10px;
+    }
+
+    .event-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 10px;
+    }
+
+    .event-card {
+      background-color: rgba(255, 255, 255, 0.1);
       padding: 20px;
-    }
-    .player-box {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-    .player {
-      width: 100%;
-      height: 400px;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .event {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 15px;
       border-radius: 12px;
-      margin-bottom: 20px;
+      text-align: center;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     }
-    .event h3 {
-      margin: 0 0 5px;
+
+    .event-card h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
     }
-    .event button {
-      margin-top: 10px;
-      padding: 10px 15px;
+
+    .countdown {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .ver-btn {
+      background-color: #00ccff;
+      color: black;
       border: none;
+      padding: 10px 20px;
       border-radius: 8px;
-      background: #ffffff22;
-      color: white;
-      font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s;
+      font-weight: bold;
     }
-    .event button:hover {
-      background: #ffffff44;
+
+    .ver-btn:hover {
+      background-color: #00aacc;
     }
-    iframe {
-      width: 100%;
-      height: 400px;
-      border-radius: 10px;
-      border: none;
-      margin-top: 10px;
-    }
-    @media (max-width: 600px) {
-      .player {
-        height: 250px;
+
+    @media (max-width: 768px) {
+      .event-card {
+        font-size: 16px;
       }
-      iframe {
-        height: 250px;
+
+      .ver-btn {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Reproductor principal -->
-    <div class="player-box">
-      <div id="main-player" class="player"></div>
+
+  <div class="player-container">
+    <div id="player"></div>
+  </div>
+
+  <div class="event-list">
+    <div class="event-card">
+      <h2>MLB: Pittsburgh Pirates vs Cincinnati Reds - 11:30am</h2>
+      <div class="countdown" id="countdown1"></div>
+      <button class="ver-btn" onclick="changeStream('https://streamtp4.com/global1.php?stream=mlb1')">Ver</button>
     </div>
-
-    <!-- Lista de eventos -->
-
-    <!-- Evento con botón para reproducir m3u8 -->
-    <div class="event">
-      <h3>NBA: New York Knicks vs Indiana Pacers</h3>
-      <p>Hora: 7:00 PM</p>
-      <button onclick="setStream('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
+    <div class="event-card">
+      <h2>MLB: New York Yankees vs Texas Rangers - 6:00pm</h2>
+      <div class="countdown" id="countdown2"></div>
+      <button class="ver-btn" onclick="changeStream('https://streamtp4.com/global1.php?stream=mlb11')">Ver</button>
     </div>
-
-    <!-- Evento con iframe embebido -->
-    <div class="event">
-      <h3>MLB: Pittsburgh Pirates vs Cincinnati Reds</h3>
-      <p>Hora: 11:30 AM</p>
-      <iframe src="https://streamtp4.com/global1.php?stream=mlb1" allowfullscreen></iframe>
+    <div class="event-card">
+      <h2>NBA: New York Knicks vs Indiana Pacers - 7:00pm</h2>
+      <div class="countdown" id="countdown3"></div>
+      <button class="ver-btn" onclick="changeStream('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
     </div>
-
-    <!-- Otro evento con iframe -->
-    <div class="event">
-      <h3>MLB: New York Yankees vs Texas Rangers</h3>
-      <p>Hora: 6:00 PM</p>
-      <iframe src="https://streamtp4.com/global1.php?stream=mlb11" allowfullscreen></iframe>
-    </div>
-
-    <!-- Otro evento con iframe -->
-    <div class="event">
-      <h3>AEW: Dynamite</h3>
-      <p>Hora: 7:00 PM</p>
-      <iframe src="https://streamtp4.com/global1.php?stream=tsn2" allowfullscreen></iframe>
+    <div class="event-card">
+      <h2>AEW: Dynamite - 7:00pm</h2>
+      <div class="countdown" id="countdown4"></div>
+      <button class="ver-btn" onclick="changeStream('https://streamtp4.com/global1.php?stream=tsn2')">Ver</button>
     </div>
   </div>
 
   <script>
-    let player = new Clappr.Player({
-      source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
-      parentId: "#main-player",
+    const player = new Clappr.Player({
+      source: 'https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8',
+      parentId: '#player',
+      width: '100%',
+      height: '480px',
       autoPlay: true,
-      mute: false,
-      height: "100%",
-      width: "100%",
-      mediacontrol: { seekbar: "#00BFFF", buttons: "#ffffff" },
+      mute: true
     });
 
-    function setStream(url) {
+    function changeStream(url) {
       player.load(url);
     }
+
+    function updateCountdown(elementId, targetHour, targetMinute) {
+      const now = new Date();
+      const target = new Date();
+      target.setHours(targetHour, targetMinute, 0, 0);
+      if (target < now) target.setDate(target.getDate() + 1);
+
+      const diff = target - now;
+
+      const hours = Math.floor(diff / 1000 / 60 / 60);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById(elementId).innerText = 
+        `${hours}h ${minutes}m ${seconds}s`;
+
+      setTimeout(() => updateCountdown(elementId, targetHour, targetMinute), 1000);
+    }
+
+    // Puerto Rico timezone fix
+    function initCountdowns() {
+      const now = new Date();
+      const offset = -4 - now.getTimezoneOffset() / 60;
+      const localTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
+
+      updateCountdown('countdown1', 11, 30); // 11:30am
+      updateCountdown('countdown2', 18, 0);  // 6:00pm
+      updateCountdown('countdown3', 19, 0);  // 7:00pm
+      updateCountdown('countdown4', 19, 0);  // 7:00pm
+    }
+
+    initCountdowns();
   </script>
+
 </body>
 </html>
