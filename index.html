@@ -1,284 +1,200 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>StreamVerse</title>
-
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    background: #fafafa;
-    color: #222;
-  }
-  header {
-    background: #222;
-    padding: 10px 20px;
-    color: #eee;
-    font-weight: 700;
-    font-size: 24px;
-  }
-  .container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 0 15px;
-  }
-  .player-container {
-    width: 100%;
-    height: 360px;
-    background: #000;
-    position: relative;
-    margin-bottom: 25px;
-  }
-  .player-container iframe,
-  .player-container #clappr-player {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: #000;
-  }
-  .events-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-  .event-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 12px 15px;
-    width: 280px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .event-title {
-    font-weight: 600;
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  .timer-box {
-    background: #e0e0e0;
-    color: #333;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 16px;
-    padding: 6px 12px;
-    border-radius: 4px;
-    width: fit-content;
-    margin-bottom: 12px;
-  }
-  .view-btn {
-    padding: 8px 16px;
-    font-size: 15px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    align-self: stretch;
-    text-align: center;
-    transition: background-color 0.2s ease;
-  }
-  .view-btn:hover {
-    background-color: #0056b3;
-  }
-
-  /* Modal advertencia simple */
-  #warning-modal {
-    display: none;
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.65);
-    color: #fff;
-    font-size: 18px;
-    font-weight: 600;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    text-align: center;
-  }
-  #warning-modal button {
-    margin: 12px 8px 0 8px;
-    padding: 10px 18px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  #accept-btn {
-    background-color: #28a745;
-    color: white;
-  }
-  #accept-btn:hover {
-    background-color: #1e7e34;
-  }
-  #cancel-btn {
-    background-color: #dc3545;
-    color: white;
-  }
-  #cancel-btn:hover {
-    background-color: #a71d2a;
-  }
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventos en Vivo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #021428, #0b2440);
+      color: #fff;
+    }
+    header {
+      background-color: #00000080;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    header img {
+      height: 40px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    #player-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    #warning {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s;
+    }
+    #warning.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #warning button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .event {
+      background: #0d1e33;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00000055;
+    }
+    .event h3 {
+      margin-top: 0;
+    }
+    .timer {
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+    .event button {
+      padding: 10px 15px;
+      background: #00aaff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<header>StreamVerse Eventos</header>
-
-<div class="container">
-  <div class="player-container" id="player-container">
-    <!-- Aquí va el reproductor -->
-    <div id="player-inner"></div>
-    <div id="warning-modal">
-      <div>¡Advertencia! El contenido puede ser inseguro.</div>
-      <div>
-        <button id="accept-btn">Aceptar</button>
-        <button id="cancel-btn">Cancelar</button>
+  <header>
+    <img src="logo.png" alt="Logo" />
+  </header>
+  <div class="container">
+    <div id="player-container">
+      <div id="player"></div>
+      <div id="warning">
+        <p>Este contenido puede contener anuncios emergentes y ventanas popup. ¿Deseas continuar?</p>
+        <button onclick="proceedWarning()">Aceptar</button>
       </div>
+    </div>
+
+    <div class="event">
+      <h3>MLB: Pittsburgh Pirates vs Cincinnati Reds - 11:30am</h3>
+      <div class="timer" id="timer1"></div>
+      <button onclick="handleView('iframe', 'https://streamtp4.com/global1.php?stream=mlb1')">Ver</button>
+    </div>
+
+    <div class="event">
+      <h3>MLB: New York Yankees vs Texas Rangers - 6:00pm</h3>
+      <div class="timer" id="timer2"></div>
+      <button onclick="handleView('iframe', 'https://streamtp4.com/global1.php?stream=mlb11')">Ver</button>
+    </div>
+
+    <div class="event">
+      <h3>NBA: New York Knicks vs Indiana Pacers - 7:00pm</h3>
+      <div class="timer" id="timer3"></div>
+      <button onclick="handleView('clappr', 'https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
+    </div>
+
+    <div class="event">
+      <h3>AEW: Dynamite - 7:00pm</h3>
+      <div class="timer" id="timer4"></div>
+      <button onclick="handleView('iframe', 'https://streamtp4.com/global1.php?stream=tsn2')">Ver</button>
     </div>
   </div>
 
-  <div class="events-list" id="events-container"></div>
-</div>
+  <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+  <script>
+    const playerDiv = document.getElementById("player");
+    const warning = document.getElementById("warning");
+    let pendingUrl = null, pendingType = null;
 
-<script>
-  const events = [
-    { title: "WWE: Wrestlemania 41 (Sáb 19)", time: "17:00", url: "https://example.com/event1.m3u8", type: "clappr" },
-    { title: "WWE: Wrestlemania 41 (Dom 20)", time: "17:00", url: "https://example.com/event2.m3u8", type: "clappr" },
-    { title: "NBA: Bulls vs Heat", time: "18:00", url: "https://example.com/event3.m3u8", type: "clappr" },
-    { title: "AEW: Dynamite", time: "20:00", url: "https://streamtp4.com/unsafe_stream", type: "iframe" }
-  ];
-
-  const playerInner = document.getElementById('player-inner');
-  const eventsContainer = document.getElementById('events-container');
-  const warningModal = document.getElementById('warning-modal');
-  const acceptBtn = document.getElementById('accept-btn');
-  const cancelBtn = document.getElementById('cancel-btn');
-
-  let clapprPlayer = null;
-  let currentEventIndex = null;
-
-  function getCountdown(targetHour, targetMinute) {
-    const now = new Date();
-    const target = new Date();
-    target.setHours(targetHour, targetMinute, 0, 0);
-    if (target < now) return null; // Ya inició
-    const diff = target - now;
-    const h = Math.floor(diff / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    return { h, m, s };
-  }
-
-  function createEventCard(ev, i) {
-    const card = document.createElement('div');
-    card.className = 'event-card';
-
-    const title = document.createElement('div');
-    title.className = 'event-title';
-    title.textContent = ev.title;
-    card.appendChild(title);
-
-    const [h, m] = ev.time.split(':').map(x => parseInt(x));
-    const timer = document.createElement('div');
-    timer.className = 'timer-box';
-    timer.id = `timer-${i}`;
-    timer.textContent = "Calculando...";
-    card.appendChild(timer);
-
-    const btn = document.createElement('button');
-    btn.className = 'view-btn';
-    btn.textContent = 'Ver';
-    btn.setAttribute('aria-label', `Ver evento ${ev.title}`);
-    btn.addEventListener('click', () => handleViewClick(i));
-    card.appendChild(btn);
-
-    function updateTimer() {
-      const c = getCountdown(h, m);
-      if (!c) {
-        timer.textContent = "¡EN VIVO!";
-        timer.style.background = "#d4edda";
-        timer.style.color = "#155724";
+    function handleView(type, url) {
+      if (url.includes("streamtp4.com")) {
+        pendingUrl = url;
+        pendingType = type;
+        warning.classList.add("show");
       } else {
-        timer.style.background = "#e0e0e0";
-        timer.style.color = "#333";
-        timer.textContent = `${String(c.h).padStart(2, '0')}:${String(c.m).padStart(2, '0')}:${String(c.s).padStart(2, '0')}`;
+        loadPlayer(type, url);
       }
     }
-    updateTimer();
-    setInterval(updateTimer, 1000);
 
-    return card;
-  }
-
-  function loadIframe(url) {
-    clearPlayer();
-    const iframe = document.createElement('iframe');
-    iframe.src = url;
-    iframe.allowFullscreen = true;
-    iframe.allow = "autoplay; fullscreen";
-    playerInner.appendChild(iframe);
-  }
-
-  function loadClappr(url) {
-    clearPlayer();
-    const playerDiv = document.createElement('div');
-    playerDiv.id = 'clappr-player';
-    playerInner.appendChild(playerDiv);
-
-    clapprPlayer = new Clappr.Player({
-      source: url,
-      parentId: '#clappr-player',
-      width: '100%',
-      height: '100%',
-      autoPlay: true,
-      mute: false
-    });
-  }
-
-  function clearPlayer() {
-    if (clapprPlayer) {
-      clapprPlayer.destroy();
-      clapprPlayer = null;
+    function proceedWarning() {
+      warning.classList.remove("show");
+      if (pendingUrl && pendingType) {
+        loadPlayer(pendingType, pendingUrl);
+        pendingUrl = null;
+        pendingType = null;
+      }
     }
-    playerInner.innerHTML = '';
-  }
 
-  function handleViewClick(i) {
-    currentEventIndex = i;
-    const ev = events[i];
-    if (ev.url.includes('streamtp4.com')) {
-      warningModal.style.display = 'flex';
-    } else {
-      warningModal.style.display = 'none';
-      if (ev.type === 'iframe') loadIframe(ev.url);
-      else if (ev.type === 'clappr') loadClappr(ev.url);
+    function loadPlayer(type, url) {
+      playerDiv.innerHTML = "";
+      if (type === "clappr") {
+        new Clappr.Player({
+          source: url,
+          parentId: "#player",
+          width: "100%",
+          height: "100%",
+        });
+      } else if (type === "iframe") {
+        const iframe = document.createElement("iframe");
+        iframe.src = url;
+        iframe.allowFullscreen = true;
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "none";
+        playerDiv.appendChild(iframe);
+      }
     }
-  }
 
-  acceptBtn.addEventListener('click', () => {
-    warningModal.style.display = 'none';
-    const ev = events[currentEventIndex];
-    if (ev.type === 'iframe') loadIframe(ev.url);
-    else if (ev.type === 'clappr') loadClappr(ev.url);
-  });
-  cancelBtn.addEventListener('click', () => {
-    warningModal.style.display = 'none';
-  });
+    function startTimer(id, hour, minute) {
+      const timerEl = document.getElementById(id);
+      function update() {
+        const now = new Date();
+        const target = new Date();
+        target.setHours(hour, minute, 0, 0);
+        if (now > target) target.setDate(target.getDate() + 1);
+        const diff = target - now;
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        timerEl.textContent = `Empieza en ${h}h ${m}m ${s}s`;
+      }
+      update();
+      setInterval(update, 1000);
+    }
 
-  events.forEach((ev, i) => {
-    const card = createEventCard(ev, i);
-    eventsContainer.appendChild(card);
-  });
-</script>
-
+    startTimer("timer1", 11, 30);
+    startTimer("timer2", 18, 0);
+    startTimer("timer3", 19, 0);
+    startTimer("timer4", 19, 0);
+  </script>
 </body>
 </html>
