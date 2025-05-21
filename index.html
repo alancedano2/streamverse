@@ -8,100 +8,120 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #0055ff, #6f00ff);
       color: white;
     }
-
-    .event {
-      background: rgba(255, 255, 255, 0.08);
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    .player-box {
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
       padding: 20px;
-      margin: 20px auto;
-      width: 90%;
-      max-width: 800px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease-in-out;
+      margin-bottom: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
-
-    .event h2 {
-      margin: 0 0 10px;
-      font-size: 1.5rem;
-    }
-
-    .event p {
-      margin: 5px 0 15px;
-      font-weight: 500;
-    }
-
-    iframe {
-      width: 100%;
-      height: 400px;
-      border: none;
-      border-radius: 10px;
-    }
-
     .player {
       width: 100%;
       height: 400px;
       border-radius: 10px;
       overflow: hidden;
     }
-
+    .event {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .event h3 {
+      margin: 0 0 5px;
+    }
+    .event button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #ffffff22;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .event button:hover {
+      background: #ffffff44;
+    }
+    iframe {
+      width: 100%;
+      height: 400px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 10px;
+    }
     @media (max-width: 600px) {
-      .event {
-        padding: 15px;
+      .player {
+        height: 250px;
       }
-
-      iframe, .player {
+      iframe {
         height: 250px;
       }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <!-- Reproductor principal -->
+    <div class="player-box">
+      <div id="main-player" class="player"></div>
+    </div>
 
-  <!-- Evento 1 -->
-  <div class="event">
-    <h2>MLB: Pittsburgh Pirates vs Cincinnati Reds</h2>
-    <p>Hora: 11:30 AM</p>
-    <iframe src="https://streamtp4.com/global1.php?stream=mlb1" allowfullscreen></iframe>
-  </div>
+    <!-- Lista de eventos -->
 
-  <!-- Evento 2 -->
-  <div class="event">
-    <h2>MLB: New York Yankees vs Texas Rangers</h2>
-    <p>Hora: 6:00 PM</p>
-    <iframe src="https://streamtp4.com/global1.php?stream=mlb11" allowfullscreen></iframe>
-  </div>
+    <!-- Evento con botón para reproducir m3u8 -->
+    <div class="event">
+      <h3>NBA: New York Knicks vs Indiana Pacers</h3>
+      <p>Hora: 7:00 PM</p>
+      <button onclick="setStream('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
+    </div>
 
-  <!-- Evento 3 -->
-  <div class="event">
-    <h2>NBA: New York Knicks vs Indiana Pacers</h2>
-    <p>Hora: 7:00 PM</p>
-    <div id="player-nba" class="player"></div>
-  </div>
+    <!-- Evento con iframe embebido -->
+    <div class="event">
+      <h3>MLB: Pittsburgh Pirates vs Cincinnati Reds</h3>
+      <p>Hora: 11:30 AM</p>
+      <iframe src="https://streamtp4.com/global1.php?stream=mlb1" allowfullscreen></iframe>
+    </div>
 
-  <!-- Evento 4 -->
-  <div class="event">
-    <h2>AEW: Dynamite</h2>
-    <p>Hora: 7:00 PM</p>
-    <iframe src="https://streamtp4.com/global1.php?stream=tsn2" allowfullscreen></iframe>
+    <!-- Otro evento con iframe -->
+    <div class="event">
+      <h3>MLB: New York Yankees vs Texas Rangers</h3>
+      <p>Hora: 6:00 PM</p>
+      <iframe src="https://streamtp4.com/global1.php?stream=mlb11" allowfullscreen></iframe>
+    </div>
+
+    <!-- Otro evento con iframe -->
+    <div class="event">
+      <h3>AEW: Dynamite</h3>
+      <p>Hora: 7:00 PM</p>
+      <iframe src="https://streamtp4.com/global1.php?stream=tsn2" allowfullscreen></iframe>
+    </div>
   </div>
 
   <script>
-    // Reproductor Clappr para evento NBA
-    new Clappr.Player({
+    let player = new Clappr.Player({
       source: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8",
-      parentId: "#player-nba",
+      parentId: "#main-player",
       autoPlay: true,
       mute: false,
       height: "100%",
       width: "100%",
       mediacontrol: { seekbar: "#00BFFF", buttons: "#ffffff" },
     });
-  </script>
 
+    function setStream(url) {
+      player.load(url);
+    }
+  </script>
 </body>
 </html>
