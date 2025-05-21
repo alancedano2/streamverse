@@ -58,9 +58,13 @@
       margin-bottom: 10px;
       text-align: center;
     }
-    .countdown {
-      font-size: 1.2em;
-      margin-bottom: 10px;
+    .countdown-box {
+      background-color: #415a77;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 1.1em;
+      margin-bottom: 12px;
+      text-align: center;
     }
     .event-card button {
       padding: 8px 16px;
@@ -120,31 +124,31 @@
     </div>
 
     <div class="events">
-      <!-- Evento 1: MLB 11:30am -->
+      <!-- Evento 1 -->
       <div class="event-card">
-        <h3>MLB: Pittsburgh Pirates vs Cincinnati Reds</h3>
-        <div id="timer1" class="countdown"></div>
+        <h3>MLB: Pirates vs Reds</h3>
+        <div id="timer1" class="countdown-box">Cargando...</div>
         <button onclick="loadIframe('https://streamtp4.com/global1.php?stream=mlb1', true)">Ver</button>
       </div>
-      
-      <!-- Evento 2: MLB 6:00pm -->
+
+      <!-- Evento 2 -->
       <div class="event-card">
-        <h3>MLB: New York Yankees vs Texas Rangers</h3>
-        <div id="timer2" class="countdown"></div>
+        <h3>MLB: Yankees vs Rangers</h3>
+        <div id="timer2" class="countdown-box">Cargando...</div>
         <button onclick="loadIframe('https://streamtp4.com/global1.php?stream=mlb11', true)">Ver</button>
       </div>
 
-      <!-- Evento 3: NBA 7:00pm -->
+      <!-- Evento 3 -->
       <div class="event-card">
-        <h3>NBA: New York Knicks vs Indiana Pacers</h3>
-        <div id="timer3" class="countdown"></div>
+        <h3>NBA: Knicks vs Pacers</h3>
+        <div id="timer3" class="countdown-box">Cargando...</div>
         <button onclick="loadClappr('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
       </div>
 
-      <!-- Evento 4: AEW 7:00pm -->
+      <!-- Evento 4 -->
       <div class="event-card">
         <h3>AEW: Dynamite</h3>
-        <div id="timer4" class="countdown"></div>
+        <div id="timer4" class="countdown-box">Cargando...</div>
         <button onclick="loadIframe('https://streamtp4.com/global1.php?stream=tsn2', true)">Ver</button>
       </div>
     </div>
@@ -161,18 +165,27 @@
 
     function updateTimers() {
       const now = new Date();
+      const puertoRicoOffset = -4 * 60; // UTC-4
+      const localOffset = now.getTimezoneOffset();
+      const offsetDiff = (puertoRicoOffset - localOffset) * 60 * 1000;
+      const nowPR = new Date(now.getTime() + offsetDiff);
+
       timers.forEach(timer => {
-        const target = new Date();
+        const target = new Date(nowPR);
         const [h, m] = timer.time.split(':');
         target.setHours(parseInt(h), parseInt(m), 0, 0);
 
-        if (target < now) target.setDate(target.getDate() + 1);
+        const diff = target - nowPR;
 
-        const diff = target - now;
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-        document.getElementById(timer.id).textContent = `${hours}h ${minutes}m ${seconds}s`;
+        const el = document.getElementById(timer.id);
+        if (diff <= 0) {
+          el.textContent = '¡Ya comenzó!';
+        } else {
+          const hours = Math.floor(diff / (1000 * 60 * 60));
+          const minutes = Math.floor((diff / (1000 * 60)) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+          el.textContent = `${hours}h ${minutes}m ${seconds}s`;
+        }
       });
     }
 
