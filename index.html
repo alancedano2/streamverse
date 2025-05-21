@@ -1,181 +1,258 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Eventos en Vivo</title>
-  <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      background: linear-gradient(to bottom right, #003366, #336699);
-      font-family: Arial, sans-serif;
-      color: white;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>StreamVerse Eventos</title>
 
-    /* NAVBAR */
-    .navbar {
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: start;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .navbar img {
-      height: 40px;
-    }
-
-    .player-container {
-      width: 100%;
-      max-width: 960px;
-      margin: auto;
-      padding: 10px;
-    }
-
-    .event-list {
-      display: flex;
+<style>
+  body {
+    margin: 0;
+    background: #0047ab;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  nav {
+    height: 50px;
+    background: #002d6a;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+  }
+  nav img {
+    height: 32px;
+    cursor: pointer;
+  }
+  main {
+    flex-grow: 1;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .event-card {
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 15px;
+    width: 280px;
+    box-shadow: 0 0 12px #000000aa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .event-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  .event-time {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: #ccc;
+  }
+  button.view-btn {
+    background: #00aaff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button.view-btn:hover {
+    background: #008ecc;
+  }
+  #player-container {
+    width: 100%;
+    max-width: 900px;
+    height: 480px;
+    margin: 30px auto 10px;
+    background: black;
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+    position: relative;
+  }
+  #clappr-player {
+    width: 100%;
+    height: 100%;
+  }
+  .iframe-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    display: none;
+  }
+  .iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  #blocker-warning {
+    max-width: 900px;
+    margin: 0 auto 30px;
+    padding: 10px 15px;
+    background: #ff4444cc;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    display: none;
+  }
+  @media (max-width: 768px) {
+    main {
       flex-direction: column;
-      gap: 20px;
-      max-width: 960px;
-      margin: 30px auto;
-      padding: 10px;
+      align-items: center;
     }
-
     .event-card {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 400px;
     }
+    #player-container {
+      width: 90%;
+      height: 300px;
+      margin-top: 20px;
+    }
+  }
+</style>
 
-    .event-card h2 {
-      margin: 0 0 10px;
-      font-size: 20px;
-    }
-
-    .countdown {
-      font-size: 18px;
-      margin: 10px 0;
-    }
-
-    .ver-btn {
-      background-color: #00ccff;
-      color: black;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .ver-btn:hover {
-      background-color: #00aacc;
-    }
-
-    iframe {
-      width: 100%;
-      height: 480px;
-      border: none;
-      border-radius: 10px;
-    }
-  </style>
 </head>
 <body>
 
-  <!-- NAVBAR CON LOGO -->
-  <div class="navbar">
-    <img src="logo.png" alt="Logo" />
+<nav>
+  <img src="logo.png" alt="StreamVerse Logo" />
+</nav>
+
+<main>
+  <div class="event-card" data-type="iframe" data-src="https://streamtp4.com/global1.php?stream=mlb1">
+    <div class="event-title">MLB: Pittsburgh Pirates vs Cincinnati Reds</div>
+    <div class="event-time">11:30am</div>
+    <button class="view-btn">Ver</button>
   </div>
 
-  <!-- REPRODUCTOR -->
-  <div class="player-container">
-    <div id="player"></div>
+  <div class="event-card" data-type="iframe" data-src="https://streamtp4.com/global1.php?stream=mlb11">
+    <div class="event-title">MLB: New York Yankees vs Texas Rangers</div>
+    <div class="event-time">6:00pm</div>
+    <button class="view-btn">Ver</button>
   </div>
 
-  <!-- EVENTOS -->
-  <div class="event-list">
-    <div class="event-card">
-      <h2>MLB: Pittsburgh Pirates vs Cincinnati Reds - 11:30am</h2>
-      <div class="countdown" id="countdown1"></div>
-      <button class="ver-btn" onclick="loadStream('https://streamtp4.com/global1.php?stream=mlb1')">Ver</button>
-    </div>
-
-    <div class="event-card">
-      <h2>MLB: New York Yankees vs Texas Rangers - 6:00pm</h2>
-      <div class="countdown" id="countdown2"></div>
-      <button class="ver-btn" onclick="loadStream('https://streamtp4.com/global1.php?stream=mlb11')">Ver</button>
-    </div>
-
-    <div class="event-card">
-      <h2>NBA: New York Knicks vs Indiana Pacers - 7:00pm</h2>
-      <div class="countdown" id="countdown3"></div>
-      <button class="ver-btn" onclick="loadStream('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
-    </div>
-
-    <div class="event-card">
-      <h2>AEW: Dynamite - 7:00pm</h2>
-      <div class="countdown" id="countdown4"></div>
-      <button class="ver-btn" onclick="loadStream('https://streamtp4.com/global1.php?stream=tsn2')">Ver</button>
-    </div>
+  <div class="event-card" data-type="clappr" data-src="https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8">
+    <div class="event-title">NBA: New York Knicks vs Indiana Pacers</div>
+    <div class="event-time">7:00pm</div>
+    <button class="view-btn">Ver</button>
   </div>
 
-  <!-- SCRIPTS -->
-  <script>
-    let playerInstance = null;
+  <div class="event-card" data-type="iframe" data-src="https://streamtp4.com/global1.php?stream=tsn2">
+    <div class="event-title">AEW: Dynamite</div>
+    <div class="event-time">7:00pm</div>
+    <button class="view-btn">Ver</button>
+  </div>
+</main>
 
-    function loadStream(url) {
-      const container = document.getElementById("player");
-      container.innerHTML = ''; // Limpia el contenedor
+<div id="player-container">
+  <div id="clappr-player"></div>
+  <div class="iframe-container">
+    <iframe id="iframe-player" src="" allowfullscreen></iframe>
+  </div>
+</div>
 
-      if (url.endsWith(".m3u8")) {
-        // Mostrar Clappr
-        playerInstance = new Clappr.Player({
-          source: url,
-          parentId: '#player',
-          width: '100%',
-          height: '480px',
-          autoPlay: true
-        });
-      } else {
-        // Mostrar iframe
-        const iframe = document.createElement("iframe");
-        iframe.src = url;
-        container.appendChild(iframe);
+<div id="blocker-warning">⚠️ Parece que tu navegador o alguna extensión está bloqueando el contenido. Por favor desactiva el bloqueador para poder ver el evento.</div>
+
+<script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+<script>
+  let player = null;
+  const clapprDiv = document.getElementById('clappr-player');
+  const iframeContainer = document.querySelector('.iframe-container');
+  const iframePlayer = document.getElementById('iframe-player');
+  const blockerWarning = document.getElementById('blocker-warning');
+
+  function hideWarning() {
+    blockerWarning.style.display = 'none';
+  }
+  function showWarning() {
+    blockerWarning.style.display = 'block';
+  }
+
+  function loadClappr(url) {
+    if (player) {
+      player.destroy();
+      player = null;
+    }
+    iframeContainer.style.display = 'none';
+    clapprDiv.style.display = 'block';
+    hideWarning();
+
+    player = new Clappr.Player({
+      source: url,
+      parentId: '#clappr-player',
+      width: '100%',
+      height: '100%',
+      autoPlay: true,
+      mute: false,
+      playback: { controls: true }
+    });
+  }
+
+  function loadIframe(url) {
+    if (player) {
+      player.destroy();
+      player = null;
+    }
+    clapprDiv.style.display = 'none';
+    blockerWarning.style.display = 'none';
+    iframeContainer.style.display = 'block';
+    iframePlayer.src = url;
+
+    // Detectar bloqueo con timeout y carga del iframe
+    let loaded = false;
+    iframePlayer.onload = () => {
+      loaded = true;
+      hideWarning();
+    };
+    setTimeout(() => {
+      if (!loaded) {
+        showWarning();
       }
+    }, 5000); // 5 segundos para detectar si carga o no
+  }
+
+  document.querySelectorAll('.view-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.event-card');
+      const type = card.getAttribute('data-type');
+      const src = card.getAttribute('data-src');
+
+      if (type === 'clappr') {
+        loadClappr(src);
+      } else if (type === 'iframe') {
+        loadIframe(src);
+      }
+    });
+  });
+
+  // Carga automática del primer evento
+  window.addEventListener('load', () => {
+    const first = document.querySelector('.event-card');
+    if (!first) return;
+    const type = first.getAttribute('data-type');
+    const src = first.getAttribute('data-src');
+
+    if (type === 'clappr') {
+      loadClappr(src);
+    } else {
+      loadIframe(src);
     }
-
-    function updateCountdown(elementId, targetHour, targetMinute) {
-      const now = new Date();
-      const target = new Date();
-      target.setHours(targetHour, targetMinute, 0, 0);
-      if (target < now) target.setDate(target.getDate() + 1);
-
-      const diff = target - now;
-      const hours = Math.floor(diff / 1000 / 60 / 60);
-      const minutes = Math.floor((diff / 1000 / 60) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      document.getElementById(elementId).innerText = 
-        `${hours}h ${minutes}m ${seconds}s`;
-
-      setTimeout(() => updateCountdown(elementId, targetHour, targetMinute), 1000);
-    }
-
-    function initCountdowns() {
-      updateCountdown('countdown1', 11, 30);
-      updateCountdown('countdown2', 18, 0);
-      updateCountdown('countdown3', 19, 0);
-      updateCountdown('countdown4', 19, 0);
-    }
-
-    initCountdowns();
-  </script>
+  });
+</script>
 
 </body>
 </html>
