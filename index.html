@@ -3,260 +3,181 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Stream Eventos</title>
+<title>StreamVerse</title>
+
 <style>
   body {
-    margin: 0; padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1E3C72, #2A5298);
-    color: white;
+    margin: 0;
+    background: #fafafa;
+    color: #222;
   }
-  /* Navbar */
-  #navbar {
-    height: 50px;
-    background-color: #0D2240;
-    display: flex;
-    align-items: center;
+  header {
+    background: #222;
+    padding: 10px 20px;
+    color: #eee;
+    font-weight: 700;
+    font-size: 24px;
+  }
+  .container {
+    max-width: 1000px;
+    margin: 20px auto;
     padding: 0 15px;
   }
-  #navbar img {
-    height: 36px;
-  }
-  /* Contenedor principal */
-  #main {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    flex-wrap: wrap;
-  }
-  /* Zona eventos */
-  #events {
-    flex: 1 1 320px;
-    max-width: 400px;
-  }
-  .event-card {
-    background: rgba(255 255 255 / 0.12);
-    margin-bottom: 20px;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgb(255 255 255 / 0.1);
-    transition: background-color 0.3s ease;
-  }
-  .event-card:hover {
-    background: rgba(255 255 255 / 0.2);
-  }
-  .event-title {
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  .timer-box {
-    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-    padding: 8px 16px;
-    border-radius: 25px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-align: center;
-    width: fit-content;
-    margin-bottom: 12px;
-    box-shadow: 0 0 10px #00c0ffaa;
-  }
-  button.view-btn {
-    background-color: #ff9800;
-    border: none;
-    color: #222;
-    padding: 10px 22px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 1rem;
-    transition: background-color 0.25s ease;
-    box-shadow: 0 3px 6px rgb(255 152 0 / 0.5);
-  }
-  button.view-btn:hover {
-    background-color: #e07b00;
-    box-shadow: 0 4px 10px rgb(224 123 0 / 0.75);
-  }
-
-  /* Zona reproductor con aspect ratio 16:9 */
-  #player {
-    flex: 2 1 640px;
-    max-width: 900px;
-    position: relative;
-    border-radius: 12px;
-    box-shadow: 0 0 30px rgb(255 255 255 / 0.15);
-    overflow: hidden;
+  .player-container {
+    width: 100%;
+    height: 360px;
     background: #000;
-    width: 100%;
-  }
-  /* Aspect ratio container 16:9 */
-  #player-inner {
     position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 ratio */
+    margin-bottom: 25px;
   }
-  #player iframe,
-  #player video,
-  #player canvas {
-    position: absolute;
-    top: 0; left: 0;
+  .player-container iframe,
+  .player-container #clappr-player {
     width: 100%;
     height: 100%;
     border: none;
+    background: #000;
+  }
+  .events-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .event-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 12px 15px;
+    width: 280px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .event-title {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  .timer-box {
+    background: #e0e0e0;
+    color: #333;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    width: fit-content;
+    margin-bottom: 12px;
+  }
+  .view-btn {
+    padding: 8px 16px;
+    font-size: 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: stretch;
+    text-align: center;
+    transition: background-color 0.2s ease;
+  }
+  .view-btn:hover {
+    background-color: #0056b3;
   }
 
-  /* Advertencia modal dentro del player */
+  /* Modal advertencia simple */
   #warning-modal {
     display: none;
     position: absolute;
-    top: 10%;
-    left: 10%;
-    right: 10%;
-    bottom: 10%;
-    background-color: rgba(0,0,0,0.85);
-    border-radius: 12px;
-    z-index: 2000;
-    color: white;
-    font-size: 1rem;
-    padding: 25px 30px;
-    box-shadow: 0 0 25px #00aaffcc;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.65);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    animation: fadeIn 0.3s ease forwards;
+    padding: 20px;
     text-align: center;
   }
-  #warning-modal p {
-    margin-bottom: 25px;
-    line-height: 1.4;
-  }
   #warning-modal button {
-    margin: 0 10px;
-    padding: 12px 28px;
-    border-radius: 30px;
+    margin: 12px 8px 0 8px;
+    padding: 10px 18px;
+    font-size: 16px;
     border: none;
-    font-weight: 700;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
-    min-width: 110px;
-    transition: background-color 0.3s ease;
   }
   #accept-btn {
     background-color: #28a745;
     color: white;
-    box-shadow: 0 4px 12px #28a745cc;
   }
   #accept-btn:hover {
-    background-color: #218838;
+    background-color: #1e7e34;
   }
   #cancel-btn {
     background-color: #dc3545;
     color: white;
-    box-shadow: 0 4px 12px #dc3545cc;
   }
   #cancel-btn:hover {
-    background-color: #c82333;
-  }
-
-  @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }
-
-  /* Responsive */
-  @media (max-width: 700px) {
-    #main {
-      flex-direction: column;
-      padding: 15px;
-    }
-    #player {
-      max-width: 100%;
-      margin-top: 15px;
-    }
-    #events {
-      max-width: 100%;
-    }
+    background-color: #a71d2a;
   }
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
 </head>
 <body>
 
-<div id="navbar">
-  <img src="logo.png" alt="Logo" />
-</div>
+<header>StreamVerse Eventos</header>
 
-<div id="main">
-  <div id="events" aria-label="Lista de eventos">
-    <!-- Eventos generados por JS -->
-  </div>
-  <div id="player" aria-label="Reproductor de video">
-    <div id="player-inner">
-      <!-- Aquí va el iframe o Clappr -->
-      <!-- Aquí va la advertencia también -->
-      <div id="warning-modal" role="dialog" aria-modal="true" aria-labelledby="warning-title">
-        <p id="warning-title">Este contenido puede contener anuncios, popups y otros elementos molestos.<br>¿Deseas continuar viendo?</p>
-        <div>
-          <button id="accept-btn" aria-label="Aceptar ver contenido">Aceptar</button>
-          <button id="cancel-btn" aria-label="Cancelar y cerrar advertencia">Cancelar</button>
-        </div>
+<div class="container">
+  <div class="player-container" id="player-container">
+    <!-- Aquí va el reproductor -->
+    <div id="player-inner"></div>
+    <div id="warning-modal">
+      <div>¡Advertencia! El contenido puede ser inseguro.</div>
+      <div>
+        <button id="accept-btn">Aceptar</button>
+        <button id="cancel-btn">Cancelar</button>
       </div>
     </div>
   </div>
+
+  <div class="events-list" id="events-container"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
 <script>
   const events = [
-    {
-      title: "MLB: Pittsburgh Pirates vs Cincinnati Reds",
-      time: "11:30",
-      type: "iframe",
-      url: "https://streamtp4.com/global1.php?stream=mlb1"
-    },
-    {
-      title: "MLB: New York Yankees vs Texas Rangers",
-      time: "18:00",
-      type: "iframe",
-      url: "https://streamtp4.com/global1.php?stream=mlb11"
-    },
-    {
-      title: "NBA: New York Knicks vs Indiana Pacers",
-      time: "19:00",
-      type: "clappr",
-      url: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8"
-    },
-    {
-      title: "AEW: Dynamite",
-      time: "19:00",
-      type: "iframe",
-      url: "https://streamtp4.com/global1.php?stream=tsn2"
-    }
+    { title: "WWE: Wrestlemania 41 (Sáb 19)", time: "17:00", url: "https://example.com/event1.m3u8", type: "clappr" },
+    { title: "WWE: Wrestlemania 41 (Dom 20)", time: "17:00", url: "https://example.com/event2.m3u8", type: "clappr" },
+    { title: "NBA: Bulls vs Heat", time: "18:00", url: "https://example.com/event3.m3u8", type: "clappr" },
+    { title: "AEW: Dynamite", time: "20:00", url: "https://streamtp4.com/unsafe_stream", type: "iframe" }
   ];
 
-  const eventsContainer = document.getElementById('events');
   const playerInner = document.getElementById('player-inner');
+  const eventsContainer = document.getElementById('events-container');
   const warningModal = document.getElementById('warning-modal');
   const acceptBtn = document.getElementById('accept-btn');
   const cancelBtn = document.getElementById('cancel-btn');
 
-  let currentEventIndex = null;
   let clapprPlayer = null;
+  let currentEventIndex = null;
 
   function getCountdown(targetHour, targetMinute) {
     const now = new Date();
-    let target = new Date();
+    const target = new Date();
     target.setHours(targetHour, targetMinute, 0, 0);
-    if (now > target) return null;
-    const diffMs = target - now;
-    const h = Math.floor(diffMs / (1000 * 60 * 60));
-    const m = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((diffMs % (1000 * 60)) / 1000);
+    if (target < now) return null; // Ya inició
+    const diff = target - now;
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
     return { h, m, s };
   }
 
-  // Crear tarjeta evento
   function createEventCard(ev, i) {
     const card = document.createElement('div');
     card.className = 'event-card';
@@ -280,15 +201,16 @@
     btn.addEventListener('click', () => handleViewClick(i));
     card.appendChild(btn);
 
-    // Actualizar timer cada segundo
     function updateTimer() {
       const c = getCountdown(h, m);
-      if(!c) {
+      if (!c) {
         timer.textContent = "¡EN VIVO!";
-        timer.style.background = "linear-gradient(90deg, #ff416c, #ff4b2b)";
+        timer.style.background = "#d4edda";
+        timer.style.color = "#155724";
       } else {
-        timer.style.background = "linear-gradient(90deg, #4facfe 0%, #00f2fe 100%)";
-        timer.textContent = `${String(c.h).padStart(2,'0')}:${String(c.m).padStart(2,'0')}:${String(c.s).padStart(2,'0')}`;
+        timer.style.background = "#e0e0e0";
+        timer.style.color = "#333";
+        timer.textContent = `${String(c.h).padStart(2, '0')}:${String(c.m).padStart(2, '0')}:${String(c.s).padStart(2, '0')}`;
       }
     }
     updateTimer();
@@ -297,20 +219,17 @@
     return card;
   }
 
-  // Cargar iframe sin sandbox
   function loadIframe(url) {
-    removePlayerContent();
+    clearPlayer();
     const iframe = document.createElement('iframe');
     iframe.src = url;
     iframe.allowFullscreen = true;
     iframe.allow = "autoplay; fullscreen";
-    iframe.setAttribute('allowfullscreen', '');
     playerInner.appendChild(iframe);
   }
 
-  // Cargar Clappr player
   function loadClappr(url) {
-    removePlayerContent();
+    clearPlayer();
     const playerDiv = document.createElement('div');
     playerDiv.id = 'clappr-player';
     playerInner.appendChild(playerDiv);
@@ -321,65 +240,40 @@
       width: '100%',
       height: '100%',
       autoPlay: true,
-      mute: false,
-      mediacontrol: {seekbar: "#00f2fe"},
-      watermark: false,
+      mute: false
     });
   }
 
-  // Limpiar contenido player
-  function removePlayerContent() {
-    if(clapprPlayer) {
+  function clearPlayer() {
+    if (clapprPlayer) {
       clapprPlayer.destroy();
       clapprPlayer = null;
     }
-    while(playerInner.firstChild) {
-      playerInner.removeChild(playerInner.firstChild);
-    }
+    playerInner.innerHTML = '';
   }
 
-  // Manejar click en botón ver
-  function handleViewClick(index) {
-    const event = events[index];
-    currentEventIndex = index;
-    if(event.url.includes('streamtp4.com')) {
-      showWarning();
+  function handleViewClick(i) {
+    currentEventIndex = i;
+    const ev = events[i];
+    if (ev.url.includes('streamtp4.com')) {
+      warningModal.style.display = 'flex';
     } else {
-      hideWarning();
-      if(event.type === 'iframe') loadIframe(event.url);
-      else if(event.type === 'clappr') loadClappr(event.url);
+      warningModal.style.display = 'none';
+      if (ev.type === 'iframe') loadIframe(ev.url);
+      else if (ev.type === 'clappr') loadClappr(ev.url);
     }
   }
 
-  // Mostrar advertencia dentro del player con fade
-  function showWarning() {
-    warningModal.style.display = 'flex';
-    warningModal.style.opacity = 0;
-    let op = 0;
-    const fadeInTimer = setInterval(() => {
-      if(op >= 1) clearInterval(fadeInTimer);
-      warningModal.style.opacity = op;
-      op += 0.1;
-    }, 30);
-  }
-
-  // Ocultar advertencia
-  function hideWarning() {
-    warningModal.style.display = 'none';
-  }
-
-  // Botones modal
   acceptBtn.addEventListener('click', () => {
-    hideWarning();
-    const event = events[currentEventIndex];
-    if(event.type === 'iframe') loadIframe(event.url);
-    else if(event.type === 'clappr') loadClappr(event.url);
+    warningModal.style.display = 'none';
+    const ev = events[currentEventIndex];
+    if (ev.type === 'iframe') loadIframe(ev.url);
+    else if (ev.type === 'clappr') loadClappr(ev.url);
   });
   cancelBtn.addEventListener('click', () => {
-    hideWarning();
+    warningModal.style.display = 'none';
   });
 
-  // Cargar eventos al iniciar
   events.forEach((ev, i) => {
     const card = createEventCard(ev, i);
     eventsContainer.appendChild(card);
