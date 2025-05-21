@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Eventos Deportivos</title>
+  <title>Eventos en Vivo</title>
   <style>
     body {
       margin: 0;
       font-family: sans-serif;
-      background: #001f3f;
+      background-color: #0b0c10;
       color: white;
       display: flex;
       flex-direction: column;
@@ -26,10 +26,12 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       background: black;
-      margin-bottom: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 30px;
     }
 
-    iframe, video {
+    #player iframe, #player video {
       width: 100%;
       height: 100%;
       border: none;
@@ -37,20 +39,18 @@
 
     #warning {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       background: rgba(0,0,0,0.85);
-      color: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      text-align: center;
+      padding: 20px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.5s ease;
-      z-index: 5;
+      z-index: 10;
     }
 
     #warning.show {
@@ -59,61 +59,43 @@
     }
 
     #warning button {
-      margin-top: 10px;
+      margin-top: 15px;
       padding: 10px 20px;
-      background: #0074D9;
+      background: #1abc9c;
       border: none;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
       border-radius: 6px;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     .event {
-      background: #003366;
-      padding: 15px;
+      background: #1f2833;
+      padding: 16px;
       border-radius: 12px;
       margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
     .event h2 {
       margin: 0;
-      font-size: 20px;
+      font-size: 18px;
     }
 
     .timer {
-      font-size: 18px;
-      background: #001f3f;
-      padding: 8px 16px;
-      border-radius: 8px;
-      display: inline-block;
+      margin: 8px 0;
+      font-size: 16px;
+      color: #66fcf1;
     }
 
     .event button {
-      padding: 10px 16px;
-      background: #2ECC40;
+      padding: 8px 16px;
+      background: #45a29e;
       border: none;
-      color: black;
+      color: white;
       font-weight: bold;
       border-radius: 8px;
       cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        padding: 10px;
-      }
-
-      .event h2 {
-        font-size: 16px;
-      }
-
-      .timer {
-        font-size: 16px;
-      }
     }
   </style>
 </head>
@@ -122,7 +104,7 @@
     <div class="player-container">
       <div id="warning">
         <p>⚠ Este contenido puede mostrar anuncios tipo <b>popup</b>. ¿Desea continuar?</p>
-        <button onclick="acceptWarning()">Aceptar</button>
+        <button onclick="aceptarAdvertencia()">Aceptar</button>
       </div>
       <div id="player"></div>
     </div>
@@ -130,51 +112,53 @@
     <div class="event">
       <h2>MLB: Pittsburgh Pirates vs Cincinnati Reds - 11:30am</h2>
       <div class="timer" id="timer1"></div>
-      <button onclick="handleStream('https://streamtp4.com/global1.php?stream=mlb1')">Ver</button>
+      <button onclick="cargarEvento('https://streamtp4.com/global1.php?stream=mlb1')">Ver</button>
     </div>
 
     <div class="event">
       <h2>MLB: New York Yankees vs Texas Rangers - 6:00pm</h2>
       <div class="timer" id="timer2"></div>
-      <button onclick="handleStream('https://streamtp4.com/global1.php?stream=mlb11')">Ver</button>
+      <button onclick="cargarEvento('https://streamtp4.com/global1.php?stream=mlb11')">Ver</button>
     </div>
 
     <div class="event">
       <h2>NBA: New York Knicks vs Indiana Pacers - 7:00pm</h2>
       <div class="timer" id="timer3"></div>
-      <button onclick="handleStream('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
+      <button onclick="cargarEvento('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
     </div>
 
     <div class="event">
       <h2>AEW: Dynamite - 7:00pm</h2>
       <div class="timer" id="timer4"></div>
-      <button onclick="handleStream('https://streamtp4.com/global1.php?stream=tsn2')">Ver</button>
+      <button onclick="cargarEvento('https://streamtp4.com/global1.php?stream=tsn2')">Ver</button>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <script>
     const warning = document.getElementById('warning');
-    let pendingUrl = null;
+    let urlPendiente = null;
 
-    function acceptWarning() {
+    function aceptarAdvertencia() {
       warning.classList.remove('show');
-      if (pendingUrl) loadPlayer(pendingUrl);
-      pendingUrl = null;
-    }
-
-    function handleStream(url) {
-      if (url.includes("streamtp4.com")) {
-        warning.classList.add('show');
-        pendingUrl = url;
-      } else {
-        loadPlayer(url);
+      if (urlPendiente) {
+        cargarReproductor(urlPendiente);
+        urlPendiente = null;
       }
     }
 
-    function loadPlayer(url) {
-      const playerDiv = document.getElementById('player');
-      playerDiv.innerHTML = "";
+    function cargarEvento(url) {
+      if (url.includes("streamtp4.com")) {
+        warning.classList.add('show');
+        urlPendiente = url;
+      } else {
+        cargarReproductor(url);
+      }
+    }
+
+    function cargarReproductor(url) {
+      const player = document.getElementById('player');
+      player.innerHTML = "";
 
       if (url.endsWith('.m3u8')) {
         new Clappr.Player({
@@ -185,38 +169,38 @@
           autoPlay: true,
         });
       } else {
-        playerDiv.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
+        player.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
       }
     }
 
-    function updateTimers() {
-      const events = [
-        { id: 'timer1', hour: 11, minute: 30 },
-        { id: 'timer2', hour: 18, minute: 0 },
-        { id: 'timer3', hour: 19, minute: 0 },
-        { id: 'timer4', hour: 19, minute: 0 },
+    function actualizarTimers() {
+      const eventos = [
+        { id: 'timer1', hora: 11, minuto: 30 },
+        { id: 'timer2', hora: 18, minuto: 0 },
+        { id: 'timer3', hora: 19, minuto: 0 },
+        { id: 'timer4', hora: 19, minuto: 0 },
       ];
 
-      const now = new Date();
-      const prTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Puerto_Rico" }));
+      const ahora = new Date();
+      const prTime = new Date(ahora.toLocaleString("en-US", { timeZone: "America/Puerto_Rico" }));
 
-      events.forEach((e, i) => {
+      eventos.forEach(e => {
         const target = new Date(prTime);
-        target.setHours(e.hour, e.minute, 0, 0);
+        target.setHours(e.hora, e.minuto, 0, 0);
         if (target < prTime) target.setDate(target.getDate() + 1);
 
         const diff = target - prTime;
-        const hours = Math.floor(diff / 1000 / 60 / 60);
-        const minutes = Math.floor((diff / 1000 / 60) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
+        const h = Math.floor(diff / 1000 / 60 / 60);
+        const m = Math.floor((diff / 1000 / 60) % 60);
+        const s = Math.floor((diff / 1000) % 60);
 
-        document.getElementById(e.id).textContent = 
-          `Empieza en: ${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+        document.getElementById(e.id).textContent =
+          `Empieza en: ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
       });
     }
 
-    setInterval(updateTimers, 1000);
-    updateTimers();
+    setInterval(actualizarTimers, 1000);
+    actualizarTimers();
   </script>
 </body>
 </html>
