@@ -1,198 +1,202 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Eventos Deportivos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamZone</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #0057b8, #002244);
+      background: #0d1b2a;
+      font-family: 'Segoe UI', sans-serif;
       color: white;
     }
     header {
-      background-color: #001d3d;
+      background: #1b263b;
       padding: 10px 20px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
     }
-    header h1 {
-      margin: 0;
-      font-size: 24px;
+    header img {
+      height: 40px;
     }
     .container {
+      padding: 20px;
       display: flex;
       flex-direction: column;
       gap: 20px;
-      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
     }
-    .video-section {
+    .player-container {
       position: relative;
-      background-color: #000;
       width: 100%;
-      aspect-ratio: 16 / 9;
-    }
-    .event {
-      background-color: #003566;
-      padding: 15px;
+      padding-top: 56.25%; /* 16:9 */
+      background: #000;
       border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
     }
-    .event h3 {
-      margin: 0 0 10px 0;
-    }
-    .event .actions {
-      margin-top: 10px;
-    }
-    button {
-      background-color: #ffc300;
-      color: #000;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    #overlayWarning {
+    #player, iframe {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+    }
+    .events {
+      display: grid;
+      gap: 20px;
+    }
+    .event {
+      background: #1e2a38;
+      padding: 15px;
+      border-radius: 12px;
+    }
+    .event h3 {
+      margin: 0 0 5px;
+    }
+    .timer {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .event button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #00b4d8;
+      color: white;
+      cursor: pointer;
+    }
+    .overlay {
       display: none;
-      align-items: center;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
       justify-content: center;
+      align-items: center;
       flex-direction: column;
       z-index: 10;
       color: white;
-      text-align: center;
       padding: 20px;
+      text-align: center;
     }
-    .timer-box {
-      background-color: #001d3d;
-      border-radius: 8px;
-      padding: 5px 10px;
-      display: inline-block;
+    .overlay button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      background: #00b4d8;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>StreamVerse Deportes</h1>
+    <img src="logo.png" alt="Logo">
   </header>
 
   <div class="container">
-    <div class="video-section" id="video">
-      <!-- reproductor se carga aquí -->
-    </div>
-
-    <div id="overlayWarning">
-      <p>Este contenido contiene anuncios emergentes (popup). ¿Deseas continuar?</p>
-      <button onclick="acceptWarning()">Aceptar</button>
-    </div>
-
-    <div class="event">
-      <h3>MLB: Pittsburgh Pirates vs Cincinnati Reds</h3>
-      <div class="timer-box"><span id="timer1"></span></div>
-      <div class="actions">
-        <button onclick="loadIframe('https://streamtp4.com/global1.php?stream=mlb1', true)">Ver</button>
+    <div class="player-container">
+      <div id="player"></div>
+      <div class="overlay" id="warning">
+        <p>Este contenido puede tener anuncios y ventanas emergentes. ¿Deseas continuar?</p>
+        <button onclick="acceptWarning()">Aceptar</button>
       </div>
     </div>
 
-    <div class="event">
-      <h3>MLB: New York Yankees vs Texas Rangers</h3>
-      <div class="timer-box"><span id="timer2"></span></div>
-      <div class="actions">
-        <button onclick="loadIframe('https://streamtp4.com/global1.php?stream=mlb11', true)">Ver</button>
-      </div>
-    </div>
-
-    <div class="event">
-      <h3>NBA: New York Knicks vs Indiana Pacers</h3>
-      <div class="timer-box"><span id="timer3"></span></div>
-      <div class="actions">
-        <button onclick="loadClappr('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
-      </div>
-    </div>
-
-    <div class="event">
-      <h3>AEW: Dynamite</h3>
-      <div class="timer-box"><span id="timer4"></span></div>
-      <div class="actions">
-        <button onclick="loadIframe('https://streamtp4.com/global1.php?stream=tsn2', true)">Ver</button>
-      </div>
-    </div>
+    <div class="events" id="events"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <script>
-    const timers = [
-      { id: 'timer1', time: '11:30' },
-      { id: 'timer2', time: '18:00' },
-      { id: 'timer3', time: '19:00' },
-      { id: 'timer4', time: '19:00' }
+    const events = [
+      {
+        title: "MLB: Pittsburgh Pirates vs Cincinnati Reds",
+        time: "2025-05-21T11:30:00",
+        type: "iframe",
+        src: "https://streamtp4.com/global1.php?stream=mlb1"
+      },
+      {
+        title: "MLB: New York Yankees vs Texas Rangers",
+        time: "2025-05-21T18:00:00",
+        type: "iframe",
+        src: "https://streamtp4.com/global1.php?stream=mlb11"
+      },
+      {
+        title: "NBA: New York Knicks vs Indiana Pacers",
+        time: "2025-05-21T19:00:00",
+        type: "clappr",
+        src: "https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8"
+      },
+      {
+        title: "AEW: Dynamite",
+        time: "2025-05-21T19:00:00",
+        type: "iframe",
+        src: "https://streamtp4.com/global1.php?stream=tsn2"
+      }
     ];
 
-    function updateTimers() {
+    const eventsContainer = document.getElementById('events');
+    const playerContainer = document.getElementById('player');
+    const overlay = document.getElementById('warning');
+    let pendingIframe = null;
+
+    function renderEvents() {
       const now = new Date();
-      const puertoRicoOffset = -4 * 60;
-      const localOffset = now.getTimezoneOffset();
-      const offsetDiff = (puertoRicoOffset - localOffset) * 60 * 1000;
-      const nowPR = new Date(now.getTime() + offsetDiff);
-
-      timers.forEach(timer => {
-        const target = new Date(nowPR);
-        const [h, m] = timer.time.split(':');
-        target.setHours(parseInt(h), parseInt(m), 0, 0);
-
-        const el = document.getElementById(timer.id);
-
-        if (nowPR >= target) {
-          el.textContent = '¡Ya comenzó!';
+      eventsContainer.innerHTML = '';
+      events.forEach((event, index) => {
+        const startTime = new Date(event.time);
+        let displayTime = '';
+        if (now >= startTime) {
+          displayTime = '¡Ya comenzó!';
         } else {
-          const diff = target - nowPR;
+          const diff = startTime - now;
           const hours = Math.floor(diff / (1000 * 60 * 60));
-          const minutes = Math.floor((diff / (1000 * 60)) % 60);
-          const seconds = Math.floor((diff / 1000) % 60);
-          el.textContent = `${hours}h ${minutes}m ${seconds}s`;
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          displayTime = `Comienza en ${hours}h ${minutes}m`;
         }
+
+        const div = document.createElement('div');
+        div.className = 'event';
+        div.innerHTML = `
+          <h3>${event.title}</h3>
+          <div class="timer">${displayTime}</div>
+          <button onclick="viewEvent(${index})">Ver</button>
+        `;
+        eventsContainer.appendChild(div);
       });
     }
 
-    setInterval(updateTimers, 1000);
-    updateTimers();
-
-    function loadClappr(source) {
-      document.getElementById('video').innerHTML = '';
-      document.getElementById('overlayWarning').style.display = 'none';
-      new Clappr.Player({
-        source,
-        parentId: "#video",
-        width: "100%",
-        height: "100%",
-        autoPlay: true
-      });
-    }
-
-    function loadIframe(url, needsWarning = false) {
-      if (needsWarning) {
-        const overlay = document.getElementById('overlayWarning');
-        overlay.style.display = 'flex';
-        overlay.dataset.url = url;
-      } else {
-        document.getElementById('video').innerHTML = `<iframe src="${url}" frameborder="0" allowfullscreen style="width:100%;height:100%"></iframe>`;
+    function viewEvent(index) {
+      const event = events[index];
+      if (event.type === 'clappr') {
+        overlay.style.display = 'none';
+        playerContainer.innerHTML = '<div id="player"></div>';
+        new Clappr.Player({
+          source: event.src,
+          parentId: "#player",
+          width: '100%',
+          height: '100%'
+        });
+      } else if (event.type === 'iframe') {
+        if (event.src.includes('streamtp4.com')) {
+          overlay.style.display = 'flex';
+          pendingIframe = event.src;
+        } else {
+          playerContainer.innerHTML = `<iframe src="${event.src}" frameborder="0" allowfullscreen></iframe>`;
+        }
       }
     }
 
     function acceptWarning() {
-      const overlay = document.getElementById('overlayWarning');
-      const url = overlay.dataset.url;
       overlay.style.display = 'none';
-      document.getElementById('video').innerHTML = `<iframe src="${url}" frameborder="0" allowfullscreen style="width:100%;height:100%"></iframe>`;
+      playerContainer.innerHTML = `<iframe src="${pendingIframe}" frameborder="0" allowfullscreen></iframe>`;
+      pendingIframe = null;
     }
+
+    renderEvents();
+    setInterval(renderEvents, 60000);
   </script>
 </body>
 </html>
