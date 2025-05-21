@@ -2,199 +2,221 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Eventos en Vivo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eventos Deportivos</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #021428, #0b2440);
-      color: #fff;
-    }
-    header {
-      background-color: #00000080;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    header img {
-      height: 40px;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 20px auto;
-      padding: 0 20px;
-    }
-    #player-container {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #000;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    #warning {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.9);
+      font-family: sans-serif;
+      background: #001f3f;
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
       padding: 20px;
+    }
+
+    .player-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: black;
+      margin-bottom: 20px;
+    }
+
+    iframe, video {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    #warning {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.5s;
+      transition: opacity 0.5s ease;
+      z-index: 5;
     }
+
     #warning.show {
       opacity: 1;
       pointer-events: all;
     }
+
     #warning button {
-      margin-top: 15px;
+      margin-top: 10px;
       padding: 10px 20px;
-      background: #007bff;
-      color: #fff;
+      background: #0074D9;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .event {
-      background: #0d1e33;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00000055;
-    }
-    .event h3 {
-      margin-top: 0;
-    }
-    .timer {
-      font-size: 1.2em;
-      margin: 10px 0;
-    }
-    .event button {
-      padding: 10px 15px;
-      background: #00aaff;
       color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .event {
+      background: #003366;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .event h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .timer {
+      font-size: 18px;
+      background: #001f3f;
+      padding: 8px 16px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    .event button {
+      padding: 10px 16px;
+      background: #2ECC40;
       border: none;
-      border-radius: 5px;
+      color: black;
+      font-weight: bold;
+      border-radius: 8px;
       cursor: pointer;
     }
+
     @media (max-width: 768px) {
       .container {
         padding: 10px;
+      }
+
+      .event h2 {
+        font-size: 16px;
+      }
+
+      .timer {
+        font-size: 16px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Logo" />
-  </header>
   <div class="container">
-    <div id="player-container">
-      <div id="player"></div>
+    <div class="player-container">
       <div id="warning">
-        <p>Este contenido puede contener anuncios emergentes y ventanas popup. ¿Deseas continuar?</p>
-        <button onclick="proceedWarning()">Aceptar</button>
+        <p>⚠ Este contenido puede mostrar anuncios tipo <b>popup</b>. ¿Desea continuar?</p>
+        <button onclick="acceptWarning()">Aceptar</button>
       </div>
+      <div id="player"></div>
     </div>
 
     <div class="event">
-      <h3>MLB: Pittsburgh Pirates vs Cincinnati Reds - 11:30am</h3>
+      <h2>MLB: Pittsburgh Pirates vs Cincinnati Reds - 11:30am</h2>
       <div class="timer" id="timer1"></div>
-      <button onclick="handleView('iframe', 'https://streamtp4.com/global1.php?stream=mlb1')">Ver</button>
+      <button onclick="handleStream('https://streamtp4.com/global1.php?stream=mlb1')">Ver</button>
     </div>
 
     <div class="event">
-      <h3>MLB: New York Yankees vs Texas Rangers - 6:00pm</h3>
+      <h2>MLB: New York Yankees vs Texas Rangers - 6:00pm</h2>
       <div class="timer" id="timer2"></div>
-      <button onclick="handleView('iframe', 'https://streamtp4.com/global1.php?stream=mlb11')">Ver</button>
+      <button onclick="handleStream('https://streamtp4.com/global1.php?stream=mlb11')">Ver</button>
     </div>
 
     <div class="event">
-      <h3>NBA: New York Knicks vs Indiana Pacers - 7:00pm</h3>
+      <h2>NBA: New York Knicks vs Indiana Pacers - 7:00pm</h2>
       <div class="timer" id="timer3"></div>
-      <button onclick="handleView('clappr', 'https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
+      <button onclick="handleStream('https://giatv.bozztv.com/giatv/giatv-PPVDeportes2/PPVDeportes2/playlist.m3u8')">Ver</button>
     </div>
 
     <div class="event">
-      <h3>AEW: Dynamite - 7:00pm</h3>
+      <h2>AEW: Dynamite - 7:00pm</h2>
       <div class="timer" id="timer4"></div>
-      <button onclick="handleView('iframe', 'https://streamtp4.com/global1.php?stream=tsn2')">Ver</button>
+      <button onclick="handleStream('https://streamtp4.com/global1.php?stream=tsn2')">Ver</button>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <script>
-    const playerDiv = document.getElementById("player");
-    const warning = document.getElementById("warning");
-    let pendingUrl = null, pendingType = null;
+    const warning = document.getElementById('warning');
+    let pendingUrl = null;
 
-    function handleView(type, url) {
+    function acceptWarning() {
+      warning.classList.remove('show');
+      if (pendingUrl) loadPlayer(pendingUrl);
+      pendingUrl = null;
+    }
+
+    function handleStream(url) {
       if (url.includes("streamtp4.com")) {
+        warning.classList.add('show');
         pendingUrl = url;
-        pendingType = type;
-        warning.classList.add("show");
       } else {
-        loadPlayer(type, url);
+        loadPlayer(url);
       }
     }
 
-    function proceedWarning() {
-      warning.classList.remove("show");
-      if (pendingUrl && pendingType) {
-        loadPlayer(pendingType, pendingUrl);
-        pendingUrl = null;
-        pendingType = null;
-      }
-    }
-
-    function loadPlayer(type, url) {
+    function loadPlayer(url) {
+      const playerDiv = document.getElementById('player');
       playerDiv.innerHTML = "";
-      if (type === "clappr") {
+
+      if (url.endsWith('.m3u8')) {
         new Clappr.Player({
           source: url,
           parentId: "#player",
           width: "100%",
           height: "100%",
+          autoPlay: true,
         });
-      } else if (type === "iframe") {
-        const iframe = document.createElement("iframe");
-        iframe.src = url;
-        iframe.allowFullscreen = true;
-        iframe.style.width = "100%";
-        iframe.style.height = "100%";
-        iframe.style.border = "none";
-        playerDiv.appendChild(iframe);
+      } else {
+        playerDiv.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
       }
     }
 
-    function startTimer(id, hour, minute) {
-      const timerEl = document.getElementById(id);
-      function update() {
-        const now = new Date();
-        const target = new Date();
-        target.setHours(hour, minute, 0, 0);
-        if (now > target) target.setDate(target.getDate() + 1);
-        const diff = target - now;
-        const h = Math.floor(diff / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
-        timerEl.textContent = `Empieza en ${h}h ${m}m ${s}s`;
-      }
-      update();
-      setInterval(update, 1000);
+    function updateTimers() {
+      const events = [
+        { id: 'timer1', hour: 11, minute: 30 },
+        { id: 'timer2', hour: 18, minute: 0 },
+        { id: 'timer3', hour: 19, minute: 0 },
+        { id: 'timer4', hour: 19, minute: 0 },
+      ];
+
+      const now = new Date();
+      const prTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Puerto_Rico" }));
+
+      events.forEach((e, i) => {
+        const target = new Date(prTime);
+        target.setHours(e.hour, e.minute, 0, 0);
+        if (target < prTime) target.setDate(target.getDate() + 1);
+
+        const diff = target - prTime;
+        const hours = Math.floor(diff / 1000 / 60 / 60);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById(e.id).textContent = 
+          `Empieza en: ${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+      });
     }
 
-    startTimer("timer1", 11, 30);
-    startTimer("timer2", 18, 0);
-    startTimer("timer3", 19, 0);
-    startTimer("timer4", 19, 0);
+    setInterval(updateTimers, 1000);
+    updateTimers();
   </script>
 </body>
 </html>
