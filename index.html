@@ -13,6 +13,23 @@
       color: white;
     }
 
+    /* NAVBAR */
+    .navbar {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar img {
+      height: 40px;
+    }
+
     .player-container {
       width: 100%;
       max-width: 960px;
@@ -71,10 +88,17 @@
 </head>
 <body>
 
+  <!-- NAVBAR CON LOGO -->
+  <div class="navbar">
+    <img src="logo.png" alt="Logo" />
+  </div>
+
+  <!-- REPRODUCTOR -->
   <div class="player-container">
     <div id="player"></div>
   </div>
 
+  <!-- EVENTOS -->
   <div class="event-list">
     <div class="event-card">
       <h2>MLB: Pittsburgh Pirates vs Cincinnati Reds - 11:30am</h2>
@@ -101,6 +125,7 @@
     </div>
   </div>
 
+  <!-- SCRIPTS -->
   <script>
     let playerInstance = null;
 
@@ -132,7 +157,6 @@
       if (target < now) target.setDate(target.getDate() + 1);
 
       const diff = target - now;
-
       const hours = Math.floor(diff / 1000 / 60 / 60);
       const minutes = Math.floor((diff / 1000 / 60) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
