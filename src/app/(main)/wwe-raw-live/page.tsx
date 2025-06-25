@@ -8,18 +8,17 @@ import 'video.js/dist/video-js.css'; // Importamos los estilos CSS de video.js
 import Link from 'next/link'; // Si usas Link en el contenido
 import Image from 'next/image'; // Si usas Image en el contenido
 
-// NOTA: getWweRawStreamDetails ya no puede ser 'async' directamente aquí
-// si HomePage es 'use client', o debe ser una llamada fetch en useEffect.
-// Para este ejemplo, movemos los datos directamente al componente.
-
 export default function WweRawLivePage() { // Ya no es 'async'
   // Datos del stream (ahora dentro del Client Component)
   const streamDetails = {
     title: 'WWE Raw - Transmisión EN VIVO',
-    description: 'Sigue la acción de WWE Raw en directo o mira la repetición completa del último episodio. Con tus superestrellas favoritas, rivalidades intensas y combates espectaculares cada semana.',
+    description:
+      'Sigue la acción de WWE Raw en directo o mira la repetición completa del último episodio. Con tus superestrellas favoritas, rivalidades intensas y combates espectaculares cada semana.',
     league: 'WWE',
-    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://3148-209-91-239-6.ngrok-free.app/LiveApp/streams/nK9aEMwbwwn30ulX47990285351358.m3u8', // URL de prueba M3U8
-    posterUrl: 'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2024/12/Ge77Z8_bMAAQofn.jpeg', // Logo o imagen del show
+    playbackUrl:
+      'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://3148-209-91-239-6.ngrok-free.app/LiveApp/streams/nK9aEMwbwwn30ulX47990285351358.m3u8', // URL de prueba M3U8
+    posterUrl:
+      'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2024/12/Ge77Z8_bMAAQofn.jpeg', // Logo o imagen del show
     isLive: true,
     nextEpisodeDate: 'Lunes, 30 de Junio del 2025 - 8:00 PM EST',
   };
@@ -58,7 +57,11 @@ export default function WweRawLivePage() { // Ya no es 'async'
     } else {
       const player = playerRef.current;
       player.autoplay(videoPlayerOptions.autoplay || false);
-      if (videoPlayerOptions.sources && videoPlayerOptions.sources.length > 0 && player.src() !== videoPlayerOptions.sources[0]?.src) {
+      if (
+        videoPlayerOptions.sources &&
+        videoPlayerOptions.sources.length > 0 &&
+        player.currentSrc() !== videoPlayerOptions.sources[0]?.src
+      ) {
         player.src(videoPlayerOptions.sources);
       }
     }
@@ -74,9 +77,7 @@ export default function WweRawLivePage() { // Ya no es 'async'
   return (
     <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-orange-500 text-center mb-8">
-          {streamDetails.title}
-        </h1>
+        <h1 className="text-4xl font-extrabold text-orange-500 text-center mb-8">{streamDetails.title}</h1>
 
         {/* Reproductor de Video - Ahora directamente aquí */}
         <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative">
@@ -100,7 +101,8 @@ export default function WweRawLivePage() { // Ya no es 'async'
           </p>
           {streamDetails.nextEpisodeDate && (
             <p className="text-gray-400 text-sm mt-1">
-              Próximo Episodio: <span className="font-semibold text-white">{streamDetails.nextEpisodeDate}</span>
+              Próximo Episodio:{' '}
+              <span className="font-semibold text-white">{streamDetails.nextEpisodeDate}</span>
             </p>
           )}
         </div>
