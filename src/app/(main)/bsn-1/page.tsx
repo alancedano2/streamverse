@@ -22,7 +22,7 @@ function getBsn1Details(): BSNEventDetails {
     title: 'BSN: Indios de Mayagüez vs Piratas de Quebradillas',
     description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico. ¡Un duelo de altura en la cancha!',
     league: 'BSN',
-    youtubeEmbedUrl: 'https://www.youtube.com/embed/M0TfD8G4_fM?autoplay=1&mute=1&controls=1', // URL de embed de YouTube de prueba REAL
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/M0TfD8G4_fM', // URL de embed de YouTube de prueba REAL
     posterUrl: 'https://i.ytimg.com/vi/7mW-PKM8nYE/maxresdefault.jpg',
     dateTime: '2025-06-25T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
   };
