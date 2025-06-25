@@ -26,7 +26,7 @@ function getStreamDetails(showName: 'NXT' | 'SmackDown'): StreamDetails {
       title: 'WWE SmackDown - Transmisión EN VIVO',
       description: 'El show azul de WWE con tus superestrellas favoritas. ¡Viernes por la noche es para SmackDown!',
       league: 'WWE SmackDown',
-      playbackUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8', // URL de prueba M3U8
+      playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://3148-209-91-239-6.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
       posterUrl: 'https://images2.minutemediacdn.com/image/upload/c_crop,w_1080,h_607,x_0,y_211/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/wrestling_on_fannation/01j7q1skk768tjf6w260.jpg', // Logo o imagen de SmackDown
       isLive: true,
       nextEpisodeDate: 'Viernes, Junio 27, 2025 - 8:00 PM EST', // Próximo Viernes
