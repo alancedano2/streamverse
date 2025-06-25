@@ -47,7 +47,6 @@ const isPPVLive = (event: LiveOrScheduledEvent): boolean => {
 // --- Función que devuelve los datos estáticos completos ---
 function getAllStaticScheduledAndPPVEventsData(): { weeklyShows: LiveOrScheduledEvent[], allPpvEvents: LiveOrScheduledEvent[] } {
   const weeklyShows: LiveOrScheduledEvent[] = [
-    // ... Aquí tus shows semanales (igual que antes)
     {
       id: 'wwe-raw-live',
       title: 'WWE Raw',
@@ -67,8 +66,8 @@ function getAllStaticScheduledAndPPVEventsData(): { weeklyShows: LiveOrScheduled
       streamUrl: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
       thumbnail: 'https://images.cwtv.com/images/masters/cw/universal/shows/wwe-nxt/show-promo.jpg',
       description: 'Las futuras estrellas de WWE en acción, cada martes.',
-      dayOfWeek: 2, // Martes
-      time: '20:00', // 8:00 PM
+      dayOfWeek: 2,
+      time: '20:00',
     },
     {
       id: 'aew-dynamite-live',
@@ -78,8 +77,8 @@ function getAllStaticScheduledAndPPVEventsData(): { weeklyShows: LiveOrScheduled
       streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
       thumbnail: 'https://www.myfmbankarena.com/assets/img/01-08-25-AEW-DYNAMITE-Clarksville-TN-IG-590x380-44f2584034.jpg',
       description: 'El show principal de All Elite Wrestling, con los mejores combates.',
-      dayOfWeek: 3, // Miércoles
-      time: '20:00', // 8:00 PM
+      dayOfWeek: 3,
+      time: '20:00',
     },
     {
       id: 'wwe-smackdown-live',
@@ -89,8 +88,8 @@ function getAllStaticScheduledAndPPVEventsData(): { weeklyShows: LiveOrScheduled
       streamUrl: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
       thumbnail: 'https://images2.minutemediacdn.com/image/upload/c_crop,w_1080,h_607,x_0,y_211/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/wrestling_on_fannation/01j7q1skk768tjf6w260.jpg',
       description: 'El show azul de WWE con tus superestrellas favoritas.',
-      dayOfWeek: 5, // Viernes
-      time: '20:00', // 8:00 PM
+      dayOfWeek: 5,
+      time: '20:00',
     },
     {
       id: 'aew-collision-live',
@@ -100,145 +99,84 @@ function getAllStaticScheduledAndPPVEventsData(): { weeklyShows: LiveOrScheduled
       streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
       thumbnail: 'https://m.media-amazon.com/images/M/MV5BNGU2YWVkMjEtNGE4MC00NWNiLWI2MjgtYTU1YjZhMjdiNjI0XkEyXkFqcGc@._V1_QL75_UX500_CR0,0,500,281_.jpg',
       description: 'Lucha libre de alto impacto en Collision.',
-      dayOfWeek: 6, // Sábado
-      time: '20:00', // 8:00 PM
+      dayOfWeek: 6,
+      time: '20:00',
     },
   ];
 
-    // Agrega los demás shows semanales aquí como en tu código original
+  const allPpvEvents: LiveOrScheduledEvent[] = [
+    {
+      id: 'mlb',
+      title: 'MLB: Reds vs Yankees',
+      league: 'MLB',
+      matchup: 'Miércoles 25 de Junio, 7:15 PM AST',
+      streamUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8',
+      thumbnail: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401569746/16x9/1280x720_20240628135918.jpg&showBadge=true&package=ESPN_PLUS_MLB',
+      description: 'Duelo de la MLB con los Yankees buscando la victoria en un partido clave.',
+      dateTime: '2025-06-25T19:15:00',
+    },
+    {
+      id: 'bsn-1',
+      title: 'BSN: Indios de Mayagüez vs Piratas de Quebradillas',
+      league: 'BSN',
+      matchup: 'Miércoles 25 de Junio, 8:00 PM AST',
+      streamUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8',
+      thumbnail: 'https://i.ytimg.com/vi/7mW-PKM8nYE/maxresdefault.jpg',
+      description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico.',
+      dateTime: '2025-06-25T20:00:00',
+    },
+    {
+      id: 'bsn-2',
+      title: 'BSN: Osos de Manatí vs Criollos de Caguas',
+      league: 'BSN',
+      matchup: 'Miércoles 25 de Junio, 8:00 PM AST',
+      streamUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8',
+      thumbnail: 'https://i.ytimg.com/vi/852XZ9HjuFg/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBh2WcIWHlGqmg5bRm0bk2JLWnQGA',
+      description: 'Otro emocionante partido del BSN.',
+      dateTime: '2025-06-25T20:00:00',
+    },
+    {
+      id: 'bsn-3',
+      title: 'BSN: Capitanes de Arecibo vs Vaqueros de Bayamón',
+      league: 'BSN',
+      matchup: 'Miércoles 25 de Junio, 8:00 PM AST',
+      streamUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8',
+      thumbnail: 'https://i.ytimg.com/vi/akpYCw9cF_E/maxresdefault.jpg',
+      description: 'Choque de titanes en la cancha del BSN.',
+      dateTime: '2025-06-25T20:00:00',
+    },
+    {
+      id: 'e',
+      title: 'BSN: Leones de Ponce vs Santeros de Aguada',
+      league: 'BSN',
+      matchup: 'Jueves 26 de Junio, 8:00 PM AST',
+      streamUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8',
+      thumbnail: 'https://i.ytimg.com/vi/TpZP520nNUc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAf2kJc35WLcNLNDSZB0e9_4TpbbQ',
+      description: 'Partido de baloncesto entre Leones y Santeros.',
+      dateTime: '2025-06-26T20:00:00',
+    },
+    {
+      id: 'q',
+      title: 'MLB: Yankees vs Athletics',
+      league: 'MLB',
+      matchup: 'Viernes 27 de Junio, 7:15 PM AST',
+      streamUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401356109/16x9/1280x720_20220726221639.jpg&showBadge=true&package=ESPN_PLUS_MLB',
+      thumbnail: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401356109/16x9/1280x720_20220726221639.jpg&showBadge=true&package=ESPN_PLUS_MLB',
+      description: 'Los Yankees en acción contra los Athletics.',
+      dateTime: '2025-06-27T19:15:00',
+    },
+    {
+      id: 'evento-1',
+      title: 'WWE Night of Champions 2025',
+      league: 'WWE PPV',
+      matchup: 'Sábado 28 de Junio, 7:00 PM AST',
+      streamUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://3148-209-91-239-6.ngrok-free.app/LiveApp/streams/4Rg5KhuVlJQQfqeN65503110396105.m3u8',
+      thumbnail: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg',
+      description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
+      dateTime: '2025-06-28T19:00:00',
+    },
   ];
 
-  const weeklyShows: LiveOrScheduledEvent[] = [
-  {
-    id: 'wwe-raw-live',
-    title: 'WWE Raw',
-    league: 'WWE',
-    matchup: 'Lunes a las 8:00 PM EST',
-    streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
-    thumbnail: 'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2024/12/Ge77Z8_bMAAQofn.jpeg',
-    description: 'El show semanal insignia de WWE. Tres horas de acción y drama.',
-    dayOfWeek: 1,
-    time: '20:00',
-  },
-  {
-    id: 'wwe-nxt-live',
-    title: 'WWE NXT',
-    league: 'WWE',
-    matchup: 'Martes a las 8:00 PM EST',
-    streamUrl: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
-    thumbnail: 'https://images.cwtv.com/images/masters/cw/universal/shows/wwe-nxt/show-promo.jpg',
-    description: 'Las futuras estrellas de WWE en acción, cada martes.',
-    dayOfWeek: 2,
-    time: '20:00',
-  },
-  {
-    id: 'aew-dynamite-live',
-    title: 'AEW Dynamite',
-    league: 'AEW',
-    matchup: 'Miércoles a las 8:00 PM EST',
-    streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
-    thumbnail: 'https://www.myfmbankarena.com/assets/img/01-08-25-AEW-DYNAMITE-Clarksville-TN-IG-590x380-44f2584034.jpg',
-    description: 'El show principal de All Elite Wrestling, con los mejores combates.',
-    dayOfWeek: 3,
-    time: '20:00',
-  },
-  {
-    id: 'wwe-smackdown-live',
-    title: 'WWE SmackDown',
-    league: 'WWE',
-    matchup: 'Viernes a las 8:00 PM EST',
-    streamUrl: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
-    thumbnail: 'https://images2.minutemediacdn.com/image/upload/c_crop,w_1080,h_607,x_0,y_211/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/wrestling_on_fannation/01j7q1skk768tjf6w260.jpg',
-    description: 'El show azul de WWE con tus superestrellas favoritas.',
-    dayOfWeek: 5,
-    time: '20:00',
-  },
-  {
-    id: 'aew-collision-live',
-    title: 'AEW Collision',
-    league: 'AEW',
-    matchup: 'Sábados a las 8:00 PM EST',
-    streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
-    thumbnail: 'https://m.media-amazon.com/images/M/MV5BNGU2YWVkMjEtNGE4MC00NWNiLWI2MjgtYTU1YjZhMjdiNjI0XkEyXkFqcGc@._V1_QL75_UX500_CR0,0,500,281_.jpg',
-    description: 'Lucha libre de alto impacto en Collision.',
-    dayOfWeek: 6,
-    time: '20:00',
-  },
-];
-
-const allPpvEvents: LiveOrScheduledEvent[] = [
-  {
-    id: 'mlb',
-    title: 'MLB: Reds vs Yankees',
-    league: 'MLB',
-    matchup: 'Miércoles 25 de Junio, 7:15 PM AST',
-    streamUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8',
-    thumbnail: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401569746/16x9/1280x720_20240628135918.jpg&showBadge=true&package=ESPN_PLUS_MLB',
-    description: 'Duelo de la MLB con los Yankees buscando la victoria en un partido clave.',
-    dateTime: '2025-06-25T19:15:00',
-  },
-  {
-    id: 'bsn-1',
-    title: 'BSN: Indios de Mayagüez vs Piratas de Quebradillas',
-    league: 'BSN',
-    matchup: 'Miércoles 25 de Junio, 8:00 PM AST',
-    streamUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8',
-    thumbnail: 'https://i.ytimg.com/vi/7mW-PKM8nYE/maxresdefault.jpg',
-    description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico.',
-    dateTime: '2025-06-25T20:00:00',
-  },
-  {
-    id: 'bsn-2',
-    title: 'BSN: Osos de Manatí vs Criollos de Caguas',
-    league: 'BSN',
-    matchup: 'Miércoles 25 de Junio, 8:00 PM AST',
-    streamUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8',
-    thumbnail: 'https://i.ytimg.com/vi/852XZ9HjuFg/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBh2WcIWHlGqmg5bRm0bk2JLWnQGA',
-    description: 'Otro emocionante partido del BSN.',
-    dateTime: '2025-06-25T20:00:00',
-  },
-  {
-    id: 'bsn-3',
-    title: 'BSN: Capitanes de Arecibo vs Vaqueros de Bayamón',
-    league: 'BSN',
-    matchup: 'Miércoles 25 de Junio, 8:00 PM AST',
-    streamUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8',
-    thumbnail: 'https://i.ytimg.com/vi/akpYCw9cF_E/maxresdefault.jpg',
-    description: 'Choque de titanes en la cancha del BSN.',
-    dateTime: '2025-06-25T20:00:00',
-  },
-  {
-    id: 'e',
-    title: 'BSN: Leones de Ponce vs Santeros de Aguada',
-    league: 'BSN',
-    matchup: 'Jueves 26 de Junio, 8:00 PM AST',
-    streamUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8',
-    thumbnail: 'https://i.ytimg.com/vi/TpZP520nNUc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAf2kJc35WLcNLNDSZB0e9_4TpbbQ',
-    description: 'Partido de baloncesto entre Leones y Santeros.',
-    dateTime: '2025-06-26T20:00:00',
-  },
-  {
-    id: 'q',
-    title: 'MLB: Yankees vs Athletics',
-    league: 'MLB',
-    matchup: 'Viernes 27 de Junio, 7:15 PM AST',
-    streamUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401356109/16x9/1280x720_20220726221639.jpg&showBadge=true&package=ESPN_PLUS_MLB',
-    thumbnail: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401356109/16x9/1280x720_20220726221639.jpg&showBadge=true&package=ESPN_PLUS_MLB',
-    description: 'Los Yankees en acción contra los Athletics.',
-    dateTime: '2025-06-27T19:15:00',
-  },
-  {
-    id: 'evento-1',
-    title: 'WWE Night of Champions 2025',
-    league: 'WWE PPV',
-    matchup: 'Sábado 28 de Junio, 7:00 PM AST',
-    streamUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://3148-209-91-239-6.ngrok-free.app/LiveApp/streams/4Rg5KhuVlJQQfqeN65503110396105.m3u8',
-    thumbnail: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg',
-    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-    dateTime: '2025-06-28T19:00:00',
-  },
-];
-  
   return { weeklyShows, allPpvEvents };
 }
 
