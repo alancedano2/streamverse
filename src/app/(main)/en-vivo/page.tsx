@@ -182,7 +182,7 @@ function getAllStaticScheduledAndPPVEventsData(): { weeklyShows: LiveOrScheduled
 }
 
 
-export default function LiveEventsPage() {
+export default function EnVivoPage() {
   // Estados para almacenar los shows y PPVs
   const [scheduledData, setScheduledData] = useState<{ weeklyShows: LiveOrScheduledEvent[], ppvEvents: LiveOrScheduledEvent[] } | null>(null);
 
