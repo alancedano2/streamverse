@@ -190,8 +190,11 @@ export default function LiveEventsPage() {
   useEffect(() => {
     // La función que obtiene los datos ahora se llama directamente
     const data = getAllStaticScheduledAndPPVEventsData(); // Esta función ahora no es async
-    setScheduledData(data);
-  }, []); // Array vacío para que se ejecute solo una vez al montar
+    setScheduledData({
+  weeklyShows: data.weeklyShows,
+  ppvEvents: data.allPpvEvents,
+});
+ // Array vacío para que se ejecute solo una vez al montar
 
   // Lógica de filtrado de PPV basada en la fecha, ahora en el cliente
   const [ppvEvents, setPpvEvents] = useState<LiveOrScheduledEvent[]>([]);
