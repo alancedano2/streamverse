@@ -27,7 +27,7 @@ function getMlbDetails(): MLBEventDetails {
     league: 'MLB',
     playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://3148-209-91-239-6.ngrok-free.app/LiveApp/streams/nK9aEMwbwwn30ulX47990285351358.m3u8', // ¡Tu URL M3U8!
     posterUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401356109/16x9/1280x720_20220726221639.jpg&showBadge=true&package=ESPN_PLUS_MLB', // Imagen de MLB
-    dateTime: '2025-06-25T19:15:00', // Miércoles 25 de Junio, 7:15 PM AST (para probar hoy)
+    dateTime: '2025-06-25T18:50:00', // Miércoles 25 de Junio, 7:15 PM AST (para probar hoy)
   };
 }
 
