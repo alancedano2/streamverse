@@ -312,4 +312,3 @@ export default function EnVivoPage() {
   );
 }
 
-export default EnVivoPage;
