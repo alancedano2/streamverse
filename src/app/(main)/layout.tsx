@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ['latin'] }); // Configura tu fuente principal (e
 
 // Metadata para tu aplicación (importante para SEO). Solo se define en Server Components.
 export const metadata: Metadata = {
-  title: 'StreamvVerse V2',
+  title: 'StreamVerse V2',
   description: 'Tu destino para los mejores eventos deportivos, en vivo y bajo demanda.',
   // Puedes añadir más meta etiquetas aquí si lo deseas
   // keywords: ['deportes', 'streaming', 'WWE', 'MLB', 'F1', 'repeticiones', 'en vivo'],
