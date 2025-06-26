@@ -127,7 +127,7 @@ function getAllStaticScheduledAndPPVEventsData(): { weeklyShows: LiveOrScheduled
       dateTime: '2025-06-26T20:00:00',
     },
     {
-      id: 'q',
+      id: 'mlb',
       title: 'MLB: Yankees vs Athletics',
       league: 'MLB',
       matchup: 'Viernes 27 de Junio, 7:15 PM AST',
