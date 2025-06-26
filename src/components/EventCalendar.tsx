@@ -60,6 +60,13 @@ const allEvents: EventItem[] = [
     dateTime: '2025-06-26T20:00:00', // Jueves 26 de Junio, 8:00 PM AST
     link: '/bsn-1',
     description: 'Partido de baloncesto entre Leones y Santeros.',
+  {
+    id: 'wwe',
+    title: 'WWE Night Of Champions KickOff',
+    league: 'BSN',
+    dateTime: '2025-06-26T16:00:00', // Jueves 26 de Junio, 8:00 PM AST
+    link: '/evento-1',
+    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
   },
 
   // VIERNES 27 DE JUNIO DE 2025
