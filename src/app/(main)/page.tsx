@@ -61,24 +61,23 @@ export default function HomePage() {
   };
 
   const heroEvents = [
-    {
-      id: 'mlb-reds-vs-yankees',
-      title: 'BSN: Leones de Ponce vs Santeros de Aguada',
-      date: 'Jueves, 26 de Junio del 2025 - 8:00pm',
-      description: 'Los Leones de Ponce se enfrentan a los Santeros de Aguada',
-      bgImage: 'https://i.ytimg.com/vi/XxpAZTDpI4c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUW10y4bZs4Uwq1opEIqPI1-KlCA',
-      link: '/bsn-1',
-    {
-      id: 'mlb-vs-yankees',
-      title: 'WWE Night Of Champions KickOff',
-      date: 'Jueves, 26 de Junio del 2025 - 4:00pm',
-      description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-      bgImage: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg',
-      link: '/evento-1',
-      
-    },
-  ];
-
+  {
+    id: 'mlb-reds-vs-yankees',
+    title: 'BSN: Leones de Ponce vs Santeros de Aguada',
+    date: 'Jueves, 26 de Junio del 2025 - 8:00pm',
+    description: 'Los Leones de Ponce se enfrentan a los Santeros de Aguada',
+    bgImage: 'https://i.ytimg.com/vi/XxpAZTDpI4c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUW10y4bZs4Uwq1opEIqPI1-KlCA',
+    link: '/bsn-1', // ✅ COMA AÑADIDA AQUÍ
+  },
+  {
+    id: 'mlb-vs-yankees',
+    title: 'WWE Night Of Champions KickOff',
+    date: 'Jueves, 26 de Junio del 2025 - 4:00pm',
+    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
+    bgImage: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg',
+    link: '/evento-1',
+  },
+];
 
   const trendingEvents = [
     { id: 'wwe-smackdown-trending', title: 'WWE Night Of Champions', thumbnail: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg', link: '/evento-1' },
