@@ -112,7 +112,7 @@ function getAllStaticScheduledAndPPVEventsData(): { weeklyShows: LiveOrScheduled
       league: 'WWE',
       matchup: 'Jueves 26 de Junio, 4:00 PM AST',
       streamUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://3148-209-91-239-6.ngrok-free.app/LiveApp/streams/4Rg5KhuVlJQQfqeN65503110396105.m3u8',
-      thumbnail: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg',
+      thumbnail: 'https://i.ytimg.com/vi/iFicBdRDkok/hq720.jpg?v=685c05ac&sqp=CJS-8sIG-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB6bmcqaAw4F-f4iluhi-oPow9HHg',
       description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
       dateTime: '2025-06-26T16:00:00',
     },
