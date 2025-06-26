@@ -64,7 +64,7 @@ const allEvents: EventItem[] = [
   {
     id: 'wwe',
     title: 'WWE Night Of Champions KickOff',
-    league: 'wwe',
+    league: 'WWE',
     dateTime: '2025-06-26T16:00:00', // Jueves 26 de Junio, 8:00 PM AST
     link: '/evento-1',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
