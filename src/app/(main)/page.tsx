@@ -70,7 +70,7 @@ export default function HomePage() {
     link: '/bsn-1', // ✅ COMA AÑADIDA AQUÍ
   },
   {
-    id: 'mlb-vs-yankees',
+    id: 'wwe',
     title: 'WWE Night Of Champions KickOff',
     date: 'Jueves, 26 de Junio del 2025 - 4:00pm',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
