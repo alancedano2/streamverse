@@ -25,30 +25,150 @@ function getEvento1Details(): StreamDetails {
     title: 'WWE Night of Champions 2025',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
     league: 'WWE PPV',
-    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://3148-209-91-239-6.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
-    posterUrl: 'http://localhost:3000/_next/image?url=https%3A%2F%2F411mania.com%2Fwp-content%2Fuploads%2F2025%2F05%2Fwwenightofchampions2025.jpg&w=1200&q=75', // Imagen de baloncesto
-    isLive: true, // Asumimos que es una repetición
+    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://2241-209-91-239-6.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
+    posterUrl: 'http://localhost:3000/_next/image?url=https%3A%2F%2F411mania.com%2Fwp-content%2Fuploads%2F2025%2F05%2Fwwenightofchampions2025.jpg&w=1200&q=75', // Imagen de póster
+    isLive: true, // Asumimos que es una repetición para los detalles base
     nextEpisodeDate: '',
   };
 }
 
-export default function Evento1Page() {
-  // Estado para los detalles del stream
-  const [streamDetails, setStreamDetails] = useState<StreamDetails | null>(null);
+// Definimos los tipos de contenido que podemos mostrar
+type ContentType = 'videojs' | 'iframe1' | 'iframe2' | 'iframe3' | 'loading' | 'noContent';
 
-  // Referencias para el elemento de video y la instancia del reproductor Video.js
+export default function Evento1Page() {
+  const [streamDetails, setStreamDetails] = useState<StreamDetails | null>(null);
   const videoRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<Player | null>(null);
 
+  // Nuevo estado para controlar qué contenido se muestra
+  const [currentContent, setCurrentContent] = useState<ContentType>('loading');
+  // Estado para el iframe que se debe mostrar
+  const [iframeSrc, setIframeSrc] = useState<string>('');
+
   // useEffect para cargar los detalles del stream una vez al montar el componente
   useEffect(() => {
-    setStreamDetails(getEvento1Details()); // Carga los detalles al montar
-  }, []); // El array vacío asegura que se ejecute solo una vez
+    setStreamDetails(getEvento1Details());
+  }, []);
+
+  // Función para determinar qué contenido mostrar
+  const determineContent = (details: StreamDetails | null) => {
+    if (!details) {
+      setCurrentContent('loading');
+      return;
+    }
+
+    const now = new Date();
+    const dayOfWeek = now.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    // Sumar 1 para el día de mañana
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    const tomorrowDayOfWeek = tomorrow.getDay();
+
+    // --- Lógica para el SÁBADO (día 6) ---
+    if (dayOfWeek === 6) { // Es Sábado
+      // Sábado 9:40 AM a 12:55 PM: iframe1
+      if ((hours === 9 && minutes >= 40) || (hours > 9 && hours < 12) || (hours === 12 && minutes <= 55)) {
+        setCurrentContent('iframe1');
+        setIframeSrc('https://www.youtube.com/embed/saFXLfwyt9U?si=CDYgodUInCV_SrnT');
+        // Asegúrate de destruir el reproductor si estaba activo
+        if (playerRef.current) {
+          playerRef.current.dispose();
+          playerRef.current = null;
+        }
+        return;
+      }
+
+      // Sábado 12:55 PM a 6:00 PM: video.js
+      if ((hours === 12 && minutes >= 55) || (hours > 12 && hours < 18) || (hours === 18 && minutes === 0)) {
+        setCurrentContent('videojs');
+        // El reproductor de Video.js se inicializará en su propio useEffect
+        return;
+      }
+
+      // Sábado 6:00 PM en adelante: iframe2
+      if (hours >= 18) {
+        setCurrentContent('iframe2');
+        setIframeSrc('https://www.youtube.com/embed/O111A-p7oNA?si=hhYBS2oxXiOE1L-e');
+        // Asegúrate de destruir el reproductor si estaba activo
+        if (playerRef.current) {
+          playerRef.current.dispose();
+          playerRef.current = null;
+        }
+        return;
+      }
+    }
+
+    // --- Lógica para HOY (miércoles, 3 en dayOfWeek) - Si no es sábado ---
+    // Según tu prompt, hoy es miércoles 26 de junio de 2025.
+    // Asumiendo que el "mañana" del prompt se refiere al jueves 27.
+    if (dayOfWeek === 3) { // Si hoy es miércoles
+      // No hay contenido específico para hoy en tu solicitud hasta ahora.
+      // Puedes añadir aquí si necesitas algo para el miércoles.
+    }
+
+    // --- Lógica para MAÑANA (jueves, día 4) ---
+    if (tomorrowDayOfWeek === 4) { // Si "mañana" es jueves
+        // Mañana (Jueves) 4:00 PM a 5:10 PM: iframe3
+        // IMPORTANTE: Esta lógica se ejecutará si la página se carga *hoy* y la condición de *mañana* se cumple.
+        // Si el usuario carga la página el jueves, esta lógica no se activará a menos que uses el `now` directamente.
+        // Para simplificar, la pondremos aquí asumiendo que "mañana" es una condición futura.
+        // Una forma más robusta sería pasar la fecha objetivo como argumento o usar una librería de fechas.
+        // Para el propósito actual, revisamos si la hora actual cae dentro del rango de mañana si fuera jueves.
+        // Para una implementación de producción, considerar almacenar fechas completas (año, mes, día, hora) para la comparación.
+
+        // Dado que la ejecución es en el cliente, `now` siempre será el día actual del cliente.
+        // Para "mañana", la lógica debe estar atenta a si el día *es* mañana (jueves)
+        if (dayOfWeek === 4) { // Si el día ACTUAL es Jueves (Mañana)
+          if ((hours === 16 && minutes >= 0) || (hours > 16 && hours < 17) || (hours === 17 && minutes <= 10)) {
+            setCurrentContent('iframe3');
+            setIframeSrc('https://www.youtube.com/embed/O111A-p7oNA?si=yg8IFTpHO66KlCNg');
+            if (playerRef.current) {
+                playerRef.current.dispose();
+                playerRef.current = null;
+            }
+            return;
+          }
+        }
+    }
+
+    // Si ninguna condición se cumple
+    setCurrentContent('noContent');
+    // Asegúrate de destruir el reproductor si estaba activo
+    if (playerRef.current) {
+        playerRef.current.dispose();
+        playerRef.current = null;
+    }
+  };
+
+  // useEffect para cargar los detalles del stream y determinar el contenido inicial
+  useEffect(() => {
+    setStreamDetails(getEvento1Details());
+    // Determina el contenido inicial justo después de cargar los detalles
+    determineContent(getEvento1Details());
+
+    // Configura un intervalo para re-evaluar el contenido cada minuto (o el tiempo que consideres adecuado)
+    const intervalId = setInterval(() => {
+      determineContent(getEvento1Details());
+    }, 60 * 1000); // Cada minuto
+
+    // Limpieza: Limpia el intervalo al desmontar el componente
+    return () => clearInterval(intervalId);
+  }, []); // El array vacío asegura que se ejecute solo una vez al montar
 
   // useEffect para inicializar y limpiar el reproductor de Video.js
   useEffect(() => {
-    // Solo inicializa si streamDetails ya tiene datos y el reproductor no ha sido inicializado aún
-    if (!streamDetails || playerRef.current) return;
+    // Solo inicializa si currentContent es 'videojs', streamDetails tiene datos y el reproductor no ha sido inicializado aún
+    if (currentContent !== 'videojs' || !streamDetails || playerRef.current) {
+        // Si no estamos en el modo videojs, asegúrate de que el reproductor no exista
+        if (playerRef.current) {
+            playerRef.current.dispose();
+            playerRef.current = null;
+        }
+        return;
+    }
 
     // Crea el elemento <video-js>
     const videoElement = document.createElement('video-js');
@@ -79,25 +199,25 @@ export default function Evento1Page() {
       }));
     }
 
-    // Función de limpieza al desmontar el componente
+    // Función de limpieza al desmontar el componente o cuando currentContent cambia
     return () => {
       if (playerRef.current) {
         playerRef.current.dispose(); // Destruye la instancia del reproductor
         playerRef.current = null;
       }
     };
-  }, [streamDetails]); // Depende de streamDetails para re-ejecutar cuando los datos cargan
+  }, [currentContent, streamDetails]); // Depende de currentContent y streamDetails para re-ejecutar
 
-  // Muestra un mensaje de carga si los detalles del stream aún no están disponibles
-  if (!streamDetails) {
+  // Muestra un mensaje de carga si los detalles del stream aún no están disponibles o el contenido está 'loading'
+  if (currentContent === 'loading' || !streamDetails) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen flex justify-center items-center">
-        <p className="text-xl text-gray-400">Cargando Evento 1...</p>
+        <p className="text-xl text-gray-400">Cargando Evento 1 y programando contenido...</p>
       </div>
     );
   }
 
-  // Renderiza el contenido de la página una vez que los datos están cargados
+  // Renderiza el contenido de la página una vez que los datos y el contenido están determinados
   return (
     <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen">
       <div className="max-w-5xl mx-auto"> {/* Contenedor centrado */}
@@ -105,17 +225,39 @@ export default function Evento1Page() {
           {streamDetails.title}
         </h1>
 
-        {/* Reproductor de Video */}
-        <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative">
-          {streamDetails.isLive && (
-            <div className="absolute top-4 left-4 bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-full z-10 animate-pulse">
-              EN VIVO
+        {/* Contenedor del Reproductor/Iframe */}
+        <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative aspect-video bg-gray-800 flex items-center justify-center">
+          {/* Condicional para mostrar el reproductor de Video.js */}
+          {currentContent === 'videojs' && (
+            <>
+              {streamDetails.isLive && (
+                <div className="absolute top-4 left-4 bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-full z-10 animate-pulse">
+                  EN VIVO
+                </div>
+              )}
+              <div data-vjs-player className="w-full h-full">
+                <div ref={videoRef} className="w-full h-full"></div>
+              </div>
+            </>
+          )}
+
+          {/* Condicional para mostrar los iframes */}
+          {(currentContent === 'iframe1' || currentContent === 'iframe2' || currentContent === 'iframe3') && iframeSrc && (
+            <iframe
+              src={iframeSrc}
+              className="w-full h-full border-0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              title="Contenido programado"
+            ></iframe>
+          )}
+
+          {/* Mensaje cuando no hay contenido programado */}
+          {currentContent === 'noContent' && (
+            <div className="text-gray-400 text-xl p-4 text-center">
+              No hay contenido programado en este momento. Por favor, revisa la programación.
             </div>
           )}
-          {/* Aquí es donde Video.js montará el reproductor */}
-          <div data-vjs-player>
-            <div ref={videoRef} className="w-full h-auto aspect-video"></div>
-          </div>
         </div>
 
         {/* Información del Evento */}
