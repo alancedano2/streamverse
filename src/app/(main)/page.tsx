@@ -67,7 +67,7 @@ export default function HomePage() {
       date: 'Jueve, 26 de Junio del 2025 - 8:00pm',
       description: 'Los Leones de Ponce se enfrentan a los Santeros de Aguada',
       bgImage: 'https://i.ytimg.com/vi/XxpAZTDpI4c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUW10y4bZs4Uwq1opEIqPI1-KlCA',
-      link: '/bsn',
+      link: '/bsn-1',
     },
   ];
 
