@@ -19,12 +19,12 @@ interface BSNEventDetails {
 // Función para obtener los detalles de BSN-1
 function getBsn1Details(): BSNEventDetails {
   return {
-    title: 'BSN: Indios de Mayagüez vs Piratas de Quebradillas',
+    title: 'BSN: Indios de Mayagüez vs Santeros de Aguada',
     description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico. ¡Un duelo de altura en la cancha!',
     league: 'BSN',
     youtubeEmbedUrl: 'https://www.youtube.com/embed/QijmZI563vE?si=1zzFAnAE1MfuGcZb', // URL de embed de YouTube de prueba REAL
-    posterUrl: 'https://i.ytimg.com/vi/7mW-PKM8nYE/maxresdefault.jpg',
-    dateTime: '2025-06-25T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    posterUrl: 'https://i.ytimg.com/vi/XxpAZTDpI4c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUW10y4bZs4Uwq1opEIqPI1-KlCA',
+    dateTime: '2025-06-26T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
   };
 }
 
