@@ -82,6 +82,7 @@ export default function HomePage() {
     { id: 'yankees-prospects', title: 'WWE NXT Results 6/24', thumbnail: 'https://img.solowrestling.com/images/141/tablet141921-nxt.jpg', link: 'https://solowrestling.com/new/141921-wwe-nxt-24-de-junio-de-2025-cobertura-y-resultados' },
     { id: 'f1-austrian-gp-analysis', title: 'Austrian GP: Verstappen busca evitar sanción y Norris–Piastri reviven tensión: Abordan posibles sanciones en Spielberg y las relaciones internas de McLaren', thumbnail: 'https://cdn-3.motorsport.com/images/amp/68eyZ1B0/s6/f1-f1-logo-2017-f1-logo-6693340.jpg', link: 'https://www.skysports.com/f1/news/12433/13387398/austrian-gp-max-verstappen-race-ban-threat-and-oscar-piastri-lando-norris-relations-set-to-intensify-f1-race-at-red-bull-ring' },
     { id: 'telemundo-pr', title: 'Exbaloncelista alega defensa propia tras ser captado en video en ataque a tubazos', thumbnail: 'https://media.telemundopr.com/2025/06/Foto-portada-31.png?resize=850%2C478&quality=85&strip=all', link: 'https://www.telemundopr.com/noticias/puerto-rico/captan-en-video-otro-brutal-ataque-a-tubazos-esta-vez-en-levittown/2727566/' },
+    { id: 'noticia-1', title: 'Chad Gable pasará por quirófano para tratar su última lesión', thumbnail: 'https://img.solowrestling.com/images/141/tablet141950-chad-gable-raw.jpg', link: 'https://solowrestling.com/new/141950-chad-gable-pasara-por-quirofano-para-tratar-su-ultima-lesion' },
   ];
 
 
