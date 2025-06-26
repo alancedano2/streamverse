@@ -63,42 +63,18 @@ export default function HomePage() {
   const heroEvents = [
     {
       id: 'mlb-reds-vs-yankees',
-      title: 'MLB: Reds Vs Yankees',
-      date: 'Miercoles, 25 de Junio del 2025 - 7:15pm',
-      description: 'Los Leones de Ponce se enfrentan a los Gigantes de Carolina',
-      bgImage: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401569746/16x9/1280x720_20240628135918.jpg&showBadge=true&package=ESPN_PLUS_MLB',
-      link: '/mlb',
-    },
-    {
-      id: 'bsn-mayaguez-vs-quebradillas',
-      title: 'BSN: Indios de Mayagüez vs Piratas de Quebradillas',
-      date: 'Miercoles, 25 de Junio del 2025 - 8:00 PM',
-      description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico.',
-      bgImage: 'https://i.ytimg.com/vi/7mW-PKM8nYE/maxresdefault.jpg',
-      link: '/bsn-1',
-    },
-    {
-      id: 'more-events-soon-hero',
-      title: 'BSN: Osos de Manatí vs Criollos de Caguas',
-      date: 'Martes, 24 de Junio de 2025 - 12:00 AM',
-      description: 'Otro emocionante partido del BSN.',
-      bgImage: 'https://i.ytimg.com/vi/852XZ9HjuFg/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBh2WcIWHlGqmg5bRm0bk2JLWnQGA',
-      link: '/bsn-2',
-    },
-    {
-      id: 'mlb-yankees-reds-hero',
-      title: 'BSN: Capitanes de Arecibo vs Vaqueros de Bayamón',
-      date: 'Miercoles, 25 de Junio del 2025 - 8:00 PM',
-      description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico.',
-      bgImage: 'https://i.ytimg.com/vi/akpYCw9cF_E/maxresdefault.jpg',
-      link: '/bsn-3',
+      title: 'BSN: Leones de Ponce vs Santeros de Aguada',
+      date: 'Jueve, 26 de Junio del 2025 - 8:00pm',
+      description: 'Los Leones de Ponce se enfrentan a los Santeros de Aguada',
+      bgImage: 'https://i.ytimg.com/vi/XxpAZTDpI4c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUW10y4bZs4Uwq1opEIqPI1-KlCA',
+      link: '/bsn',
     },
   ];
 
 
   const trendingEvents = [
     { id: 'wwe-smackdown-trending', title: 'WWE Night Of Champions', thumbnail: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg', link: '/evento-1' },
-    { id: 'mlb-power-rankings', title: 'MLB: Reds Vs Yankees', thumbnail: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401569746/16x9/1280x720_20240628135918.jpg&showBadge=true&package=ESPN_PLUS_MLB', link: '/mlb' },
+    { id: 'mlb-power-rankings', title: 'BSN: Leones de Ponce vs Santeros de Aguada', thumbnail: 'https://i.ytimg.com/vi/XxpAZTDpI4c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUW10y4bZs4Uwq1opEIqPI1-KlCA', link: '/bsn' },
   ];
 
   const newEvents = [
