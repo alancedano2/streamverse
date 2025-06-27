@@ -28,7 +28,7 @@ const wweSmackdownEpisodes: RawEpisode[] = [
 ];
 
 const WweRawPage: React.FC = () => {
-  const [selectedEpisode, setSelectedEpisode] = useState<RawEpisode | null>(wweRawEpisodes[0] || null);
+  const [selectedEpisode, setSelectedEpisode] = useState<RawEpisode | null>(wweSmackdownEpisodes[0] || null);
   // currentPartIndex y su lógica ya no son necesarios
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const WweRawPage: React.FC = () => {
             <div className="relative z-10 p-4 md:p-6 h-full flex flex-col">
               <h2 className="text-2xl font-bold mb-6 text-white">Episodios Recientes</h2>
               <div className="flex-grow overflow-y-auto custom-scrollbar pr-2">
-                {wweRawEpisodes.map((episode) => (
+                {wweSmackdownEpisodes.map((episode) => (
                   <div
                     key={episode.id}
                     onClick={() => {
