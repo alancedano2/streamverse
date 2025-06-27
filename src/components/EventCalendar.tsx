@@ -79,6 +79,23 @@ const allEvents: EventItem[] = [
     link: '/mlb',
     description: 'Los Yankees en acción contra los Athletics.',
   },
+  {
+    id: 'ppv01',
+    title: 'Canelo vs. Crawford: Las Vegas Press Conference',
+    league: 'PPV',
+    dateTime: '2025-06-27T19:00:00', // Viernes 27 de Junio, 7:15 PM AST
+    link: '/evento2',
+    description: 'Watch the Canelo vs. Crawford: Las Vegas Press Conference on Friday, June 27 at 7 PM',
+  },
+  {
+    id: 'wwe-smackdown',
+    title: 'WWE SmackDown',
+    league: 'WWE',
+    dateTime: '2025-06-27T20:00:00', // Viernes 27 de Junio, 7:15 PM AST
+    link: '/wwe-smackdown',
+    description: 'El show azul de WWE con tus superestrellas favoritas.',
+  },
+
 
   // SÁBADO 28 DE JUNIO DE 2025
   {
