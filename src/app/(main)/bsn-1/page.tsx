@@ -19,12 +19,12 @@ interface BSNEventDetails {
 // Función para obtener los detalles de BSN-1
 function getBsn1Details(): BSNEventDetails {
   return {
-    title: 'BSN: Indios de Mayagüez vs Santeros de Aguada',
+    title: 'Criollos de Caguas vs. Osos de Manatí',
     description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico. ¡Un duelo de altura en la cancha!',
     league: 'BSN',
-    youtubeEmbedUrl: 'https://www.youtube.com/embed/QijmZI563vE?si=1zzFAnAE1MfuGcZb', // URL de embed de YouTube de prueba REAL
-    posterUrl: 'https://i.ytimg.com/vi/XxpAZTDpI4c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUW10y4bZs4Uwq1opEIqPI1-KlCA',
-    dateTime: '2025-06-26T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/fo7JEwWTRBk?si=d-M7vrRH-G0by0XN', // URL de embed de YouTube de prueba REAL
+    posterUrl: 'https://streamverse-neon.vercel.app/_next/image?url=https%3A%2F%2Fi.ytimg.com%2Fvi%2F852XZ9HjuFg%2Fhq720.jpg%3Fsqp%3D-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD%26rs%3DAOn4CLBh2WcIWHlGqmg5bRm0bk2JLWnQGA&w=1200&q=75',
+    dateTime: '2025-06-27T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
   };
 }
 
