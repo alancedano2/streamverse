@@ -8,7 +8,7 @@ import Link from 'next/link';
 // import { format, parseISO, addMinutes, isAfter, isBefore } from 'date-fns';
 
 // Definir el tipo para un episodio de Raw (¡AHORA SIN PARTES!)
-interface RawEpisode {
+interface SmackdownEpisode {
   id: string;
   title: string;
   date: string;
@@ -17,7 +17,7 @@ interface RawEpisode {
 }
 
 // Datos del ÚNICO episodio de WWE Raw
-const wweRawEpisodes: RawEpisode[] = [
+const wweSmackdownEpisodes: SmackdownEpisode[] = [
   {
     id: 'smackdown-2025-06-27',
     title: 'WWE SmackDown - Junio 7, 2025',
@@ -62,7 +62,7 @@ const WweRawPage: React.FC = () => {
       {/* Contenido principal de la página (z-index mayor) */}
       <div className="relative z-10 container mx-auto px-4 py-8 pt-12 md:pt-16">
         <h1 className="text-4xl md:text-5xl font-extrabold text-blue-500 text-center mb-8">
-          WWE Raw Repeticiones
+          WWE SmackDown Repeticiones
         </h1>
 
         <div className="flex flex-col lg:flex-row gap-8">
@@ -84,7 +84,7 @@ const WweRawPage: React.FC = () => {
             <div className="relative z-10 p-4 md:p-6 h-full flex flex-col">
               <h2 className="text-2xl font-bold mb-6 text-white">Episodios Recientes</h2>
               <div className="flex-grow overflow-y-auto custom-scrollbar pr-2">
-                {wweRawEpisodes.map((episode) => (
+                {wweSmackdownEpisodes.map((episode) => (
                   <div
                     key={episode.id}
                     onClick={() => {
@@ -178,4 +178,4 @@ const WweRawPage: React.FC = () => {
   );
 };
 
-export default WweRawPage;
+export default WweSmackdownpage;
