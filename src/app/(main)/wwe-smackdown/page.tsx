@@ -8,7 +8,7 @@ import Link from 'next/link';
 // import { format, parseISO, addMinutes, isAfter, isBefore } from 'date-fns';
 
 // Definir el tipo para un episodio de Raw (¡AHORA SIN PARTES!)
-interface SmackdownEpisode {
+interface RawEpisode {
   id: string;
   title: string;
   date: string;
@@ -17,7 +17,7 @@ interface SmackdownEpisode {
 }
 
 // Datos del ÚNICO episodio de WWE Raw
-const wweSmackdownEpisodes: SmackdownEpisode[] = [
+const wweSmackdownEpisodes: RawEpisode[] = [
   {
     id: 'smackdown-2025-06-27',
     title: 'WWE SmackDown - Junio 7, 2025',
@@ -84,7 +84,7 @@ const WweRawPage: React.FC = () => {
             <div className="relative z-10 p-4 md:p-6 h-full flex flex-col">
               <h2 className="text-2xl font-bold mb-6 text-white">Episodios Recientes</h2>
               <div className="flex-grow overflow-y-auto custom-scrollbar pr-2">
-                {wweSmackdownEpisodes.map((episode) => (
+                {wweRawEpisodes.map((episode) => (
                   <div
                     key={episode.id}
                     onClick={() => {
@@ -178,4 +178,4 @@ const WweRawPage: React.FC = () => {
   );
 };
 
-export default WweSmackdownpage;
+export default WweRawpage;
