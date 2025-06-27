@@ -1,135 +1,107 @@
-// src/app/eventos/evento-1/page.tsx
-'use client'; // ¡IMPORTANTE! Esta página DEBE ser un Client Component.
+// src/app/(main)/bsn-2/page.tsx
+'use client';
 
-import React, { useRef, useEffect, useState } from 'react'; // Necesitamos estos Hooks
-import videojs from 'video.js'; // Importamos video.js directamente
-import Player from 'video.js/dist/types/player'; // Importamos los tipos
-import 'video.js/dist/video-js.css'; // Importamos los estilos CSS de video.js
-import Link from 'next/link'; // Por si necesitas Links en la página
-import Image from 'next/image'; // Por si necesitas Images en la página
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { isAfter, isBefore, addMinutes, parseISO, format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
-// Interfaz para los detalles del stream
-interface StreamDetails {
+interface BSNEventDetails {
   title: string;
   description: string;
   league: string;
-  playbackUrl: string;
+  youtubeEmbedUrl: string;
   posterUrl: string;
-  isLive: boolean;
-  nextEpisodeDate?: string;
+  dateTime: string;
 }
 
-// Función para obtener los detalles de ESTE evento específico (Evento 1)
-function getEvento2Details(): StreamDetails {
+// Función para obtener los detalles de BSN-2
+function getBsn2Details(): BSNEventDetails {
   return {
-    title: 'Evento Especial: Gran Final de Baloncesto',
-    description: '¡Revive la emocionante final de baloncesto con este partido lleno de adrenalina y jugadas espectaculares! Un clásico imperdible.',
-    league: 'Baloncesto Profesional',
-    playbackUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8', // URL de prueba M3U8
-    posterUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Basketball_game.jpg/1280px-Basketball_game.jpg', // Imagen de baloncesto
-    isLive: false, // Asumimos que es una repetición
-    nextEpisodeDate: 'Próximo Evento: 15 de Julio de 2025',
+    title: 'Canelo vs. Crawford: Las Vegas Press Conference',
+    description: 'Watch the Canelo vs. Crawford: Las Vegas Press Conference on Friday, June 27 at 7 PM ET',
+    league: 'PPV',
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/vgUOoDlCVhE', // URL de embed de YouTube de prueba REAL
+    posterUrl: 'https://i.ytimg.com/vi/36NXYDNScIw/hq720.jpg?v=6859565d&sqp=CJjA_MIG-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCmL9fuSxznPR0EPIZ6_Hs0oK9p4w',
+    dateTime: '2025-06-27T19:00:00', // Miércoles 25 de Junio, 8:00 PM AST
   };
 }
 
-export default function Evento2Page() {
-  // Estado para los detalles del stream
-  const [streamDetails, setStreamDetails] = useState<StreamDetails | null>(null);
+const isEventReadyToStream = (eventDateTime: string): boolean => {
+  const now = new Date();
+  const eventTime = parseISO(eventDateTime);
+  const streamStartWindow = addMinutes(eventTime, -15);
+  const streamEndWindow = addMinutes(eventTime, 180);
+  return isAfter(now, streamStartWindow) && isBefore(now, streamEndWindow);
+};
 
-  // Referencias para el elemento de video y la instancia del reproductor Video.js
-  const videoRef = useRef<HTMLDivElement | null>(null);
-  const playerRef = useRef<Player | null>(null);
+export default function Bsn2Page() {
+  const [eventDetails, setEventDetails] = useState<BSNEventDetails | null>(null);
 
-  // useEffect para cargar los detalles del stream una vez al montar el componente
   useEffect(() => {
-    setStreamDetails(getEvento2Details()); // Carga los detalles al montar
-  }, []); // El array vacío asegura que se ejecute solo una vez
+    const details = getBsn2Details();
+    setEventDetails(details);
+    const intervalId = setInterval(() => {
+      setEventDetails(prev => prev ? { ...prev } : null);
+    }, 60 * 1000);
+    return () => clearInterval(intervalId);
+  }, []);
 
-  // useEffect para inicializar y limpiar el reproductor de Video.js
-  useEffect(() => {
-    // Solo inicializa si streamDetails ya tiene datos y el reproductor no ha sido inicializado aún
-    if (!streamDetails || playerRef.current) return;
-
-    // Crea el elemento <video-js>
-    const videoElement = document.createElement('video-js');
-    videoElement.classList.add('vjs-big-play-centered'); // Para centrar el botón de play grande
-
-    // Monta el elemento de video en el div de referencia
-    if (videoRef.current) {
-      videoRef.current.appendChild(videoElement);
-
-      // Opciones para Video.js (usando los streamDetails cargados)
-      const videoPlayerOptions = {
-        autoplay: true, // Auto-reproducir
-        controls: true, // Mostrar controles
-        responsive: true,
-        fluid: true, // Se adapta al tamaño del contenedor manteniendo el aspecto
-        sources: [
-          {
-            src: streamDetails.playbackUrl,
-            type: 'application/x-mpegURL', // Tipo para M3U8 (HLS)
-          },
-        ],
-        poster: streamDetails.posterUrl, // Imagen de póster
-      };
-
-      // Inicializa Video.js
-      const player = (playerRef.current = videojs(videoElement, videoPlayerOptions, () => {
-        videojs.log('Player is ready for Evento 1!');
-      }));
-    }
-
-    // Función de limpieza al desmontar el componente
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.dispose(); // Destruye la instancia del reproductor
-        playerRef.current = null;
-      }
-    };
-  }, [streamDetails]); // Depende de streamDetails para re-ejecutar cuando los datos cargan
-
-  // Muestra un mensaje de carga si los detalles del stream aún no están disponibles
-  if (!streamDetails) {
+  if (!eventDetails) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen flex justify-center items-center">
-        <p className="text-xl text-gray-400">Cargando Evento 1...</p>
+        <p className="text-xl text-gray-400">Cargando Evento BSN 2...</p>
       </div>
     );
   }
 
-  // Renderiza el contenido de la página una vez que los datos están cargados
+  const isReadyToDisplayStream = isEventReadyToStream(eventDetails.dateTime);
+
   return (
     <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen">
-      <div className="max-w-5xl mx-auto"> {/* Contenedor centrado */}
+      <div className="max-w-5xl mx-auto">
         <h1 className="text-4xl font-extrabold text-orange-500 text-center mb-8">
-          {streamDetails.title}
+          {eventDetails.title}
         </h1>
 
-        {/* Reproductor de Video */}
-        <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative">
-          {streamDetails.isLive && (
-            <div className="absolute top-4 left-4 bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-full z-10 animate-pulse">
-              EN VIVO
+        <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative aspect-video bg-gray-800 flex items-center justify-center">
+          {isReadyToDisplayStream ? (
+            <iframe
+              src={eventDetails.youtubeEmbedUrl}
+              title={eventDetails.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full border-0"
+            ></iframe>
+          ) : (
+            <div className="text-center p-8">
+              <Image
+                src={eventDetails.posterUrl}
+                alt={eventDetails.title}
+                width={600}
+                height={337}
+                className="w-full h-auto object-cover rounded-lg mb-4 opacity-50"
+              />
+              <p className="text-xl text-gray-300 font-semibold mb-2">
+                Evento no disponible aún o finalizado.
+              </p>
+              <p className="text-lg text-gray-400">
+                Podrá verse a partir de: {format(parseISO(eventDetails.dateTime), 'EEEE d \'de\' MMMM, h:mm a', { locale: es })}
+              </p>
             </div>
           )}
-          {/* Aquí es donde Video.js montará el reproductor */}
-          <div data-vjs-player>
-            <div ref={videoRef} className="w-full h-auto aspect-video"></div>
-          </div>
         </div>
 
-        {/* Información del Evento */}
         <div className="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
           <h2 className="text-2xl font-bold text-white mb-3">Detalles del Evento</h2>
-          <p className="text-gray-300 text-lg mb-4">{streamDetails.description}</p>
+          <p className="text-gray-300 text-lg mb-4">{eventDetails.description}</p>
           <p className="text-gray-400 text-sm">
-            Liga: <span className="font-semibold text-white">{streamDetails.league}</span>
+            Liga: <span className="font-semibold text-white">{eventDetails.league}</span>
           </p>
-          {streamDetails.nextEpisodeDate && (
-            <p className="text-gray-400 text-sm mt-1">
-              Próximo Evento: <span className="font-semibold text-white">{streamDetails.nextEpisodeDate}</span>
-            </p>
-          )}
+          <p className="text-gray-400 text-sm mt-1">
+            Hora Programada: <span className="font-semibold text-white">{format(parseISO(eventDetails.dateTime), 'EEEE d \'de\' MMMM, h:mm a', { locale: es })}</span>
+          </p>
         </div>
       </div>
     </div>
