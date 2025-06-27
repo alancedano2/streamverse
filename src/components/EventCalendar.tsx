@@ -72,14 +72,6 @@ const allEvents: EventItem[] = [
 
   // VIERNES 27 DE JUNIO DE 2025
   {
-    id: 'mlb-yankees-athletics-calendar-friday',
-    title: 'MLB: Yankees vs Athletics',
-    league: 'MLB',
-    dateTime: '2025-06-27T19:15:00', // Viernes 27 de Junio, 7:15 PM AST
-    link: '/mlb',
-    description: 'Los Yankees en acción contra los Athletics.',
-  },
-  {
     id: 'ppv01',
     title: 'Canelo vs. Crawford: Las Vegas Press Conference',
     league: 'PPV',
@@ -94,6 +86,22 @@ const allEvents: EventItem[] = [
     dateTime: '2025-06-27T20:00:00', // Viernes 27 de Junio, 7:15 PM AST
     link: '/wwe-smackdown',
     description: 'El show azul de WWE con tus superestrellas favoritas.',
+  },
+  {
+    id: 'bsnpr',
+    title: 'Criollos de Caguas vs. Osos de Manatí',
+    league: 'BSN',
+    dateTime: '2025-06-27T20:00:00', // Viernes 27 de Junio, 7:15 PM AST
+    link: '/bsn-1',
+    description: 'Partido de baloncesto entre Criollos de Caguas y Osos de Manatí.',
+  },
+  {
+    id: 'bsnpr',
+    title: 'Mets de Guaynabo vs. Cangrejeros de Santurce',
+    league: 'BSN',
+    dateTime: '2025-06-27T20:00:00', // Viernes 27 de Junio, 7:15 PM AST
+    link: '/bsn-2',
+    description: 'Partido de baloncesto entre Mets de Guaynabo y Cangrejeros de Santurce.',
   },
 
 
