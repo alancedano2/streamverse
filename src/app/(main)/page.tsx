@@ -66,7 +66,7 @@ export default function HomePage() {
     title: 'WWE SmackDown',
     date: 'Viernes, 27 de Junio del 2025 - 8:00pm',
     description: 'El show azul de WWE con tus superestrellas favoritas.',
-    bgImage: 'https://streamverse-neon.vercel.app/_next/image?url=https%3A%2F%2Fimages2.minutemediacdn.com%2Fimage%2Fupload%2Fc_crop%2Cw_1080%2Ch_607%2Cx_0%2Cy_211%2Fc_fill%2Cw_720%2Car_16%3A9%2Cf_auto%2Cq_auto%2Cg_auto%2Fimages%2FvoltaxMediaLibrary%2Fmmsport%2Fwrestling_on_fannation%2F01j7q1skk768tjf6w260.jpg&w=1200&q=75',
+    bgImage: 'https://images2.minutemediacdn.com/image/upload/c_crop,w_1080,h_607,x_0,y_211/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/wrestling_on_fannation/01j7q1skk768tjf6w260.jpg',
     link: '/wwe-smackdown', // ✅ COMA AÑADIDA AQUÍ
   },
   {
@@ -74,7 +74,7 @@ export default function HomePage() {
     title: 'Criollos de Caguas vs. Osos de Manatí',
     date: 'Viernes, 27 de Junio del 2025 - 8:00pm',
     description: 'Partido de baloncesto entre Criollos de Caguas y Osos de Manatí.', // Miércoles 25 de Junio, 8:00 PM AST
-    bgImage: 'https://streamverse-neon.vercel.app/_next/image?url=https%3A%2F%2Fi.ytimg.com%2Fvi%2F852XZ9HjuFg%2Fhq720.jpg%3Fsqp%3D-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD%26rs%3DAOn4CLBh2WcIWHlGqmg5bRm0bk2JLWnQGA&w=1200&q=75',
+    bgImage: 'https://media.telemundopr.com/2025/04/Copy-of-BSN-HORIZONTAL-2025-04-20T144412.535.png?resize=1200%2C675&quality=85&strip=all',
     link: '/bsn-1',
   },
   {
@@ -90,7 +90,7 @@ export default function HomePage() {
     title: 'WWE Night Of Champions 2025',
     date: 'Sabado, 27 de Junio del 2025 - 11:00am',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-    bgImage: 'https://streamverse-neon.vercel.app/_next/image?url=https%3A%2F%2F411mania.com%2Fwp-content%2Fuploads%2F2025%2F05%2Fwwenightofchampions2025.jpg&w=1200&q=75',
+    bgImage: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg',
     link: '/evento-1',
   },
 ];
