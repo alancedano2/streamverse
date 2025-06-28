@@ -108,9 +108,33 @@ const allEvents: EventItem[] = [
   // SÁBADO 28 DE JUNIO DE 2025
   {
     id: 'wwe-night-of-champions-2025-calendar-saturday',
+    title: 'WWE Night of Champions 2025 CountDown',
+    league: 'WWE PPV',
+    dateTime: '2025-06-28T11:00:00', // Sábado 28 de Junio, 7:00 PM AST
+    link: '/evento-1',
+    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
+  },
+  {
+    id: 'wwe-night-of-champions-2025-ppv-saturday',
     title: 'WWE Night of Champions 2025',
     league: 'WWE PPV',
-    dateTime: '2025-06-28T19:00:00', // Sábado 28 de Junio, 7:00 PM AST
+    dateTime: '2025-06-28T13:00:00', // Sábado 28 de Junio, 7:00 PM AST
+    link: '/evento-1',
+    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
+  },
+  {
+    id: 'wwe-night-of-champions-2025-calendar-saturday',
+    title: 'WWE Night of Champions 2025 Post-Show',
+    league: 'WWE PPV',
+    dateTime: '2025-06-28T16:00:00', // Sábado 28 de Junio, 7:00 PM AST
+    link: '/evento-1',
+    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
+  },
+  {
+    id: 'bsnpr',
+    title: 'BSN: Santeros de Aguada vs Capitanes de Arecibo',
+    league: 'BSN',
+    dateTime: '2025-06-28T20:00:00', // Sábado 28 de Junio, 7:00 PM AST
     link: '/evento-1',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
   },
