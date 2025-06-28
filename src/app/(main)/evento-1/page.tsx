@@ -25,7 +25,7 @@ function getEvento1Details(): StreamDetails {
     title: 'WWE Night of Champions 2025',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
     league: 'WWE PPV',
-    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://9862-38-27-97-53.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
+    playbackUrl: 'https://9862-38-27-97-53.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
     posterUrl: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg', // Imagen de póster
     isLive: true, // Asumimos que es una repetición para los detalles base
     nextEpisodeDate: '',
