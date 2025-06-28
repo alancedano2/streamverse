@@ -33,7 +33,7 @@ function getF1RaceDetails(): StreamDetails {
     title: 'Jake Paul vs Julio Cesar Chavez - DAZN PPV', // Título genérico de F1, ej: "Gran Premio de España"
     description: 'Evento de pago por evento de DAZN',
     league: 'DAZN PPV',
-    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=http://tv14s.xyz:8080/live/A1Jay5/362586/234046.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
+    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://9862-38-27-97-53.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
     posterUrl: 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/TMNDWSE35NFG3DNMNGGDFS5J5M.jpg', // Póster genérico de F1 (dominio permitido en next.config.ts)
     isLive: isLiveNow, // Indica si está en vivo
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
