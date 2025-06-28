@@ -19,12 +19,12 @@ interface BSNEventDetails {
 // Función para obtener los detalles de BSN-2
 function getBsn2Details(): BSNEventDetails {
   return {
-    title: 'BSN: Osos de Manatí vs Criollos de Caguas',
+    title: 'Mets de Guaynabo vs. Cangrejeros de Santurce',
     description: 'Otro emocionante partido del Baloncesto Superior Nacional de Puerto Rico. ¡Duelo de la zona metropolitana!',
     league: 'BSN',
-    youtubeEmbedUrl: 'https://www.youtube.com/embed/UXzAkkVmXyU?si=KNNm50vzji45julv', // URL de embed de YouTube de prueba REAL
-    posterUrl: 'https://i.ytimg.com/vi/852XZ9HjuFg/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBh2WcIWHlGqmg5bRm0bk2JLWnQGA',
-    dateTime: '2025-06-25T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/lgFXrkmm9Ag?si=r0j1sA6DZUSaYqcq', // URL de embed de YouTube de prueba REAL
+    posterUrl: 'https://i.ytimg.com/vi/lgFXrkmm9Ag/hq720.jpg?v=68557523&sqp=COi2_MIG-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAV9quCw2nZ0KCJPfnbyS8yAcRepw',
+    dateTime: '2025-06-27T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
   };
 }
 
