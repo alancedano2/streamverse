@@ -40,10 +40,9 @@ export default function Evento1Page() {
   const videoRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<Player | null>(null);
 
-  // Estado para controlar qué contenido se muestra, inicializado con iframe1
-  const [currentContent, setCurrentContent] = useState<ContentType>('iframe1');
-  // Estado para el iframe que se debe mostrar, inicializado con la URL del primer embed
-  const [iframeSrc, setIframeSrc] = useState<string>('https://www.youtube.com/embed/saFXLfwyt9U?si=CDYgodUInCV_SrnT');
+  // Inicializamos currentContent con 'videojs' para que el reproductor salga de inmediato
+  const [currentContent, setCurrentContent] = useState<ContentType>('videojs');
+  const [iframeSrc, setIframeSrc] = useState<string>('');
 
   // Nuevo estado para la fuente seleccionada del video.js
   const [selectedVideoSource, setSelectedVideoSource] = useState<string>(
@@ -56,8 +55,8 @@ export default function Evento1Page() {
   // useEffect para cargar los detalles del stream una vez al montar el componente
   useEffect(() => {
     setStreamDetails(getEvento1Details());
-    // No determinamos el contenido aquí, ya está predefinido a iframe1
-    // La determinación se hará en el intervalo y en el primer render, pero ya iniciado con iframe1
+    // Llama inmediatamente a determineContent para establecer el contenido correcto según la hora actual
+    determineContent(getEvento1Details());
   }, []);
 
   // Función para determinar qué contenido mostrar
@@ -91,15 +90,15 @@ export default function Evento1Page() {
         return;
       }
 
-      // Sábado 12:55 PM a 6:00 PM: video.js
-      if ((hours === 12 && minutes >= 55) || (hours > 12 && hours < 18) || (hours === 18 && minutes === 0)) {
+      // Sábado 12:55 PM a 4:00 PM: video.js (Ajustado para que iframe2 comience a las 4 PM)
+      if ((hours === 12 && minutes >= 55) || (hours > 12 && hours < 16)) { // Cambiado de 18 a 16
         setCurrentContent('videojs');
         // El reproductor de Video.js se inicializará en su propio useEffect
         return;
       }
 
-      // Sábado 6:00 PM en adelante: iframe2
-      if (hours >= 18) {
+      // Sábado 4:00 PM en adelante: iframe2 (Cambiado de 6:00 PM a 4:00 PM)
+      if (hours >= 16) { // CAMBIO AQUÍ: de 18 a 16
         setCurrentContent('iframe2');
         setIframeSrc('https://www.youtube.com/embed/O111A-p7oNA?si=hhYBS2oxXiOE1L-e');
         // Asegúrate de destruir el reproductor si estaba activo
@@ -125,23 +124,25 @@ export default function Evento1Page() {
       }
     }
 
-    // Si ninguna condición de tiempo se cumple, pero ya estamos en un iframe, lo mantenemos.
-    // Solo si el contenido actual no es ya un iframe específico, entonces mostramos 'noContent'.
-    if (!['iframe1', 'iframe2', 'iframe3', 'videojs'].includes(currentContent)) {
-        setCurrentContent('noContent');
-        // Asegúrate de destruir el reproductor si estaba activo
+    // Si ninguna condición de tiempo se cumple y no es Sábado ni Jueves,
+    // o si es Sábado/Jueves pero no hay un contenido específico para la hora actual,
+    // entonces mostramos 'noContent' o volvemos a 'videojs' si es el día del evento.
+    if (dayOfWeek !== 6 && dayOfWeek !== 4) { // Si NO es Sábado ni Jueves
+        setCurrentContent('noContent'); // No hay contenido programado para otros días
         if (playerRef.current) {
             playerRef.current.dispose();
             playerRef.current = null;
         }
+    } else if (currentContent !== 'videojs') { // Si es Sábado o Jueves, pero no estamos en videojs
+        // Y ninguna de las condiciones de iframes se cumplió, volvemos a videojs
+        setCurrentContent('videojs');
     }
   };
 
   // useEffect para cargar los detalles del stream y configurar el intervalo de actualización
   useEffect(() => {
     setStreamDetails(getEvento1Details());
-    // La determinación inicial ya no es necesaria aquí, ya que currentContent e iframeSrc están inicializados.
-    // El intervalo se encargará de actualizar según la hora.
+    determineContent(getEvento1Details()); // Llama inmediatamente para establecer el contenido correcto al cargar
 
     const intervalId = setInterval(() => {
       determineContent(getEvento1Details());
