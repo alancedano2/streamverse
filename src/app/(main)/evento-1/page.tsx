@@ -25,7 +25,7 @@ function getEvento1Details(): StreamDetails {
     title: 'WWE Night of Champions 2025',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
     league: 'WWE PPV',
-    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://9862-38-27-97-53.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
+    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://2241-209-91-239-6.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
     posterUrl: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg', // Imagen de póster
     isLive: true, // Asumimos que es una repetición para los detalles base
     nextEpisodeDate: '',
@@ -40,14 +40,24 @@ export default function Evento1Page() {
   const videoRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<Player | null>(null);
 
-  // Nuevo estado para controlar qué contenido se muestra
-  const [currentContent, setCurrentContent] = useState<ContentType>('loading');
-  // Estado para el iframe que se debe mostrar
-  const [iframeSrc, setIframeSrc] = useState<string>('');
+  // Estado para controlar qué contenido se muestra, inicializado con iframe1
+  const [currentContent, setCurrentContent] = useState<ContentType>('iframe1');
+  // Estado para el iframe que se debe mostrar, inicializado con la URL del primer embed
+  const [iframeSrc, setIframeSrc] = useState<string>('https://www.youtube.com/embed/saFXLfwyt9U?si=CDYgodUInCV_SrnT');
+
+  // Nuevo estado para la fuente seleccionada del video.js
+  const [selectedVideoSource, setSelectedVideoSource] = useState<string>(
+    'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://2241-209-91-239-6.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8' // Opción 1 por defecto
+  );
+
+  // URL para la opción 2 del video.js
+  const option2VideoUrl = 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/playlist.m3u8';
 
   // useEffect para cargar los detalles del stream una vez al montar el componente
   useEffect(() => {
     setStreamDetails(getEvento1Details());
+    // No determinamos el contenido aquí, ya está predefinido a iframe1
+    // La determinación se hará en el intervalo y en el primer render, pero ya iniciado con iframe1
   }, []);
 
   // Función para determinar qué contenido mostrar
@@ -101,55 +111,38 @@ export default function Evento1Page() {
       }
     }
 
-    // --- Lógica para HOY (miércoles, 3 en dayOfWeek) - Si no es sábado ---
-    // Según tu prompt, hoy es miércoles 26 de junio de 2025.
-    // Asumiendo que el "mañana" del prompt se refiere al jueves 27.
-    if (dayOfWeek === 3) { // Si hoy es miércoles
-      // No hay contenido específico para hoy en tu solicitud hasta ahora.
-      // Puedes añadir aquí si necesitas algo para el miércoles.
-    }
-
     // --- Lógica para MAÑANA (jueves, día 4) ---
-    if (tomorrowDayOfWeek === 4) { // Si "mañana" es jueves
-        // Mañana (Jueves) 4:00 PM a 5:10 PM: iframe3
-        // IMPORTANTE: Esta lógica se ejecutará si la página se carga *hoy* y la condición de *mañana* se cumple.
-        // Si el usuario carga la página el jueves, esta lógica no se activará a menos que uses el `now` directamente.
-        // Para simplificar, la pondremos aquí asumiendo que "mañana" es una condición futura.
-        // Una forma más robusta sería pasar la fecha objetivo como argumento o usar una librería de fechas.
-        // Para el propósito actual, revisamos si la hora actual cae dentro del rango de mañana si fuera jueves.
-        // Para una implementación de producción, considerar almacenar fechas completas (año, mes, día, hora) para la comparación.
-
-        // Dado que la ejecución es en el cliente, `now` siempre será el día actual del cliente.
-        // Para "mañana", la lógica debe estar atenta a si el día *es* mañana (jueves)
-        if (dayOfWeek === 4) { // Si el día ACTUAL es Jueves (Mañana)
-          if ((hours === 16 && minutes >= 0) || (hours > 16 && hours < 17) || (hours === 17 && minutes <= 10)) {
-            setCurrentContent('iframe3');
-            setIframeSrc('https://www.youtube.com/embed/O111A-p7oNA?si=yg8IFTpHO66KlCNg');
-            if (playerRef.current) {
-                playerRef.current.dispose();
-                playerRef.current = null;
-            }
-            return;
-          }
+    // Esta lógica solo se activará si el día actual es Jueves
+    if (dayOfWeek === 4) { // Si el día ACTUAL es Jueves
+      if ((hours === 16 && minutes >= 0) || (hours > 16 && hours < 17) || (hours === 17 && minutes <= 10)) {
+        setCurrentContent('iframe3');
+        setIframeSrc('https://www.youtube.com/embed/O111A-p7oNA?si=yg8IFTpHO66KlCNg');
+        if (playerRef.current) {
+          playerRef.current.dispose();
+          playerRef.current = null;
         }
+        return;
+      }
     }
 
-    // Si ninguna condición se cumple
-    setCurrentContent('noContent');
-    // Asegúrate de destruir el reproductor si estaba activo
-    if (playerRef.current) {
-        playerRef.current.dispose();
-        playerRef.current = null;
+    // Si ninguna condición de tiempo se cumple, pero ya estamos en un iframe, lo mantenemos.
+    // Solo si el contenido actual no es ya un iframe específico, entonces mostramos 'noContent'.
+    if (!['iframe1', 'iframe2', 'iframe3', 'videojs'].includes(currentContent)) {
+        setCurrentContent('noContent');
+        // Asegúrate de destruir el reproductor si estaba activo
+        if (playerRef.current) {
+            playerRef.current.dispose();
+            playerRef.current = null;
+        }
     }
   };
 
-  // useEffect para cargar los detalles del stream y determinar el contenido inicial
+  // useEffect para cargar los detalles del stream y configurar el intervalo de actualización
   useEffect(() => {
     setStreamDetails(getEvento1Details());
-    // Determina el contenido inicial justo después de cargar los detalles
-    determineContent(getEvento1Details());
+    // La determinación inicial ya no es necesaria aquí, ya que currentContent e iframeSrc están inicializados.
+    // El intervalo se encargará de actualizar según la hora.
 
-    // Configura un intervalo para re-evaluar el contenido cada minuto (o el tiempo que consideres adecuado)
     const intervalId = setInterval(() => {
       determineContent(getEvento1Details());
     }, 60 * 1000); // Cada minuto
@@ -162,12 +155,12 @@ export default function Evento1Page() {
   useEffect(() => {
     // Solo inicializa si currentContent es 'videojs', streamDetails tiene datos y el reproductor no ha sido inicializado aún
     if (currentContent !== 'videojs' || !streamDetails || playerRef.current) {
-        // Si no estamos en el modo videojs, asegúrate de que el reproductor no exista
-        if (playerRef.current) {
-            playerRef.current.dispose();
-            playerRef.current = null;
-        }
-        return;
+      // Si no estamos en el modo videojs, asegúrate de que el reproductor no exista
+      if (playerRef.current) {
+        playerRef.current.dispose();
+        playerRef.current = null;
+      }
+      return;
     }
 
     // Crea el elemento <video-js>
@@ -176,9 +169,13 @@ export default function Evento1Page() {
 
     // Monta el elemento de video en el div de referencia
     if (videoRef.current) {
+      // Limpia cualquier contenido previo para evitar múltiples players si se re-renderiza
+      while (videoRef.current.firstChild) {
+        videoRef.current.removeChild(videoRef.current.firstChild);
+      }
       videoRef.current.appendChild(videoElement);
 
-      // Opciones para Video.js (usando los streamDetails cargados)
+      // Opciones para Video.js
       const videoPlayerOptions = {
         autoplay: true, // Auto-reproducir
         controls: true, // Mostrar controles
@@ -186,7 +183,7 @@ export default function Evento1Page() {
         fluid: true, // Se adapta al tamaño del contenedor manteniendo el aspecto
         sources: [
           {
-            src: streamDetails.playbackUrl,
+            src: selectedVideoSource, // Usa la fuente seleccionada
             type: 'application/x-mpegURL', // Tipo para M3U8 (HLS)
           },
         ],
@@ -199,17 +196,17 @@ export default function Evento1Page() {
       }));
     }
 
-    // Función de limpieza al desmontar el componente o cuando currentContent cambia
+    // Función de limpieza al desmontar el componente o cuando currentContent/selectedVideoSource cambian
     return () => {
       if (playerRef.current) {
         playerRef.current.dispose(); // Destruye la instancia del reproductor
         playerRef.current = null;
       }
     };
-  }, [currentContent, streamDetails]); // Depende de currentContent y streamDetails para re-ejecutar
+  }, [currentContent, streamDetails, selectedVideoSource]); // Depende de currentContent, streamDetails y selectedVideoSource
 
-  // Muestra un mensaje de carga si los detalles del stream aún no están disponibles o el contenido está 'loading'
-  if (currentContent === 'loading' || !streamDetails) {
+  // Muestra un mensaje de carga si los detalles del stream aún no están disponibles
+  if (!streamDetails) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen flex justify-center items-center">
         <p className="text-xl text-gray-400">Cargando Evento 1 y programando contenido...</p>
@@ -227,6 +224,20 @@ export default function Evento1Page() {
 
         {/* Contenedor del Reproductor/Iframe */}
         <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative aspect-video bg-gray-800 flex items-center justify-center">
+          {/* Selector de fuente para Video.js */}
+          {currentContent === 'videojs' && (
+            <div className="absolute top-4 right-4 z-20">
+              <select
+                className="bg-gray-700 text-white p-2 rounded-md border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                value={selectedVideoSource}
+                onChange={(e) => setSelectedVideoSource(e.target.value)}
+              >
+                <option value={streamDetails.playbackUrl}>Opción 1</option>
+                <option value={option2VideoUrl}>Opción 2 (externo)</option>
+              </select>
+            </div>
+          )}
+
           {/* Condicional para mostrar el reproductor de Video.js */}
           {currentContent === 'videojs' && (
             <>
