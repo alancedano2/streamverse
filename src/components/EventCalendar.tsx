@@ -76,7 +76,7 @@ const allEvents: EventItem[] = [
     title: 'Canelo vs. Crawford: Las Vegas Press Conference',
     league: 'PPV',
     dateTime: '2025-06-27T19:00:00', // Viernes 27 de Junio, 7:15 PM AST
-    link: '/evento2',
+    link: '/evento-2',
     description: 'Watch the Canelo vs. Crawford: Las Vegas Press Conference on Friday, June 27 at 7 PM',
   },
   {
@@ -111,7 +111,7 @@ const allEvents: EventItem[] = [
     title: 'WWE Night of Champions 2025',
     league: 'WWE PPV',
     dateTime: '2025-06-28T19:00:00', // Sábado 28 de Junio, 7:00 PM AST
-    link: '/eventos/wwe-night-of-champions-2025-ppv',
+    link: '/evento-1',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
   },
   // Puedes añadir más eventos aquí para otros días
