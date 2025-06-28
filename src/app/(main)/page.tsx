@@ -62,19 +62,35 @@ export default function HomePage() {
 
   const heroEvents = [
   {
-    id: 'mlb-reds-vs-yankees',
-    title: 'BSN: Leones de Ponce vs Santeros de Aguada',
-    date: 'Jueves, 26 de Junio del 2025 - 8:00pm',
-    description: 'Los Leones de Ponce se enfrentan a los Santeros de Aguada',
-    bgImage: 'https://i.ytimg.com/vi/XxpAZTDpI4c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUW10y4bZs4Uwq1opEIqPI1-KlCA',
-    link: '/bsn-1', // ✅ COMA AÑADIDA AQUÍ
+    id: 'wwe',
+    title: 'WWE SmackDown',
+    date: 'Viernes, 27 de Junio del 2025 - 8:00pm',
+    description: 'El show azul de WWE con tus superestrellas favoritas.',
+    bgImage: 'https://streamverse-neon.vercel.app/_next/image?url=https%3A%2F%2Fimages2.minutemediacdn.com%2Fimage%2Fupload%2Fc_crop%2Cw_1080%2Ch_607%2Cx_0%2Cy_211%2Fc_fill%2Cw_720%2Car_16%3A9%2Cf_auto%2Cq_auto%2Cg_auto%2Fimages%2FvoltaxMediaLibrary%2Fmmsport%2Fwrestling_on_fannation%2F01j7q1skk768tjf6w260.jpg&w=1200&q=75',
+    link: '/wwe-smackdown', // ✅ COMA AÑADIDA AQUÍ
+  },
+  {
+    id: 'bsn-calendar-wednesday',
+    title: 'Criollos de Caguas vs. Osos de Manatí',
+    date: 'Viernes, 27 de Junio del 2025 - 8:00pm',
+    description: 'Partido de baloncesto entre Criollos de Caguas y Osos de Manatí.', // Miércoles 25 de Junio, 8:00 PM AST
+    bgImage: 'https://streamverse-neon.vercel.app/_next/image?url=https%3A%2F%2Fi.ytimg.com%2Fvi%2F852XZ9HjuFg%2Fhq720.jpg%3Fsqp%3D-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD%26rs%3DAOn4CLBh2WcIWHlGqmg5bRm0bk2JLWnQGA&w=1200&q=75',
+    link: '/bsn-1',
+  },
+  {
+    id: 'bsn-indios-piratas-calendar-wednesday',
+    title: 'Mets de Guaynabo vs. Cangrejeros de Santurce',
+    date: 'Viernes, 27 de Junio del 2025 - 8:00pm',
+    description: 'Partido de baloncesto entre Mets de Guaynabo y Cangrejeros de Santurce.', // Miércoles 25 de Junio, 8:00 PM AST
+    bgImage: 'https://i.ytimg.com/vi/lgFXrkmm9Ag/hq720.jpg?v=68557523&sqp=COi2_MIG-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAV9quCw2nZ0KCJPfnbyS8yAcRepw',
+    link: '/bsn-2',
   },
   {
     id: 'wwe',
-    title: 'WWE Night Of Champions KickOff',
-    date: 'Jueves, 26 de Junio del 2025 - 4:00pm',
+    title: 'WWE Night Of Champions 2025',
+    date: 'Sabado, 27 de Junio del 2025 - 11:00am',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-    bgImage: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg',
+    bgImage: 'https://streamverse-neon.vercel.app/_next/image?url=https%3A%2F%2F411mania.com%2Fwp-content%2Fuploads%2F2025%2F05%2Fwwenightofchampions2025.jpg&w=1200&q=75',
     link: '/evento-1',
   },
 ];
