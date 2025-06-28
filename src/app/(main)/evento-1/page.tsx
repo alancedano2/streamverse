@@ -46,7 +46,7 @@ export default function Evento1Page() {
 
   // Nuevo estado para la fuente seleccionada del video.js
   const [selectedVideoSource, setSelectedVideoSource] = useState<string>(
-    'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://2241-209-91-239-6.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8' // Opción 1 por defecto
+    'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://9862-38-27-97-53.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8' // Opción 1 por defecto
   );
 
   // URL para la opción 2 del video.js
