@@ -1,176 +1,94 @@
-// src/app/eventos/evento-1/page.tsx
+// src/app/(main)/evento-2/page.tsx
 'use client'; // ¡IMPORTANTE! Esta página DEBE ser un Client Component.
 
-import React, { useRef, useEffect, useState } from 'react'; // Necesitamos estos Hooks
+import React, { useRef, useEffect, useState } from 'react';
 import videojs from 'video.js'; // Importamos video.js directamente
 import Player from 'video.js/dist/types/player'; // Importamos los tipos
 import 'video.js/dist/video-js.css'; // Importamos los estilos CSS de video.js
 import Link from 'next/link'; // Por si necesitas Links en la página
 import Image from 'next/image'; // Por si necesitas Images en la página
 
-// Interfaz para los detalles del stream
+// Interfaz para los detalles del stream (se mantiene igual)
 interface StreamDetails {
   title: string;
   description: string;
   league: string;
-  playbackUrl: string;
-  posterUrl: string;
-  isLive: boolean;
-  nextEpisodeDate?: string;
+  playbackUrl: string; // La URL M3U8 del stream
+  posterUrl: string; // URL de la imagen del póster
+  isLive: boolean; // ¿Está el evento en vivo ahora?
+  nextEpisodeDate?: string; // Fecha del próximo evento (opcional)
 }
 
-// Función para obtener los detalles de ESTE evento específico (Evento 1)
-function getEvento1Details(): StreamDetails {
+// Función para obtener los detalles de ESTE evento F1 específico (Evento 2)
+function getF1RaceDetails(): StreamDetails {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1); // Calcula la fecha de mañana
+
+  // Esta variable 'isLive' puedes ajustarla a 'true' si el stream está realmente en vivo.
+  // Por ahora, la dejamos en 'false' ya que el 'playbackUrl' estará en blanco.
+  const isLiveNow = false; 
+
   return {
-    title: 'WWE Night of Champions 2025',
-    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-    league: 'WWE PPV',
-    playbackUrl: 'https://9862-38-27-97-53.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
-    posterUrl: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg', // Imagen de póster
-    isLive: true, // Asumimos que es una repetición para los detalles base
-    nextEpisodeDate: '',
+    title: 'Jake Paul vs Julio Cesar Chavez - DAZN PPV', // Título genérico de F1, ej: "Gran Premio de España"
+    description: 'Evento de pago por evento de DAZN',
+    league: 'DAZN PPV',
+    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=http://tv14s.xyz:8080/live/A1Jay5/362586/234050.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
+    posterUrl: 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/TMNDWSE35NFG3DNMNGGDFS5J5M.jpg', // Póster genérico de F1 (dominio permitido en next.config.ts)
+    isLive: isLiveNow, // Indica si está en vivo
+    nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
   };
 }
 
-// Definimos los tipos de contenido que podemos mostrar
-type ContentType = 'videojs' | 'iframe1' | 'iframe2' | 'iframe3' | 'loading' | 'noContent';
+// Definimos los tipos de contenido que podemos mostrar (simplificado para F1)
+type ContentType = 'videojs' | 'noContent' | 'loading';
 
-export default function Evento1Page() {
+export default function Evento2Page() {
   const [streamDetails, setStreamDetails] = useState<StreamDetails | null>(null);
   const videoRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<Player | null>(null);
 
-  // Inicializamos currentContent con 'videojs' para que el reproductor salga de inmediato
-  const [currentContent, setCurrentContent] = useState<ContentType>('videojs');
-  const [iframeSrc, setIframeSrc] = useState<string>('');
+  // currentContent se inicializa a 'loading' mientras se cargan los detalles
+  const [currentContent, setCurrentContent] = useState<ContentType>('loading');
 
-  // Nuevo estado para la fuente seleccionada del video.js
-  const [selectedVideoSource, setSelectedVideoSource] = useState<string>(
-    'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://9862-38-27-97-53.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8' // Opción 1 por defecto
-  );
-
-  // URL para la opción 2 del video.js
-  const option2VideoUrl = 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/playlist.m3u8';
-
-  // useEffect para cargar los detalles del stream una vez al montar el componente
+  // useEffect para cargar los detalles del stream y determinar el contenido a mostrar
   useEffect(() => {
-    setStreamDetails(getEvento1Details());
-    // Llama inmediatamente a determineContent para establecer el contenido correcto según la hora actual
-    determineContent(getEvento1Details());
-  }, []);
+    const details = getF1RaceDetails();
+    setStreamDetails(details);
 
-  // Función para determinar qué contenido mostrar
-  const determineContent = (details: StreamDetails | null) => {
-    if (!details) {
-      setCurrentContent('loading');
-      return;
+    // Si hay una URL de reproducción, preparamos el reproductor; de lo contrario, mostramos "noContent".
+    if (details.playbackUrl) {
+      setCurrentContent('videojs');
+    } else {
+      setCurrentContent('noContent');
     }
 
-    const now = new Date();
-    const dayOfWeek = now.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
+    // Si tuvieras una lógica para que el estado 'isLive' cambie o la 'playbackUrl' se active a una hora específica,
+    // aquí es donde podrías añadir un 'setInterval' como en evento-1, pero simplificado para F1.
+    // Por ahora, el 'playbackUrl' lo controlarás manualmente.
 
-    // Sumar 1 para el día de mañana
-    const tomorrow = new Date(now);
-    tomorrow.setDate(now.getDate() + 1);
-    const tomorrowDayOfWeek = tomorrow.getDay();
-
-    // --- Lógica para el SÁBADO (día 6) ---
-    if (dayOfWeek === 6) { // Es Sábado
-      // Sábado 9:40 AM a 12:55 PM: iframe1
-      if ((hours === 9 && minutes >= 40) || (hours > 9 && hours < 12) || (hours === 12 && minutes <= 55)) {
-        setCurrentContent('iframe1');
-        setIframeSrc('https://www.youtube.com/embed/saFXLfwyt9U?si=CDYgodUInCV_SrnT');
-        // Asegúrate de destruir el reproductor si estaba activo
-        if (playerRef.current) {
-          playerRef.current.dispose();
-          playerRef.current = null;
-        }
-        return;
-      }
-
-      // Sábado 12:55 PM a 4:00 PM: video.js (Ajustado para que iframe2 comience a las 4 PM)
-      if ((hours === 12 && minutes >= 55) || (hours > 12 && hours < 16)) { // Cambiado de 18 a 16
-        setCurrentContent('videojs');
-        // El reproductor de Video.js se inicializará en su propio useEffect
-        return;
-      }
-
-      // Sábado 4:00 PM en adelante: iframe2 (Cambiado de 6:00 PM a 4:00 PM)
-      if (hours >= 16) { // CAMBIO AQUÍ: de 18 a 16
-        setCurrentContent('iframe2');
-        setIframeSrc('https://www.youtube.com/embed/O111A-p7oNA?si=hhYBS2oxXiOE1L-e');
-        // Asegúrate de destruir el reproductor si estaba activo
-        if (playerRef.current) {
-          playerRef.current.dispose();
-          playerRef.current = null;
-        }
-        return;
-      }
-    }
-
-    // --- Lógica para MAÑANA (jueves, día 4) ---
-    // Esta lógica solo se activará si el día actual es Jueves
-    if (dayOfWeek === 4) { // Si el día ACTUAL es Jueves
-      if ((hours === 16 && minutes >= 0) || (hours > 16 && hours < 17) || (hours === 17 && minutes <= 10)) {
-        setCurrentContent('iframe3');
-        setIframeSrc('https://www.youtube.com/embed/O111A-p7oNA?si=yg8IFTpHO66KlCNg');
-        if (playerRef.current) {
-          playerRef.current.dispose();
-          playerRef.current = null;
-        }
-        return;
-      }
-    }
-
-    // Si ninguna condición de tiempo se cumple y no es Sábado ni Jueves,
-    // o si es Sábado/Jueves pero no hay un contenido específico para la hora actual,
-    // entonces mostramos 'noContent' o volvemos a 'videojs' si es el día del evento.
-    if (dayOfWeek !== 6 && dayOfWeek !== 4) { // Si NO es Sábado ni Jueves
-        setCurrentContent('noContent'); // No hay contenido programado para otros días
-        if (playerRef.current) {
-            playerRef.current.dispose();
-            playerRef.current = null;
-        }
-    } else if (currentContent !== 'videojs') { // Si es Sábado o Jueves, pero no estamos en videojs
-        // Y ninguna de las condiciones de iframes se cumplió, volvemos a videojs
-        setCurrentContent('videojs');
-    }
-  };
-
-  // useEffect para cargar los detalles del stream y configurar el intervalo de actualización
-  useEffect(() => {
-    setStreamDetails(getEvento1Details());
-    determineContent(getEvento1Details()); // Llama inmediatamente para establecer el contenido correcto al cargar
-
-    const intervalId = setInterval(() => {
-      determineContent(getEvento1Details());
-    }, 60 * 1000); // Cada minuto
-
-    // Limpieza: Limpia el intervalo al desmontar el componente
-    return () => clearInterval(intervalId);
   }, []); // El array vacío asegura que se ejecute solo una vez al montar
 
   // useEffect para inicializar y limpiar el reproductor de Video.js
   useEffect(() => {
-    // Solo inicializa si currentContent es 'videojs', streamDetails tiene datos y el reproductor no ha sido inicializado aún
-    if (currentContent !== 'videojs' || !streamDetails || playerRef.current) {
-      // Si no estamos en el modo videojs, asegúrate de que el reproductor no exista
+    // Si no es el momento de mostrar videojs, o no tenemos detalles del stream, o no hay URL de reproducción,
+    // o el reproductor ya está inicializado, salimos de este useEffect.
+    if (currentContent !== 'videojs' || !streamDetails || !streamDetails.playbackUrl || playerRef.current) {
+      // Si el reproductor existe y no debería estar activo (ej. cambiamos a 'noContent'), lo destruimos.
       if (playerRef.current) {
-        playerRef.current.dispose();
+        playerRef.current.dispose(); // Destruye la instancia del reproductor
         playerRef.current = null;
       }
       return;
     }
 
-    // Crea el elemento <video-js>
+    // Crea el elemento <video-js> dinámicamente
     const videoElement = document.createElement('video-js');
     videoElement.classList.add('vjs-big-play-centered'); // Para centrar el botón de play grande
 
-    // Monta el elemento de video en el div de referencia
+    // Monta el elemento de video en el div de referencia (videoRef)
     if (videoRef.current) {
-      // Limpia cualquier contenido previo para evitar múltiples players si se re-renderiza
+      // Limpia cualquier contenido previo para evitar múltiples players si el componente se re-renderiza
       while (videoRef.current.firstChild) {
         videoRef.current.removeChild(videoRef.current.firstChild);
       }
@@ -181,66 +99,68 @@ export default function Evento1Page() {
         autoplay: true, // Auto-reproducir
         controls: true, // Mostrar controles
         responsive: true,
-        fluid: true, // Se adapta al tamaño del contenedor manteniendo el aspecto
+        fluid: true, // El reproductor se adapta al tamaño de su contenedor manteniendo el aspecto
         sources: [
           {
-            src: selectedVideoSource, // Usa la fuente seleccionada
-            type: 'application/x-mpegURL', // Tipo para M3U8 (HLS)
+            src: streamDetails.playbackUrl, // Usamos la URL del stream de F1 del estado
+            type: 'application/x-mpegURL', // Tipo para HLS (streams .m3u8)
           },
         ],
-        poster: streamDetails.posterUrl, // Imagen de póster
+        poster: streamDetails.posterUrl, // Imagen de póster del evento
       };
 
       // Inicializa Video.js
+      // Guardamos la instancia del reproductor en playerRef para poder limpiarla después
       const player = (playerRef.current = videojs(videoElement, videoPlayerOptions, () => {
-        videojs.log('Player is ready for Evento 1!');
+        videojs.log('¡Reproductor de F1 listo para Evento 2!');
       }));
     }
 
-    // Función de limpieza al desmontar el componente o cuando currentContent/selectedVideoSource cambian
+    // Función de limpieza: Se ejecuta al desmontar el componente o si las dependencias cambian
     return () => {
       if (playerRef.current) {
-        playerRef.current.dispose(); // Destruye la instancia del reproductor
+        playerRef.current.dispose(); // Es crucial destruir la instancia del reproductor de Video.js
         playerRef.current = null;
       }
     };
-  }, [currentContent, streamDetails, selectedVideoSource]); // Depende de currentContent, streamDetails y selectedVideoSource
+  }, [currentContent, streamDetails]); // Las dependencias aseguran que el efecto se re-ejecute cuando cambian
 
-  // Muestra un mensaje de carga si los detalles del stream aún no están disponibles
+  // Muestra un mensaje de carga mientras los detalles del stream aún no están disponibles
   if (!streamDetails) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen flex justify-center items-center">
-        <p className="text-xl text-gray-400">Cargando Evento 1 y programando contenido...</p>
+        <p className="text-xl text-gray-400">Cargando detalles de la carrera de Fórmula 1...</p>
       </div>
     );
   }
 
-  // Renderiza el contenido de la página una vez que los datos y el contenido están determinados
+  // Renderiza el contenido de la página
   return (
-    <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen">
-      <div className="max-w-5xl mx-auto"> {/* Contenedor centrado */}
-        <h1 className="text-4xl font-extrabold text-orange-500 text-center mb-8">
+    <div className="relative min-h-screen bg-gray-950 text-white"> {/* El mismo fondo global de las páginas WWE */}
+      {/* Puedes añadir una imagen de fondo global para F1 aquí si lo deseas, similar a WWE Raw */}
+      {/* Ejemplo de imagen de fondo global, si la activas, ajusta su opacidad y blur
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://www.formula1.com/etc/designs/fom-website/images/f1_wallpaper_desktop.jpg" // URL de una imagen de F1
+          alt="F1 Background Global"
+          fill
+          className="object-cover blur-lg opacity-50" // Ajusta opacidad a tu gusto
+          priority
+        />
+      </div>
+      <div className="absolute inset-0 bg-transparent bg-opacity-0 z-0"></div>
+      */}
+
+      {/* Contenido principal de la página (z-index mayor) */}
+      <div className="relative z-10 container mx-auto px-4 py-8 pt-12 md:pt-16">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-red-600 text-center mb-8">
           {streamDetails.title}
         </h1>
 
-        {/* Contenedor del Reproductor/Iframe */}
+        {/* Contenedor del Reproductor de Video */}
         <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative aspect-video bg-gray-800 flex items-center justify-center">
-          {/* Selector de fuente para Video.js */}
-          {currentContent === 'videojs' && (
-            <div className="absolute top-4 right-4 z-20">
-              <select
-                className="bg-gray-700 text-white p-2 rounded-md border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                value={selectedVideoSource}
-                onChange={(e) => setSelectedVideoSource(e.target.value)}
-              >
-                <option value={streamDetails.playbackUrl}>Opción 1</option>
-                <option value={option2VideoUrl}>Opción 2 (externo)</option>
-              </select>
-            </div>
-          )}
-
           {/* Condicional para mostrar el reproductor de Video.js */}
-          {currentContent === 'videojs' && (
+          {currentContent === 'videojs' && streamDetails.playbackUrl ? (
             <>
               {streamDetails.isLive && (
                 <div className="absolute top-4 left-4 bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-full z-10 animate-pulse">
@@ -251,37 +171,27 @@ export default function Evento1Page() {
                 <div ref={videoRef} className="w-full h-full"></div>
               </div>
             </>
-          )}
-
-          {/* Condicional para mostrar los iframes */}
-          {(currentContent === 'iframe1' || currentContent === 'iframe2' || currentContent === 'iframe3') && iframeSrc && (
-            <iframe
-              src={iframeSrc}
-              className="w-full h-full border-0"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              title="Contenido programado"
-            ></iframe>
-          )}
-
-          {/* Mensaje cuando no hay contenido programado */}
-          {currentContent === 'noContent' && (
+          ) : (
+            // Mensaje cuando no hay contenido disponible (porque playbackUrl está vacío)
             <div className="text-gray-400 text-xl p-4 text-center">
-              No hay contenido programado en este momento. Por favor, revisa la programación.
+              No hay stream de Eventos disponible en este momento.
+              {streamDetails.nextEpisodeDate && (
+                  <p className="mt-2 text-lg">Próxima Fecha: {streamDetails.nextEpisodeDate}</p>
+              )}
             </div>
           )}
         </div>
 
         {/* Información del Evento */}
         <div className="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
-          <h2 className="text-2xl font-bold text-white mb-3">Detalles del Evento</h2>
+          <h2 className="text-2xl font-bold text-white mb-3">Detalles de la Carrera</h2>
           <p className="text-gray-300 text-lg mb-4">{streamDetails.description}</p>
           <p className="text-gray-400 text-sm">
             Liga: <span className="font-semibold text-white">{streamDetails.league}</span>
           </p>
           {streamDetails.nextEpisodeDate && (
             <p className="text-gray-400 text-sm mt-1">
-              Próximo Evento: <span className="font-semibold text-white">{streamDetails.nextEpisodeDate}</span>
+              Fecha del evento: <span className="font-semibold text-white">{streamDetails.nextEpisodeDate}</span>
             </p>
           )}
         </div>
