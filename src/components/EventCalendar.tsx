@@ -135,8 +135,8 @@ const allEvents: EventItem[] = [
     title: 'BSN: Santeros de Aguada vs Capitanes de Arecibo',
     league: 'BSN',
     dateTime: '2025-06-28T20:00:00', // Sábado 28 de Junio, 7:00 PM AST
-    link: '/evento-1',
-    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
+    link: '/bsn-1',
+    description: 'Partido de baloncesto entre Santeros y Capitanes.',
   },
   // Puedes añadir más eventos aquí para otros días
 ];
