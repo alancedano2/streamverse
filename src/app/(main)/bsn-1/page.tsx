@@ -19,12 +19,12 @@ interface BSNEventDetails {
 // Función para obtener los detalles de BSN-1
 function getBsn1Details(): BSNEventDetails {
   return {
-    title: 'Criollos de Caguas vs. Osos de Manatí',
+    title: 'Capitanes de Arecibo vs. Santeros de Aguada',
     description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico. ¡Un duelo de altura en la cancha!',
     league: 'BSN',
-    youtubeEmbedUrl: 'https://www.youtube.com/embed/fo7JEwWTRBk?si=d-M7vrRH-G0by0XN', // URL de embed de YouTube de prueba REAL
-    posterUrl: 'https://streamverse-neon.vercel.app/_next/image?url=https%3A%2F%2Fi.ytimg.com%2Fvi%2F852XZ9HjuFg%2Fhq720.jpg%3Fsqp%3D-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD%26rs%3DAOn4CLBh2WcIWHlGqmg5bRm0bk2JLWnQGA&w=1200&q=75',
-    dateTime: '2025-06-27T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/zCxkxCREs7Y?si=3AW9bodOgIN7aINq', // URL de embed de YouTube de prueba REAL
+    posterUrl: 'https://i.ytimg.com/vi/CJCvXb5dmIo/maxresdefault.jpg',
+    dateTime: '2025-06-28T20:00:00', // Sabado 28 de Junio, 8:00 PM AST
   };
 }
 
