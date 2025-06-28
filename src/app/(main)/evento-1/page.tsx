@@ -26,7 +26,7 @@ function getEvento1Details(): StreamDetails {
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
     league: 'WWE PPV',
     playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://2241-209-91-239-6.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
-    posterUrl: 'http://localhost:3000/_next/image?url=https%3A%2F%2F411mania.com%2Fwp-content%2Fuploads%2F2025%2F05%2Fwwenightofchampions2025.jpg&w=1200&q=75', // Imagen de póster
+    posterUrl: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg', // Imagen de póster
     isLive: true, // Asumimos que es una repetición para los detalles base
     nextEpisodeDate: '',
   };
