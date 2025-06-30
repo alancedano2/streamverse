@@ -16,11 +16,11 @@ export default function WweRawLivePage() { // Ya no es 'async'
       'Sigue la acción de WWE Raw en directo o mira la repetición completa del último episodio. Con tus superestrellas favoritas, rivalidades intensas y combates espectaculares cada semana.',
     league: 'WWE',
     playbackUrl:
-      'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://2241-209-91-239-6.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
+      'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://e40b-38-27-97-53.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
     posterUrl:
       'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2024/12/Ge77Z8_bMAAQofn.jpeg', // Logo o imagen del show
     isLive: true,
-    nextEpisodeDate: 'Lunes, 30 de Junio del 2025 - 8:00 PM EST',
+    nextEpisodeDate: 'Lunes, 30 de Junio del 2025 - 6:00 PM EST',
   };
 
   const videoPlayerOptions = {
