@@ -19,12 +19,12 @@ interface BSNEventDetails {
 // Función para obtener los detalles de BSN-2
 function getBsn2Details(): BSNEventDetails {
   return {
-    title: 'Mets de Guaynabo vs. Cangrejeros de Santurce',
+    title: 'BSN: Capitanes de Arecibo vs Atleticos de San German',
     description: 'Otro emocionante partido del Baloncesto Superior Nacional de Puerto Rico. ¡Duelo de la zona metropolitana!',
     league: 'BSN',
-    youtubeEmbedUrl: 'https://www.youtube.com/embed/lgFXrkmm9Ag?si=r0j1sA6DZUSaYqcq', // URL de embed de YouTube de prueba REAL
-    posterUrl: 'https://i.ytimg.com/vi/lgFXrkmm9Ag/hq720.jpg?v=68557523&sqp=COi2_MIG-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAV9quCw2nZ0KCJPfnbyS8yAcRepw',
-    dateTime: '2025-06-27T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/GlLrhXexNDY?si=SfUG8xeOunHEhO29', // URL de embed de YouTube de prueba REAL
+    posterUrl: 'https://i.ytimg.com/vi/edz5ORsTsM8/maxresdefault.jpg',
+    dateTime: '2025-06-30T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
   };
 }
 
