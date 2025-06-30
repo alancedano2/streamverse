@@ -3,7 +3,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from 'next/image'; // Asegúrate de importar Image
 
 export default function RadioPage() {
   return (
@@ -24,9 +24,20 @@ export default function RadioPage() {
 
       {/* Contenido principal de la página (z-index mayor) */}
       <div className="relative z-10 container mx-auto px-4 py-8 pt-12 md:pt-16 text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-red-600 mb-8">
-          ¡Sintoniza StreamVerse Radio!
+        <h1 className="text-4xl md:text-5xl font-extrabold text-blue-500 mb-2">
+          StreamVerse Radio
         </h1>
+        {/* Sección de "powered by" con la imagen */}
+        <p className="text-xs text-gray-400 mb-8 flex items-center justify-center space-x-1">
+          <span>powered by</span>
+          <Image
+            src="https://bloximages.chicago2.vip.townnews.com/kq105.com/content/tncms/custom/image/f8b14b8c-a5ba-11ee-b21a-4b46656e8613.png"
+            alt="KQ105 Logo"
+            width={70} // Ajusta el ancho según necesites
+            height={20} // Ajusta la altura para mantener la proporción o tu preferencia
+            // style={{ display: 'inline-block', verticalAlign: 'middle' }} // Opcional para mejor alineación
+          />
+        </p>
 
         <p className="text-lg md:text-xl text-gray-300 mb-8">
           Disfruta de la mejor selección musical y nuestra programación en vivo, 24/7.
