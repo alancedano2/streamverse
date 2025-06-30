@@ -54,6 +54,18 @@ export default function RadioPage() {
           ></iframe>
         </div>
 
+        {/* Nuevo Contenedor para el Historial de Radio (iframe) */}
+        <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 bg-gray-800 flex items-center justify-center p-4">
+          <h2 className="text-2xl font-bold text-white mb-3">Historial de Canciones</h2>
+          <iframe
+            src="https://e40b-38-27-97-53.ngrok-free.app/public/streamverse_radio/history?theme=dark"
+            frameBorder="0"
+            allowTransparency={true}
+            style={{ width: '100%', minHeight: '250px', border: '0' }} // Ajusté min-height para el historial
+            title="StreamVerse Radio History"
+          ></iframe>
+        </div>
+
         {/* Información adicional o enlaces */}
         <div className="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
           <h2 className="text-2xl font-bold text-white mb-3">Conéctate con Nosotros</h2>
