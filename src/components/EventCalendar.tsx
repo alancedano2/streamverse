@@ -20,26 +20,26 @@ interface EventItem {
 const allEvents: EventItem[] = [
   // MIÉRCOLES 25 DE JUNIO DE 2025
   {
-    id: 'mlb-reds-yankees-calendar-wednesday',
-    title: 'MLB: Reds vs Yankees',
-    league: 'MLB',
-    dateTime: '2025-06-25T19:15:00', // Miércoles 25 de Junio, 7:15 PM AST
-    link: '/mlb',
-    description: 'Duelo de la MLB con los Yankees buscando la victoria en un partido clave.',
+    id: 'wwe',
+    title: 'WWE Raw',
+    league: 'WWE',
+    dateTime: '2025-06-30T18:00:00', // Miércoles 25 de Junio, 7:15 PM AST
+    link: '/wwe-raw-live',
+    description: 'El show semanal insignia de WWE.',
   },
   {
     id: 'bsn-indios-piratas-calendar-wednesday',
-    title: 'BSN: Indios de Mayagüez vs Piratas de Quebradillas',
+    title: 'BSN: Indios de Mayaguez vs Cangrejeros de Santurce',
     league: 'BSN',
-    dateTime: '2025-06-25T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    dateTime: '2025-06-30T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
     link: '/bsn-1',
     description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico.',
   },
   {
     id: 'bsn-osos-criollos-calendar-wednesday',
-    title: 'BSN: Osos de Manatí vs Criollos de Caguas',
+    title: 'BSN: Capitanes de Arecibo vs Atleticos de San German',
     league: 'BSN',
-    dateTime: '2025-06-25T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    dateTime: '2025-06-30T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
     link: '/bsn-2',
     description: 'Otro emocionante partido del BSN.',
   },
