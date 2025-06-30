@@ -63,41 +63,33 @@ export default function HomePage() {
   const heroEvents = [
   {
     id: 'wwe',
-    title: 'WWE Night Of Champions CountDown',
-    date: 'Sabado, 28 de Junio del 2025 - 11:00am',
+    title: 'WWE Raw',
+    date: 'Lunes, 30 de Junio del 2025 - 6:00pm',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-    bgImage: 'https://i.ytimg.com/vi/saFXLfwyt9U/maxresdefault.jpg',
-    link: '/evento-1', // ✅ COMA AÑADIDA AQUÍ
-  },
-  {
-    id: 'wwe',
-    title: 'WWE Night Of Champions PPV',
-    date: 'Sabado, 28 de Junio del 2025 - 1:00pm',
-    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-    bgImage: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg',
-    link: '/evento-1',
-  },
-  {
-    id: 'wwe',
-    title: 'WWE Night Of Champions 2025 Post-Show',
-    date: 'Sabado, 28 de Junio del 2025 - 4:00pm',
-    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-    bgImage: 'https://i.ytimg.com/vi/O111A-p7oNA/maxresdefault.jpg',
-    link: '/evento-1',
+    bgImage: 'https://www.pwmania.com/wp-content/uploads/2025/03/raw-logo.jpg',
+    link: '/wwe-raw-live', // ✅ COMA AÑADIDA AQUÍ
   },
   {
     id: 'bsn',
-    title: 'Santeros de Aguada vs Capitanes de Arecibo',
-    date: 'Sabado, 27 de Junio del 2025 - 8:00pm',
-    description: 'Partido de baloncesto entre Santeros y Capitanes.',
-    bgImage: 'https://i.ytimg.com/vi/svr_ggFCHMs/maxresdefault.jpg',
+    title: 'BSN: Indios de Mayaguez vs Cangrejeros de Santurce',
+    date: 'Lunes, 30 de Junio del 2025 - 8:00pm',
+    description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico.',
+    bgImage: 'https://i.ytimg.com/vi/eK5C2lFu4Vk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBomgHAfrm5UGTdvyw9NVys6qgf2Q',
     link: '/bsn-1',
+  },
+  {
+    id: 'bsn',
+    title: 'BSN: Capitanes de Arecibo vs Atleticos de San German',
+    date: 'Lunes, 30 de Junio del 2025 - 8:00pm',
+    description: 'Otro emocionante partido del BSN.',
+    bgImage: 'https://i.ytimg.com/vi/edz5ORsTsM8/maxresdefault.jpg',
+    link: '/evento-1',
   },
 ];
 
   const trendingEvents = [
-    { id: 'wwe-smackdown-trending', title: 'WWE Night Of Champions', thumbnail: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg', link: '/evento-1' },
-    { id: 'mlb-power-rankings', title: 'WWE SmackDown Feed Crashes on Netflix During Saudi Arabia Show', thumbnail: 'https://b1671682.smushcdn.com/1671682/wp-content/uploads/2025/06/wwe-smackdown-feed-crashes-on-netflix-during-saudi-arabia-show-27.jpg?lossy=2&strip=1&webp=1', link: 'https://www.ringsidenews.com/wwe-smackdown-feed-crashes-netflix-during-saudi-arabia-show/' },
+    { id: 'wwe-smackdown-trending', title: 'Tonight WWE Raw Preview - Fallout from Night of Champions', thumbnail: 'https://www.pwmania.com/wp-content/uploads/2025/03/raw-logo.jpg', link: 'https://www.wrestlingnewssource.com/news/94204/Tonights-WWE-Raw-Preview-Fallout-from-Night-of/' },
+    { id: 'mlb-power-rankings', title: 'WWE Night Of Champion Results (June 28, 2025) – Riyadh, Saudi Arabia', thumbnail: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg', link: 'https://ewrestling.com/article/wwe-night-of-champion-results-june-28-2025-riyadh-saudi-arabia/' },
   ];
 
   const newEvents = [
