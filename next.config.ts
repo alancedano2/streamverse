@@ -38,6 +38,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'ytimg.com' },
       { protocol: 'https', hostname: 'googleusercontent.com' },
       { protocol: 'https', hostname: 'ok.ru' },
+      { protocol: 'https', hostname: 'bloximages.chicago2.vip.townnews.com' },
     ],
   },
 };
