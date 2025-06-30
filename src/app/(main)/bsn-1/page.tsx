@@ -19,12 +19,12 @@ interface BSNEventDetails {
 // Función para obtener los detalles de BSN-1
 function getBsn1Details(): BSNEventDetails {
   return {
-    title: 'Capitanes de Arecibo vs. Santeros de Aguada',
+    title: 'Indios de Mayaguez vs Cangrejeros de Santurce',
     description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico. ¡Un duelo de altura en la cancha!',
     league: 'BSN',
-    youtubeEmbedUrl: 'https://www.youtube.com/embed/zCxkxCREs7Y?si=3AW9bodOgIN7aINq', // URL de embed de YouTube de prueba REAL
-    posterUrl: 'https://i.ytimg.com/vi/CJCvXb5dmIo/maxresdefault.jpg',
-    dateTime: '2025-06-28T20:00:00', // Sabado 28 de Junio, 8:00 PM AST
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/WxlE4rTCEV0?si=_51Jhc2uUIMn_adx', // URL de embed de YouTube de prueba REAL
+    posterUrl: 'https://i.ytimg.com/vi/eK5C2lFu4Vk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBomgHAfrm5UGTdvyw9NVys6qgf2Q',
+    dateTime: '2025-06-30T20:00:00', // Sabado 28 de Junio, 8:00 PM AST
   };
 }
 
