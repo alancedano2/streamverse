@@ -20,7 +20,7 @@ export default function WweRawLivePage() { // Ya no es 'async'
     posterUrl:
       'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2024/12/Ge77Z8_bMAAQofn.jpeg', // Logo o imagen del show
     isLive: true,
-    nextEpisodeDate: 'Lunes, 30 de Junio del 2025 - 6:00 PM EST',
+    nextEpisodeDate: 'Lunes, 7 de Julio del 2025 - 6:00 PM EST',
   };
 
   const videoPlayerOptions = {
