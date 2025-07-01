@@ -51,7 +51,7 @@ function getAllStaticScheduledAndPPVEventsData(): { weeklyShows: LiveOrScheduled
       id: 'wwe-raw-live',
       title: 'WWE Raw',
       league: 'WWE',
-      matchup: 'Lunes a las 8:00 PM EST',
+      matchup: 'Lunes a las 20:00 PM EST',
       streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
       thumbnail: 'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2024/12/Ge77Z8_bMAAQofn.jpeg',
       description: 'El show semanal insignia de WWE. Tres horas de acción y drama.',
