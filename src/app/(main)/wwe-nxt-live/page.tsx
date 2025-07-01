@@ -29,7 +29,7 @@ function getStreamDetails(showName: 'NXT' | 'SmackDown'): StreamDetails {
       playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://3148-209-91-239-6.ngrok-free.app/LiveApp/streams/P3fRPAmOVbZLVtCu47502729983636.m3u8', // URL de prueba M3U8
       posterUrl: 'https://images.cwtv.com/images/masters/cw/universal/shows/wwe-nxt/show-promo.jpg',
       isLive: true,
-      nextEpisodeDate: 'Martes, Julio 1, 2025 - 8:00 PM EST',
+      nextEpisodeDate: 'Martes, Julio 1  , 2025 - 8:00 PM EST',
     };
   } else { // SmackDown
     return {
