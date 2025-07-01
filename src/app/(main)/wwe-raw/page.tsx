@@ -20,10 +20,10 @@ interface RawEpisode {
 const wweRawEpisodes: RawEpisode[] = [
   {
     id: 'raw-2025-06-23',
-    title: 'WWE Raw - Junio 23, 2025',
-    date: '23 de Junio de 2025',
+    title: 'WWE Raw - Junio 30, 2025',
+    date: '30 de Junio de 2025',
     thumbnail: 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=', // Placeholder transparente 1x1 GIF
-    embedUrl: 'https://ok.ru/videoembed/10631155550801', // ¡TU NUEVA URL DE OK.RU!
+    embedUrl: 'https://ok.ru/videoembed/10652019329617', // ¡TU NUEVA URL DE OK.RU!
   },
 ];
 
