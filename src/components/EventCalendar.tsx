@@ -21,19 +21,19 @@ const allEvents: EventItem[] = [
   // MIÉRCOLES 25 DE JUNIO DE 2025
   {
     id: 'wwe',
-    title: 'WWE Raw',
+    title: 'WWE SmackDown',
     league: 'WWE',
-    dateTime: '2025-06-30T18:00:00', // Miércoles 25 de Junio, 7:15 PM AST
-    link: '/wwe-raw-live',
+    dateTime: '2025-07-04T20:00:00', // Miércoles 25 de Junio, 7:15 PM AST
+    link: '/wwe-smackdown-live',
     description: 'El show semanal insignia de WWE.',
   },
   {
     id: 'bsn-indios-piratas-calendar-wednesday',
-    title: 'BSN: Indios de Mayaguez vs Cangrejeros de Santurce',
-    league: 'BSN',
-    dateTime: '2025-06-30T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
-    link: '/bsn-1',
-    description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico.',
+    title: 'Macys 4th of July Fireworks Show',
+    league: 'TV',
+    dateTime: '2025-07-04T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    link: '/evento-2',
+    description: 'Macys 4th of July Fireworks Show',
   },
   {
     id: 'bsn-osos-criollos-calendar-wednesday',
