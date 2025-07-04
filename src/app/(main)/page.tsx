@@ -63,27 +63,19 @@ export default function HomePage() {
   const heroEvents = [
   {
     id: 'wwe',
-    title: 'WWE Raw',
-    date: 'Lunes, 30 de Junio del 2025 - 6:00pm',
-    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-    bgImage: 'https://www.pwmania.com/wp-content/uploads/2025/03/raw-logo.jpg',
-    link: '/wwe-raw-live', // ✅ COMA AÑADIDA AQUÍ
+    title: 'WWE SmackDown',
+    date: 'Viernes, 4 de Julio del 2025 - 8:00pm',
+    description: 'El show semanal insignia de WWE.',
+    bgImage: 'https://streamverse-neon.vercel.app/_next/image?url=https%3A%2F%2Fimages2.minutemediacdn.com%2Fimage%2Fupload%2Fc_crop%2Cw_1080%2Ch_607%2Cx_0%2Cy_211%2Fc_fill%2Cw_720%2Car_16%3A9%2Cf_auto%2Cq_auto%2Cg_auto%2Fimages%2FvoltaxMediaLibrary%2Fmmsport%2Fwrestling_on_fannation%2F01j7q1skk768tjf6w260.jpg&w=1200&q=75',
+    link: '/wwe-smackdown-live', // ✅ COMA AÑADIDA AQUÍ
   },
   {
     id: 'bsn',
-    title: 'BSN: Indios de Mayaguez vs Cangrejeros de Santurce',
-    date: 'Lunes, 30 de Junio del 2025 - 8:00pm',
-    description: 'Clásico del Baloncesto Superior Nacional de Puerto Rico.',
-    bgImage: 'https://i.ytimg.com/vi/eK5C2lFu4Vk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBomgHAfrm5UGTdvyw9NVys6qgf2Q',
-    link: '/bsn-1',
-  },
-  {
-    id: 'bsn',
-    title: 'BSN: Capitanes de Arecibo vs Atleticos de San German',
-    date: 'Lunes, 30 de Junio del 2025 - 8:00pm',
+    title: 'Macys 4th of July Fireworks Show',
+    date: 'Viernes, 4 de Julio del 2025 - 8:00pm',
     description: 'Otro emocionante partido del BSN.',
-    bgImage: 'https://i.ytimg.com/vi/edz5ORsTsM8/maxresdefault.jpg',
-    link: '/evento-1',
+    bgImage: 'The most iconic summer celebration of the year will light up the NYC skyline on Friday, July 4, 2025.',
+    link: '/evento-2',
   },
 ];
 
