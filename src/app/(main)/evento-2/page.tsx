@@ -27,16 +27,16 @@ function getF1RaceDetails(): StreamDetails {
 
   // Esta variable 'isLive' puedes ajustarla a 'true' si el stream está realmente en vivo.
   // Por ahora, la dejamos en 'false' ya que el 'playbackUrl' estará en blanco.
-  const isLiveNow = false; 
+  const isLiveNow = true; 
 
   return {
-    title: 'Fórmula 1 - Gran Premio de Austria', // Título genérico de F1, ej: "Gran Premio de España"
-    description: 'La máxima categoría del automovilismo mundial. ¡Adrenalina pura en cada curva!',
-    league: 'Formula 1',
-    playbackUrl: '', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
-    posterUrl: 'https://api.motorsporttickets.com/files/images/22e7556f-5042-4b77-ad0b-822ae8b989fc.png', // Póster genérico de F1 (dominio permitido en next.config.ts)
+    title: 'Macy 4th of July Fireworks Show', // Título genérico de F1, ej: "Gran Premio de España"
+    description: 'The most iconic summer celebration of the year will light up the NYC skyline on Friday, July 4, 2025.',
+    league: 'TV',
+    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=http://xpaneltv.com:8080/live/ArtuDamb/63815850/80360.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
+    posterUrl: 'https://deadline.com/wp-content/uploads/2022/06/Fourth-of-July-Fireworks.jpg?w=1000', // Póster genérico de F1 (dominio permitido en next.config.ts)
     isLive: isLiveNow, // Indica si está en vivo
-    nextEpisodeDate: `Mañana, ${tomorrow.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
+    nextEpisodeDate: `Hoy, ${tomorrow.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
   };
 }
 
