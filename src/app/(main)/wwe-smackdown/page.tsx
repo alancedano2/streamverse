@@ -20,10 +20,10 @@ interface RawEpisode {
 const wweSmackdownEpisodes: RawEpisode[] = [
   {
     id: 'smackdown-2025-06-27',
-    title: 'WWE SmackDown - Junio 27, 2025',
+    title: 'WWE SmackDown - Julio 4, 2025',
     date: '27 de Junio de 2025',
     thumbnail: 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=', // Placeholder transparente 1x1 GIF
-    embedUrl: 'https://ok.ru/videoembed/10643655363153', // ¡TU NUEVA URL DE OK.RU!
+    embedUrl: 'https://ok.ru/videoembed/9178134874751?autoplay=1', // ¡TU NUEVA URL DE OK.RU!
   },
 ];
 
