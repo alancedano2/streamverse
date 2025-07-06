@@ -1,7 +1,7 @@
 // src/app/(main)/gaming/page.tsx
 'use client'; 
 import React, { useState, useEffect } from 'react';
-import { HiOutlineGameController } from 'react-icons/hi'; 
+import { HiOutlinePlay } from 'react-icons/hi'; // O HiOutlinePuzzle, HiPlay, etc. 
 
 // ¡IMPORTANTE! Reemplaza con tu IP pública real y el puerto de tu servidor Python API
 // Si tu IP pública cambia (muchos proveedores dan IPs dinámicas), tendrás que actualizar esto.
