@@ -1,9 +1,6 @@
 // src/app/(main)/gaming/page.tsx
 'use client'; 
 import React, { useState, useEffect } from 'react';
-// Importa el icono de control de juegos de Ionicons (react-icons/io5)
-// Asegúrate de que tengas react-icons instalado y que esta colección esté disponible.
-// Si prefieres Heroicons, podrías usar HiPlay o HiOutlinePlay de 'react-icons/hi'
 import { IoGameController } from 'react-icons/io5'; 
 
 // ¡IMPORTANTE! Reemplaza '204.2.89.234' con tu IP pública real y '5000' con el puerto de tu servidor Python API.
@@ -14,7 +11,8 @@ const API_BASE_URL = 'http://204.2.89.234:5000/api/moonlight';
 const GamingPage = () => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // ** CAMBIO AQUÍ: Tipado explícito para 'error' **
+  const [error, setError] = useState<string | null>(null); 
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -25,7 +23,7 @@ const GamingPage = () => {
         }
         const data = await response.json();
         setGames(data);
-      } catch (e: unknown) { // Manejo del tipo 'unknown' para 'e'
+      } catch (e: unknown) { 
         let errorMessage = 'Error desconocido al cargar los juegos.';
         if (e instanceof Error) {
           errorMessage = e.message;
@@ -56,19 +54,17 @@ const GamingPage = () => {
       alert('Juego enviado a tu PC. Ahora, conéctate al stream en la nueva ventana.');
 
       // Paso 2: Abrir el cliente web de Moonlight/Parsec en una nueva pestaña
-      // Tu amigo tendrá que iniciar sesión y seleccionar tu PC.
-      // Si tienes un enlace de invitación directo (Arcade Link de Parsec, etc.), úsalo aquí para mayor conveniencia.
       window.open('https://web.moonlight-stream.org/', '_blank'); 
       // O si prefieres Parsec: window.open('https://web.parsec.app/', '_blank');
       
-    } catch (e: unknown) { // Manejo del tipo 'unknown' para 'e'
+    } catch (e: unknown) { 
       let errorMessage = 'Error desconocido al iniciar el juego.';
       if (e instanceof Error) {
         errorMessage = e.message;
       } else {
         errorMessage = String(e);
       }
-      alert(`Error al iniciar el juego: ${errorMessage}. Asegúrate de que tu servidor API esté funcionando y sea accesible desde ${API_BASE_URL}.`);
+      alert(`Error al iniciar el juego: ${errorMessage}. Asegúrate de que tu servidor API esté funcionando y sea accesible.`);
     }
   };
 
@@ -94,13 +90,11 @@ const GamingPage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {games.map(game => (
           <div key={game.id} className="bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden transform transition-transform duration-300 hover:scale-105">
-            {/* Si tu API de Moonlight no proporciona portadas, usa un placeholder */}
             <div className="w-full h-48 bg-gray-700 flex items-center justify-center text-gray-400">
-              <IoGameController size={60} /> {/* Usa el icono de control de juego */}
+              <IoGameController size={60} /> 
             </div>
             <div className="p-4">
               <h2 className="text-xl font-bold text-white mb-2 truncate">{game.name}</h2>
-              {/* Puedes mostrar más info del juego si tu API lo extrae */}
               <button
                 onClick={() => launchGame(game.id, game.host_id)}
                 className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-md transition duration-300"
