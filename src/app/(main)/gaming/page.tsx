@@ -14,7 +14,7 @@ interface Game {
 // ¡IMPORTANTE! Reemplaza '204.2.89.234' con tu IP pública real y '5000' con el puerto de tu servidor Python API.
 // Si tu IP pública cambia (muchos proveedores dan IPs dinámicas), tendrás que actualizar esto.
 // ADVERTENCIA DE SEGURIDAD: Exponer tu IP pública en el código fuente del cliente es un riesgo.
-const API_BASE_URL = 'http://204.2.89.234:5000/api/moonlight'; 
+const API_BASE_URL = 'https://175f-2607-f00-9-4263-310e-7441-fcf7-c36c.ngrok-free.app/api/moonlight'; 
 
 const GamingPage = () => {
   // ** CAMBIO AQUÍ: Tipado del estado 'games' **
