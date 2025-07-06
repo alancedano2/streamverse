@@ -20,6 +20,7 @@ const GamingPage = () => {
   // ** CAMBIO AQUÍ: Tipado del estado 'games' **
   const [games, setGames] = useState<Game[]>([]); 
   const [loading, setLoading] = useState(true);
+  // ** CAMBIO AQUÍ: Tipado explícito para 'error' **
   const [error, setError] = useState<string | null>(null); 
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const GamingPage = () => {
 
       // Paso 2: Abrir el cliente web de Moonlight/Parsec en una nueva pestaña
       window.open('https://web.moonlight-stream.org/', '_blank'); 
+      // O si prefieres Parsec: window.open('https://web.parsec.app/', '_blank');
       
     } catch (e: unknown) { 
       let errorMessage = 'Error desconocido al iniciar el juego.';
