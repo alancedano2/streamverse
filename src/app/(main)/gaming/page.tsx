@@ -3,15 +3,23 @@
 import React, { useState, useEffect } from 'react';
 import { IoGameController } from 'react-icons/io5'; 
 
+// ** NUEVO: Interfaz para el tipo de datos de cada juego **
+interface Game {
+  id: string; // app_id de Moonlight
+  name: string;
+  host_id: string;
+  // Puedes añadir otras propiedades si tu API las devuelve y las vas a usar (ej. 'status', 'ip')
+}
+
 // ¡IMPORTANTE! Reemplaza '204.2.89.234' con tu IP pública real y '5000' con el puerto de tu servidor Python API.
 // Si tu IP pública cambia (muchos proveedores dan IPs dinámicas), tendrás que actualizar esto.
 // ADVERTENCIA DE SEGURIDAD: Exponer tu IP pública en el código fuente del cliente es un riesgo.
 const API_BASE_URL = 'http://204.2.89.234:5000/api/moonlight'; 
 
 const GamingPage = () => {
-  const [games, setGames] = useState([]);
+  // ** CAMBIO AQUÍ: Tipado del estado 'games' **
+  const [games, setGames] = useState<Game[]>([]); 
   const [loading, setLoading] = useState(true);
-  // ** CAMBIO AQUÍ: Tipado explícito para 'error' **
   const [error, setError] = useState<string | null>(null); 
 
   useEffect(() => {
@@ -21,7 +29,7 @@ const GamingPage = () => {
         if (!response.ok) {
           throw new Error(`Error HTTP: ${response.status}`);
         }
-        const data = await response.json();
+        const data: Game[] = await response.json(); // Casteamos la data a Game[]
         setGames(data);
       } catch (e: unknown) { 
         let errorMessage = 'Error desconocido al cargar los juegos.';
@@ -55,7 +63,6 @@ const GamingPage = () => {
 
       // Paso 2: Abrir el cliente web de Moonlight/Parsec en una nueva pestaña
       window.open('https://web.moonlight-stream.org/', '_blank'); 
-      // O si prefieres Parsec: window.open('https://web.parsec.app/', '_blank');
       
     } catch (e: unknown) { 
       let errorMessage = 'Error desconocido al iniciar el juego.';
