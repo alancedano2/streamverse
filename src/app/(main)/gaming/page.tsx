@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 
 const GAMES = [
@@ -9,44 +8,52 @@ const GAMES = [
 ];
 
 export default function GamingPage() {
-  const [loading, setLoading] = useState(false);
+  const [launching, setLaunching] = useState<string | null>(null);
 
-  const launchGame = async (gameId: string) => {
-    setLoading(true);
+  const handleLaunch = async (gameId: string) => {
+    setLaunching(gameId);
+
+    // OPCIONAL: Enviar señal a tu backend para lanzar el juego en tu PC
     try {
-      const res = await fetch('http://204.2.89.234:5000/api/launch', {
+      await fetch(`http://204.2.89.234:5000/api/launch`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: gameId })
       });
-      const result = await res.json();
-      alert(result.message || result.error);
     } catch (err) {
-      alert('Error al conectar con tu PC host.');
-    } finally {
-      setLoading(false);
+      console.warn("No se pudo lanzar el juego desde backend.");
     }
+
+    // Abre Moonlight Web en nueva pestaña
+    window.open('https://moonlight-stream.org/web/', '_blank');
+
+    setLaunching(null);
   };
 
   return (
-    <div className="p-10 text-white bg-black min-h-screen">
-      <h1 className="text-3xl font-bold text-center text-orange-500 mb-6">
-        🎮 Juegos Disponibles
-      </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-xl mx-auto">
+    <div className="min-h-screen bg-black text-white p-6">
+      <h1 className="text-4xl font-bold text-orange-500 text-center mb-8">🎮 Juegos Disponibles</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
         {GAMES.map((game) => (
-          <button
+          <div
             key={game.id}
-            onClick={() => launchGame(game.id)}
-            disabled={loading}
-            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg shadow hover:opacity-90"
+            className="bg-gray-800 rounded-lg p-6 shadow-md flex flex-col items-center justify-center"
           >
-            {loading ? 'Lanzando...' : `🎮 ${game.name}`}
-          </button>
+            <h2 className="text-xl font-semibold mb-4">{game.name}</h2>
+            <button
+              className="bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded transition"
+              onClick={() => handleLaunch(game.id)}
+              disabled={launching === game.id}
+            >
+              {launching === game.id ? 'Lanzando...' : 'Lanzar y Conectarse'}
+            </button>
+          </div>
         ))}
       </div>
-      <p className="text-center text-gray-400 mt-10">
-        Luego de lanzar, abre <a href="https://moonlight-stream.org/web" target="_blank" className="underline text-blue-400">Moonlight Web</a> o usa la app para conectarte a <strong>204.2.89.234</strong>
+
+      <p className="text-center text-sm text-gray-400 mt-10 max-w-xl mx-auto">
+        Después de lanzar, te abriremos automáticamente <strong>Moonlight Web</strong>. Allí verás tu PC <strong>(204.2.89.234)</strong>.
+        Asegúrate de haber emparejado previamente con el cliente una vez. Sunshine debe estar ejecutándose.
       </p>
     </div>
   );
