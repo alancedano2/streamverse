@@ -28,7 +28,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'www.myfmbankarena.com' },
       { protocol: 'https', hostname: 'static.wikia.nocookie.net' },
       { protocol: 'https', hostname: 'encrypted-tbn0.gstatic.com' },
-      { protocol: 'https', hostname: 'upload.wikimedia.org' },
+      { protocol: 'https', hostname: 'upload.wikimedia.org' }, // <--- ADD THIS LINE
       { protocol: 'https', hostname: 'via.placeholder.com' },
       { protocol: 'https', hostname: 'geo.dailymotion.com' },
       { protocol: 'https', hostname: 'www.pwmania.com' },
@@ -39,9 +39,10 @@ const nextConfig = {
       { protocol: 'https', hostname: 'googleusercontent.com' },
       { protocol: 'https', hostname: 'ok.ru' },
       { protocol: 'https', hostname: 'bloximages.chicago2.vip.townnews.com' },
-      // Nuevos para juegos
+      // New for games
       { protocol: 'https', hostname: 'cdn.cloudflare.steamstatic.com' },
       { protocol: 'https', hostname: 'cdn2.unrealengine.com' },
+      { protocol: 'https', hostname: 'steamgriddb.com' }, // <--- ADD THIS LINE if you're using SteamGridDB for Fall Guys logo
     ]
   }
 };
