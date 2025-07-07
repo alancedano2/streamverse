@@ -19,17 +19,17 @@ const games: Game[] = [
   { id: 'ea-fc25', name: 'EA SPORTS FC™ 25', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2195250/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' }, // FC 24 capsule as placeholder for 25
   { id: 'f1-23', name: 'F1 23', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2108330/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'f1-24', name: 'F1 24', logoUrl: 'https://cdn.steamstatic.com/steam/apps/2488620/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
-  { id: 'f1-25', name: 'F1 25', logoUrl: 'https://via.placeholder.com/128x128?text=F1+25', status: 'No disponible', platform: 'Steam' }, // Unreleased, placeholder
+  { id: 'f1-25', name: 'F1 25', logoUrl: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3059520/37f833ca5bd3d5c3eec2b411131f3e00f580bbe7/header.jpg', status: 'No disponible', platform: 'Steam' }, // Unreleased, placeholder
   { id: 'fall-guys', name: 'Fall Guys', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'forza-horizon-5', name: 'Forza Horizon 5', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'fortnite', name: 'Fortnite', logoUrl: 'https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/03/fortnite-2024-promo-art.jpg', status: 'No disponible', platform: 'Epic Games' },
   { id: 'gta5', name: 'GTA 5', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/271590/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam', note: '+18' },
   { id: 'hotwheels-2', name: 'HOT WHEELS UNLEASHED™ 2', logoUrl: 'https://cdn.steamstatic.com/steam/apps/2051120/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
-  { id: 'jurassic-evolution', name: 'Jurassic World Evolution', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/339450/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
+  { id: 'jurassic-evolution', name: 'Jurassic World Evolution', logoUrl: 'https://cdn.steamstatic.com/steam/apps/648350/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'lego-star-wars', name: 'LEGO® Star Wars™: La Saga Skywalker', logoUrl: 'https://cdn.steamstatic.com/steam/apps/920210/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'marvel-rivals', name: 'Marvel Rivals', logoUrl: 'https://cdn.steamstatic.com/steam/apps/2767030/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'miles-morales', name: 'Marvel\'s Spider-Man Miles Morales', logoUrl: 'https://cdn.steamstatic.com/steam/apps/1817190/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
-  { id: 'spiderman2', name: 'Marvel\'s Spider-Man 2', logoUrl: 'https://cdn.steamstatic.com/steam/apps/2651280/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
+  { id: 'spiderman2', name: 'Marvel\'s Spider-Man 2', logoUrl: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3172660/0c0f71d9656b96f53095a9757bbba6ea1c074acc/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'minecraft', name: 'Minecraft', logoUrl: 'https://xboxwire.thesourcemediaassets.com/sites/4/15YR_Free_Cape-1-7cbcb0739e3df57534ec-9063efed017354d1b1c3.jpg', status: 'No disponible', platform: 'PC', note: '(con servidor incluido)' },
   { id: 'monster-jam', name: 'Monster Jam™ Showdown', logoUrl: 'https://cdn.steamstatic.com/steam/apps/2350280/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'motogp24', name: 'MotoGP™24', logoUrl: 'https://cdn.steamstatic.com/steam/apps/2581700/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
