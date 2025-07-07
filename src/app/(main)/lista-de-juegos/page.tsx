@@ -30,7 +30,7 @@ const games: Game[] = [
   { id: 'marvel-rivals', name: 'Marvel Rivals', logoUrl: 'https://cdn.steamstatic.com/steam/apps/2767030/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'miles-morales', name: 'Marvel\'s Spider-Man Miles Morales', logoUrl: 'https://cdn.steamstatic.com/steam/apps/1817190/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'spiderman2', name: 'Marvel\'s Spider-Man 2', logoUrl: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3172660/0c0f71d9656b96f53095a9757bbba6ea1c074acc/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
-  { id: 'minecraft', name: 'Minecraft', logoUrl: 'https://xboxwire.thesourcemediaassets.com/sites/4/15YR_Free_Cape-1-7cbcb0739e3df57534ec-9063efed017354d1b1c3.jpg', status: 'No disponible', platform: 'PC', note: '(con servidor incluido)' },
+  { id: 'minecraft', name: 'Minecraft', logoUrl: 'https://xboxwire.thesourcemediaassets.com/sites/4/15YR_Free_Cape-1-7cbcb0739e3df57534ec-9063efed017354d1b1c3.jpg', status: 'No disponible', platform: 'PC' },
   { id: 'monster-jam', name: 'Monster Jam™ Showdown', logoUrl: 'https://cdn.steamstatic.com/steam/apps/2350280/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'motogp24', name: 'MotoGP™24', logoUrl: 'https://cdn.steamstatic.com/steam/apps/2581700/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'nba2k23', name: 'NBA 2K23', logoUrl: 'https://cdn.steamstatic.com/steam/apps/1919590/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
