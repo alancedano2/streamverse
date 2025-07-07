@@ -15,6 +15,7 @@ import {
   HiChevronUp
 } from 'react-icons/hi';
 import { FaBaseballBall, FaFootballBall, FaFistRaised, FaFutbol } from 'react-icons/fa';
+import { IoGameController } from 'react-icons/io5'; // <-- Importa el icono
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -50,6 +51,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, onToggleSidebar }) => 
               <Link href="/repeticiones" className="flex items-center text-lg py-2 px-3 rounded-md hover:bg-gray-700 transition-colors">
                 <HiRefresh className="text-xl mr-3 flex-shrink-0" />
                 <span className={`${isSidebarOpen ? 'block' : 'hidden lg:block'}`}>Repeticiones</span>
+              </Link>
+            </li>
+
+            {/* NUEVO ITEM GAMING */}
+            <li className="mb-2">
+              <Link href="/gaming" className="flex items-center text-lg py-2 px-3 rounded-md hover:bg-gray-700 transition-colors">
+                <IoGameController className="text-xl mr-3 flex-shrink-0" />
+                <span className={`${isSidebarOpen ? 'block' : 'hidden lg:block'}`}>Gaming</span>
               </Link>
             </li>
           </ul>
