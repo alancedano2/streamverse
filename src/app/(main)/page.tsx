@@ -63,19 +63,11 @@ export default function HomePage() {
   const heroEvents = [
   {
     id: 'wwe',
-    title: 'WWE SmackDown',
-    date: 'Viernes, 4 de Julio del 2025 - 8:00pm',
+    title: 'WWE Raw',
+    date: 'Lunes, 7 de Julio del 2025 - 8:00pm',
     description: 'El show semanal insignia de WWE.',
-    bgImage: 'https://streamverse-neon.vercel.app/_next/image?url=https%3A%2F%2Fimages2.minutemediacdn.com%2Fimage%2Fupload%2Fc_crop%2Cw_1080%2Ch_607%2Cx_0%2Cy_211%2Fc_fill%2Cw_720%2Car_16%3A9%2Cf_auto%2Cq_auto%2Cg_auto%2Fimages%2FvoltaxMediaLibrary%2Fmmsport%2Fwrestling_on_fannation%2F01j7q1skk768tjf6w260.jpg&w=1200&q=75',
-    link: '/wwe-smackdown-live', // ✅ COMA AÑADIDA AQUÍ
-  },
-  {
-    id: 'bsn',
-    title: 'Macys 4th of July Fireworks Show',
-    date: 'Viernes, 4 de Julio del 2025 - 8:00pm',
-    description: 'Otro emocionante partido del BSN.',
-    bgImage: 'The most iconic summer celebration of the year will light up the NYC skyline on Friday, July 4, 2025.',
-    link: '/evento-2',
+    bgImage: 'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2024/12/Ge77Z8_bMAAQofn.jpeg',
+    link: '/wwe-raw-live', // ✅ COMA AÑADIDA AQUÍ
   },
 ];
 
