@@ -19,7 +19,7 @@ export async function POST(request: Request) { // Usamos POST para que solo se a
       case 'WWE Raw':
         title = '¡WWE Raw está por comenzar!';
         description = 'Entren a la página para ver la acción en vivo. ¡No se lo pierdan!';
-        imageUrl = 'URL_DEL_LOGO_WWE_RAW.png'; // Cambia esto por la URL real de tu logo
+        imageUrl = 'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2024/12/Ge77Z8_bMAAQofn.jpeg'; // Cambia esto por la URL real de tu logo
         pageLink = 'https://streamverse-neon.vercel.app/wwe-raw-live'; // Cambia esto por la URL real
         break;
       case 'WWE NXT':
