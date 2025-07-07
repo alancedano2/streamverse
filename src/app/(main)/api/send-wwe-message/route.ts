@@ -31,7 +31,7 @@ export async function POST(request: Request) { // Usamos POST para que solo se a
       case 'WWE SmackDown':
         title = '¡Llegó el viernes con WWE SmackDown!';
         description = 'Entren a la página y disfruten del show. ¡Prepárense para la acción!';
-        imageUrl = 'URL_DEL_LOGO_WWE_SMACKDOWN.png'; // Cambia esto por la URL real de tu logo
+        imageUrl = 'https://images2.minutemediacdn.com/image/upload/c_crop,w_1080,h_607,x_0,y_211/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/wrestling_on_fannation/01j7q1skk768tjf6w260.jpg'; // Cambia esto por la URL real de tu logo
         pageLink = 'https://streamverse-neon.vercel.app/wwe-smackdown-live'; // Cambia esto por la URL real
         break;
       default:
