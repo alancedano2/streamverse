@@ -18,7 +18,7 @@ export default function GamingPage() {
           rel="noopener noreferrer"
           className="underline text-orange-500 hover:text-orange-400"
         >
-          streamverse-neon.vercel.app/configuracion
+          StreamVerse Discord
         </a>
       </p>
     </div>
