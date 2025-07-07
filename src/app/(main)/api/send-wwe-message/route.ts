@@ -25,7 +25,7 @@ export async function POST(request: Request) { // Usamos POST para que solo se a
       case 'WWE NXT':
         title = '¡Es martes de WWE NXT!';
         description = 'Sintoniza ya la acción en la página. ¡Hoy hay sorpresas!';
-        imageUrl = 'URL_DEL_LOGO_WWE_NXT.png'; // Cambia esto por la URL real de tu logo
+        imageUrl = 'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2024/12/Ge77Z8_bMAAQofn.jpeg'; // Cambia esto por la URL real de tu logo
         pageLink = 'https://streamverse-neon.vercel.app/wwe-nxt-live'; // Cambia esto por la URL real
         break;
       case 'WWE SmackDown':
