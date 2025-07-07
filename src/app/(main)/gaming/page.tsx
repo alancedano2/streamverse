@@ -1,26 +1,27 @@
 'use client';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-const parsecLinks: Record<string, string> = {
-  'user1@tudominio.com': 'https://web.parsec.app/',
-  'user2@tudominio.com': 'https://web.parsec.app/',
-  'admin@tudominio.com': 'https://web.parsec.app/'
-  // Aquí puedes personalizar si en un futuro Parsec permite URLs únicas por cuenta.
-};
+const GamingPage = () => {
+  const router = useRouter();
 
-export default function GamingPage() {
   useEffect(() => {
-    const userEmail = localStorage.getItem('userEmail'); // o desde session
-    const link = parsecLinks[userEmail || ''];
-    if (link) {
-      window.open(link, '_blank');
+    const userEmail = localStorage.getItem('userEmail');
+    if (!userEmail) {
+      router.push('/login'); // Si no está logueado, lo manda al login
+      return;
     }
+
+    // Abrir Parsec Web
+    window.open('https://web.parsec.app/', '_blank');
   }, []);
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-8">
-      <h1 className="text-4xl font-bold mb-4 text-orange-500">🎮 Conectándote...</h1>
-      <p>Estamos abriendo tu sesión de juego en <strong>Parsec Web</strong>. Asegúrate de tener tu cuenta iniciada.</p>
+      <h1 className="text-4xl font-bold text-orange-500">Conectándote a Parsec...</h1>
+      <p className="text-center mt-4 text-gray-400">Estamos abriendo tu sesión. Si no pasa nada, <a href="https://web.parsec.app/" target="_blank" className="underline text-blue-400">haz clic aquí</a>.</p>
     </div>
   );
-}
+};
+
+export default GamingPage;
