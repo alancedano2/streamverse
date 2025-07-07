@@ -26,9 +26,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'mlpnk72yciwc.i.optimole.com' },
       { protocol: 'https', hostname: 'images.cwtv.com' },
       { protocol: 'https', hostname: 'www.myfmbankarena.com' },
-      { protocol: 'https', hostname: 'static.wikia.nocookie.net' },
+      { protocol: 'https', hostname: 'static.wikia.nocookie.net' }, // Added for Marvel Rivals
       { protocol: 'https', hostname: 'encrypted-tbn0.gstatic.com' },
-      // { protocol: 'https', hostname: 'upload.wikimedia.org' }, // Removed as per your request
       { protocol: 'https', hostname: 'via.placeholder.com' },
       { protocol: 'https', hostname: 'geo.dailymotion.com' },
       { protocol: 'https', hostname: 'www.pwmania.com' },
@@ -40,11 +39,14 @@ const nextConfig = {
       { protocol: 'https', hostname: 'ok.ru' },
       { protocol: 'https', hostname: 'bloximages.chicago2.vip.townnews.com' },
       // New and updated domains for game logos
-      { protocol: 'https', hostname: 'cdn.cloudflare.steamstatic.com' }, // For many Steam assets
-      { protocol: 'https', hostname: 'cdn2.unrealengine.com' }, // For Epic Games assets (Fortnite, Rocket League, Marvel Rivals)
-      { protocol: 'https', hostname: 'image.api.playstation.com' }, // For PlayStation exclusive logos (Spider-Man 2, Hot Wheels Unleashed 2, Miles Morales)
-      { protocol: 'https', hostname: 'www.minecraft.net' }, // For Minecraft official logo
-      { protocol: 'https', hostname: 'ubistatic-a.akamaihd.net' }, // For Trackmania official logo
+      { protocol: 'https', hostname: 'cdn.cloudflare.steamstatic.com' },
+      { protocol: 'https', hostname: 'cdn2.unrealengine.com' },
+      { protocol: 'https', hostname: 'image.api.playstation.com' },
+      { protocol: 'https', hostname: 'www.minecraft.net' },
+      { protocol: 'https', hostname: 'ubistatic-a.akamaihd.net' },
+      { protocol: 'https', hostname: 'www.deviantart.com' }, // Added for Drive Beyond Horizons, Miles Morales
+      { protocol: 'https', hostname: 'newsroom-fr.2k.com' }, // Added for NBA 2K23
+      { protocol: 'https', hostname: 'newsroom.2k.com' }, // Added for NBA 2K24
     ]
   }
 };
