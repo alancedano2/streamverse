@@ -11,36 +11,36 @@ interface Game {
 }
 
 const games: Game[] = [
-  { id: 'assetto-corsa', name: 'Assetto Corsa Competizione', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Assetto_Corsa_Competizione_logo.png/640px-Assetto_Corsa_Competizione_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'beamng', name: 'BeamNG.drive', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ed/BeamNG.drive_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'call-of-duty-warzone', name: 'Call of Duty: Warzone', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Call_of_Duty_Warzone_logo.png', status: 'No disponible', platform: 'PC', note: '+18' },
-  { id: 'cyberpunk', name: 'Cyberpunk 2077', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e1/Cyberpunk_2077_logo.png', status: 'No disponible', platform: 'PC', note: '+18' },
-  { id: 'drive-beyond-horizons', name: 'Drive Beyond Horizons', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2763260/header.jpg', status: 'No disponible', platform: 'PC' }, // Still using Steam header as no distinct logo found
-  { id: 'ea-fc25', name: 'EA SPORTS FC™ 25', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/FC_24_Logo.svg', status: 'No disponible', platform: 'PC' },
-  { id: 'f1-23', name: 'F1 23', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/F1_23_logo.png/640px-F1_23_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'f1-24', name: 'F1 24', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/F1_24_logo.png/640px-F1_24_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'f1-25', name: 'F1 25', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/F1_25_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'fall-guys', name: 'Fall Guys', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b3/Fall_Guys_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'forza-horizon-5', name: 'Forza Horizon 5', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Forza_Horizon_5_logo.png/640px-Forza_Horizon_5_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'fortnite', name: 'Fortnite', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/77/FortniteLogo.svg', status: 'No disponible', platform: 'Epic Games' },
-  { id: 'gta5', name: 'GTA 5', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Grand_Theft_Auto_V_logo.svg/640px-Grand_Theft_Auto_V_logo.svg.png', status: 'No disponible', platform: 'Rockstar', note: '+18' },
-  { id: 'hotwheels-2', name: 'HOT WHEELS UNLEASHED™ 2', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1947220/logo.png', status: 'No disponible', platform: 'PC' }, // This Steam logo.png is good for a card
-  { id: 'jurassic-evolution', name: 'Jurassic World Evolution', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Jurassic_World_Evolution_logo.png/640px-Jurassic_World_Evolution_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'lego-star-wars', name: 'LEGO® Star Wars™: La Saga Skywalker', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Lego_Star_Wars_The_Skywalker_Saga_logo.png/640px-Lego_Star_Wars_The_Skywalker_Saga_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'marvel-rivals', name: 'Marvel Rivals', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b3/Marvel_Rivals_Logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'miles-morales', name: 'Marvel\'s Spider-Man Miles Morales', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Spider-Man_Miles_Morales_logo.png/640px-Spider-Man_Miles_Morales_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'spiderman2', name: 'Marvel\'s Spider-Man 2', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Marvel%27s_Spider-Man_2_logo.png/640px-Marvel%27s_Spider-Man_2_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'minecraft', name: 'Minecraft', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_Logo-en.svg', status: 'No disponible', platform: 'PC', note: '(con servidor incluido)' },
-  { id: 'monster-jam', name: 'Monster Jam™ Showdown', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2635990/header.jpg', status: 'No disponible', platform: 'PC' }, // Still using Steam header as no distinct logo found
-  { id: 'motogp24', name: 'MotoGP™24', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/d/df/MotoGP_24_Logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'nba2k23', name: 'NBA 2K23', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f0/NBA_2K23_logo.png/640px-NBA_2K23_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'nba2k24', name: 'NBA 2K24', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e5/NBA_2K24_Logo.png', status: 'No disponible', platform: 'PC' },
+  { id: 'assetto-corsa', name: 'Assetto Corsa Competizione', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/805550/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'beamng', name: 'BeamNG.drive', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/284160/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'call-of-duty-warzone', name: 'Call of Duty: Warzone', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1961620/capsule_616x353.jpg', status: 'No disponible', platform: 'PC', note: '+18' }, // Using MWII capsule, commonly associated with Warzone
+  { id: 'cyberpunk', name: 'Cyberpunk 2077', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/capsule_616x353.jpg', status: 'No disponible', platform: 'PC', note: '+18' },
+  { id: 'drive-beyond-horizons', name: 'Drive Beyond Horizons', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2763260/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'ea-fc25', name: 'EA SPORTS FC™ 25', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2195250/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' }, // Using FC 24 capsule for now
+  { id: 'f1-23', name: 'F1 23', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2108330/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'f1-24', name: 'F1 24', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2488210/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'f1-25', name: 'F1 25', logoUrl: 'https://via.placeholder.com/128x128?text=F1+25', status: 'No disponible', platform: 'PC' }, // Placeholder for unreleased game
+  { id: 'fall-guys', name: 'Fall Guys', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'forza-horizon-5', name: 'Forza Horizon 5', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'fortnite', name: 'Fortnite', logoUrl: 'https://cdn2.unrealengine.com/Fortnite%2Ffn-ch5s3-comp-keyart-social-512x512.png', status: 'No disponible', platform: 'Epic Games' },
+  { id: 'gta5', name: 'GTA 5', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/271590/capsule_616x353.jpg', status: 'No disponible', platform: 'Rockstar', note: '+18' },
+  { id: 'hotwheels-2', name: 'HOT WHEELS UNLEASHED™ 2', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1947220/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'jurassic-evolution', name: 'Jurassic World Evolution', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/339450/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'lego-star-wars', name: 'LEGO® Star Wars™: La Saga Skywalker', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1906550/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'marvel-rivals', name: 'Marvel Rivals', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/365590/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'miles-morales', name: 'Marvel\'s Spider-Man Miles Morales', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1498410/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'spiderman2', name: 'Marvel\'s Spider-Man 2', logoUrl: 'https://image.api.playstation.com/vulcan/ap/rnd/202305/0411/72aa24f707f1f41ed93bf976fc805179.png', status: 'No disponible', platform: 'PC' },
+  { id: 'minecraft', name: 'Minecraft', logoUrl: 'https://www.minecraft.net/content/dam/minecraft/pdp/games/minecraft-java-bedrock-pdp-masthead.jpg', status: 'No disponible', platform: 'PC', note: '(con servidor incluido)' },
+  { id: 'monster-jam', name: 'Monster Jam™ Showdown', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2635990/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'motogp24', name: 'MotoGP™24', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2894180/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'nba2k23', name: 'NBA 2K23', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1938090/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'nba2k24', name: 'NBA 2K24', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2265400/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
   { id: 'nba2k25', name: 'NBA 2K25', logoUrl: 'https://via.placeholder.com/128x128?text=NBA+2K25', status: 'No disponible', platform: 'PC' }, // Placeholder for unreleased game
-  { id: 'pc-building-sim', name: 'PC Building Simulator 2', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2122600/header.jpg', status: 'No disponible', platform: 'PC' }, // Still using Steam header
-  { id: 'rocket-league', name: 'Rocket League', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Rocket_League_-_Logo.png', status: 'No disponible', platform: 'Epic Games' },
-  { id: 'the-last-of-us', name: 'The Last of Us Part I', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/be/The_Last_of_Us_Part_I_logo.png/640px-The_Last_of_Us_Part_I_logo.png', status: 'No disponible', platform: 'PC' },
-  { id: 'trackmania', name: 'Trackmania', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/df/Trackmania_%282020_video_game%29_logo.svg', status: 'No disponible', platform: 'Ubisoft Connect' },
-  { id: 'uncharted', name: 'Uncharted: Legacy of Thieves Collection', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/cd/Uncharted_Legacy_of_Thieves_Collection_logo.png/640px-Uncharted_Legacy_of_Thieves_Collection_logo.png', status: 'No disponible', platform: 'PC' },
+  { id: 'pc-building-sim', name: 'PC Building Simulator 2', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2122600/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'rocket-league', name: 'Rocket League', logoUrl: 'https://cdn2.unrealengine.com/egs-rocketleague-s3-1200x1600-1200x1600-f975d496a77d.jpg', status: 'No disponible', platform: 'Epic Games' },
+  { id: 'the-last-of-us', name: 'The Last of Us Part I', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
+  { id: 'trackmania', name: 'Trackmania', logoUrl: 'https://ubistatic-a.akamaihd.net/0064/prod/trackmania_logo.png', status: 'No disponible', platform: 'Ubisoft Connect' },
+  { id: 'uncharted', name: 'Uncharted: Legacy of Thieves Collection', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1741790/capsule_616x353.jpg', status: 'No disponible', platform: 'PC' },
 ];
 
 export default function ListaDeJuegosPage() {
@@ -58,8 +58,7 @@ export default function ListaDeJuegosPage() {
               <img
                 src={logoUrl}
                 alt={`${name} logo`}
-                // Use w-full h-full and object-contain to make the logo fill the div without cropping
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain" // Make the logo fill the div without cropping
                 loading="lazy"
                 onError={(e) => (e.currentTarget.src = '/placeholder.png')} // Fallback if image fails to load
               />
