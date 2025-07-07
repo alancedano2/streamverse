@@ -41,8 +41,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'bloximages.chicago2.vip.townnews.com' },
       // New and updated domains for game logos
       { protocol: 'https', hostname: 'cdn.cloudflare.steamstatic.com' }, // For many Steam assets
-      { protocol: 'https', hostname: 'cdn2.unrealengine.com' }, // For Epic Games assets (Fortnite, Rocket League)
-      { protocol: 'https', hostname: 'image.api.playstation.com' }, // For PlayStation exclusive logos (Spider-Man 2)
+      { protocol: 'https', hostname: 'cdn2.unrealengine.com' }, // For Epic Games assets (Fortnite, Rocket League, Marvel Rivals)
+      { protocol: 'https', hostname: 'image.api.playstation.com' }, // For PlayStation exclusive logos (Spider-Man 2, Hot Wheels Unleashed 2, Miles Morales)
       { protocol: 'https', hostname: 'www.minecraft.net' }, // For Minecraft official logo
       { protocol: 'https', hostname: 'ubistatic-a.akamaihd.net' }, // For Trackmania official logo
     ]
