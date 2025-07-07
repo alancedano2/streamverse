@@ -21,10 +21,10 @@ const allEvents: EventItem[] = [
   // MIÉRCOLES 25 DE JUNIO DE 2025
   {
     id: 'wwe',
-    title: 'WWE SmackDown',
+    title: 'WWE Raw',
     league: 'WWE',
-    dateTime: '2025-07-04T20:00:00', // Miércoles 25 de Junio, 7:15 PM AST
-    link: '/wwe-smackdown-live',
+    dateTime: '2025-07-07T20:00:00', // Miércoles 25 de Junio, 7:15 PM AST
+    link: '/wwe-raw-live',
     description: 'El show semanal insignia de WWE.',
   },
   {
