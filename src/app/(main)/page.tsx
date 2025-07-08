@@ -149,7 +149,7 @@ const allEventsForHero: EventItem[] = [
     title: 'MLB: Yankees vs Athletics',
     league: 'MLB',
     matchup: 'Yankees vs Athletics', // Valor por defecto
-    dateTime: '2025-07-07T18:50:00',
+    dateTime: '2025-06-07T18:50:00',
     link: '/mlb',
     description: 'Los Yankees en acción contra los Athletics.',
     posterUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401356109/16x9/1280x720_20220726221639.jpg&showBadge=true&package=ESPN_PLUS_MLB',
