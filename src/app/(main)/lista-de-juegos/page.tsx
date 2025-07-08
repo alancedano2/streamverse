@@ -19,7 +19,7 @@ const games: Game[] = [
   { id: 'ea-fc25', name: 'EA SPORTS FC™ 25', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/2195250/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' }, // FC 24 capsule as placeholder for 25
   { id: 'f1-22', name: 'F1 22', logoUrl: 'https://cdn.steamstatic.com/steam/apps/1692250/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'fall-guys', name: 'Fall Guys', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/capsule_616x353.jpg', status: 'Disponible', platform: 'Steam' },
-  { id: 'forza-horizon-5', name: 'Forza Horizon 5', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/capsule_616x353.jpg', status: 'No Disponible', platform: 'Steam' },
+  { id: 'forza-horizon-5', name: 'Forza Horizon 5', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
   { id: 'fortnite', name: 'Fortnite', logoUrl: 'https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/03/fortnite-2024-promo-art.jpg', status: 'Disponible', platform: 'Epic Games' },
   { id: 'gta5', name: 'GTA 5', logoUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/271590/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam', note: '+18' },
   { id: 'hotwheels-2', name: 'HOT WHEELS UNLEASHED™ 2', logoUrl: 'https://cdn.steamstatic.com/steam/apps/2051120/capsule_616x353.jpg', status: 'No disponible', platform: 'Steam' },
