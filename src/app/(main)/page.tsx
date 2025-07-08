@@ -4,10 +4,9 @@
 import React, { useState, useEffect } from 'react';
 import HeroSection from '@/components/HeroSection';
 import ContentCarousel from '@/components/ContentCarousel';
-import EventCalendar from '@/components/EventCalendar'; // ¡Este se queda!
-import EventDetailsModal from '@/components/EventDetailsModal'; // Si aún usas el modal
+import EventCalendar from '@/components/EventCalendar';
+import EventDetailsModal from '@/components/EventDetailsModal';
 
-// NO USAMOS events.ts. La lista de eventos se define aquí.
 import { format, parseISO, isAfter, isBefore, addMinutes } from 'date-fns';
 import { es } from 'date-fns/locale';
 
@@ -15,21 +14,21 @@ interface EventItem {
   id: string;
   title: string;
   league: string;
-  dateTime: string; // Formato ISO 8601
-  link: string; // Enlace a la página del evento
+  matchup: string; // ¡NUEVO! Añadido para resolver el error de tipo del modal
+  dateTime: string;
+  link: string;
   description: string;
-  posterUrl: string; // Propiedad para la URL de la imagen del evento
-  isLive?: boolean; // Opcional, si un evento se considera 'en vivo' siempre
+  posterUrl: string;
+  isLive?: boolean;
 }
 
-// **** LA LISTA DE EVENTOS PARA EL HERO ESTÁ AQUÍ MISMO CON SUS IMÁGENES ****
 const allEventsForHero: EventItem[] = [
-  // Puedes ajustar estas fechas y añadir más eventos con sus posterUrl
   {
     id: 'wwe-raw',
     title: 'WWE Raw',
     league: 'WWE',
-    dateTime: '2025-07-07T20:00:00', // Lunes, 7 de Julio de 2025, 8:00 PM AST
+    matchup: 'Superestrellas de Raw', // Valor por defecto
+    dateTime: '2025-07-07T20:00:00',
     link: '/wwe-raw-live',
     description: 'El show semanal insignia de WWE. ¡En vivo!',
     posterUrl: 'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2024/12/Ge77Z8_bMAAQofn.jpeg',
@@ -39,7 +38,8 @@ const allEventsForHero: EventItem[] = [
     id: 'macys-fireworks',
     title: 'Macy\'s 4th of July Fireworks Show',
     league: 'TV',
-    dateTime: '2025-07-04T20:00:00', // Viernes, 4 de Julio de 2025, 8:00 PM AST
+    matchup: 'Fuegos artificiales en NYC', // Valor por defecto
+    dateTime: '2025-07-04T20:00:00',
     link: '/evento-2',
     description: 'El espectáculo de fuegos artificiales más icónico del 4 de Julio.',
     posterUrl: 'https://deadline.com/wp-content/uploads/2022/06/Fourth-of-July-Fireworks.jpg?w=1000',
@@ -48,7 +48,8 @@ const allEventsForHero: EventItem[] = [
     id: 'bsn-capitanes-atleticos',
     title: 'BSN: Capitanes de Arecibo vs Atleticos de San German',
     league: 'BSN',
-    dateTime: '2025-06-30T20:00:00', // Lunes, 30 de Junio de 2025, 8:00 PM AST
+    matchup: 'Capitanes vs Atleticos', // Valor por defecto
+    dateTime: '2025-06-30T20:00:00',
     link: '/bsn-2',
     description: 'Otro emocionante partido del BSN.',
     posterUrl: 'https://i.ytimg.com/vi/edz5ORsTsM8/maxresdefault.jpg',
@@ -57,7 +58,8 @@ const allEventsForHero: EventItem[] = [
     id: 'bsn-capitanes-vaqueros',
     title: 'BSN: Capitanes de Arecibo vs Vaqueros de Bayamón',
     league: 'BSN',
-    dateTime: '2025-06-25T20:00:00', // Miércoles, 25 de Junio de 2025, 8:00 PM AST
+    matchup: 'Capitanes vs Vaqueros', // Valor por defecto
+    dateTime: '2025-06-25T20:00:00',
     link: '/bsn-3',
     description: 'Choque de titanes en la cancha del BSN.',
     posterUrl: 'https://i.ytimg.com/vi/akpYCw9cF_E/maxresdefault.jpg',
@@ -66,7 +68,8 @@ const allEventsForHero: EventItem[] = [
     id: 'bsn-leones-santeros',
     title: 'BSN: Leones de Ponce vs Santeros de Aguada',
     league: 'BSN',
-    dateTime: '2025-06-26T20:00:00', // Jueves, 26 de Junio de 2025, 8:00 PM AST
+    matchup: 'Leones vs Santeros', // Valor por defecto
+    dateTime: '2025-06-26T20:00:00',
     link: '/bsn-1',
     description: 'Partido de baloncesto entre Leones y Santeros.',
     posterUrl: 'https://i.ytimg.com/vi/eK5C2lFu4Vk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBomgHAfrm5UGTdvyw9NVys6qgf2Q',
@@ -75,7 +78,8 @@ const allEventsForHero: EventItem[] = [
     id: 'wwe-night-of-champions-kickoff',
     title: 'WWE Night Of Champions KickOff',
     league: 'WWE',
-    dateTime: '2025-06-26T16:00:00', // Jueves, 26 de Junio de 2025, 4:00 PM AST
+    matchup: 'Campeonatos en juego', // Valor por defecto
+    dateTime: '2025-06-26T16:00:00',
     link: '/evento-1',
     description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
     posterUrl: 'https://411mania.com/wp-content/uploads/2025/05/wwenightofchampions2025.jpg',
@@ -84,7 +88,8 @@ const allEventsForHero: EventItem[] = [
     id: 'canelo-crawford-press-conference',
     title: 'Canelo vs. Crawford: Las Vegas Press Conference',
     league: 'PPV',
-    dateTime: '2025-06-27T19:00:00', // Viernes, 27 de Junio de 2025, 7:00 PM AST
+    matchup: 'Canelo vs Crawford', // Valor por defecto
+    dateTime: '2025-06-27T19:00:00',
     link: '/evento-2',
     description: 'Watch the Canelo vs. Crawford: Las Vegas Press Conference on Friday, June 27 at 7 PM',
     posterUrl: 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/TMNDWSE35NFG3DNMNGGDFS5J5M.jpg',
@@ -93,7 +98,8 @@ const allEventsForHero: EventItem[] = [
     id: 'wwe-smackdown',
     title: 'WWE SmackDown',
     league: 'WWE',
-    dateTime: '2025-06-27T20:00:00', // Viernes, 27 de Junio de 2025, 8:00 PM AST
+    matchup: 'Estrellas de SmackDown', // Valor por defecto
+    dateTime: '2025-06-27T20:00:00',
     link: '/wwe-smackdown-live',
     description: 'El show azul de WWE con tus superestrellas favoritas.',
     posterUrl: 'https://images2.minutemediacdn.com/image/upload/c_crop,w_1080,h_607,x_0,y_211/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/wrestling_on_fannation/01j7q1skk768tjf6w260.jpg',
@@ -102,25 +108,28 @@ const allEventsForHero: EventItem[] = [
     id: 'bsn-criollos-osos',
     title: 'Criollos de Caguas vs. Osos de Manatí',
     league: 'BSN',
-    dateTime: '2025-06-27T20:00:00', // Viernes, 27 de Junio de 2025, 8:00 PM AST
+    matchup: 'Criollos vs Osos', // Valor por defecto
+    dateTime: '2025-06-27T20:00:00',
     link: '/bsn-1',
     description: 'Partido de baloncesto entre Criollos de Caguas y Osos de Manatí.',
-    posterUrl: 'https://i.ytimg.com/vi/eK5C2lFu4Vk/hq720.jpg', // Reemplaza con una URL real
+    posterUrl: 'https://i.ytimg.com/vi/eK5C2lFu4Vk/hq720.jpg',
   },
   {
     id: 'bsn-mets-cangrejeros',
     title: 'Mets de Guaynabo vs. Cangrejeros de Santurce',
     league: 'BSN',
-    dateTime: '2025-06-27T20:00:00', // Viernes, 27 de Junio de 2025, 8:00 PM AST
+    matchup: 'Mets vs Cangrejeros', // Valor por defecto
+    dateTime: '2025-06-27T20:00:00',
     link: '/bsn-2',
     description: 'Partido de baloncesto entre Mets de Guaynabo y Cangrejeros de Santurce.',
-    posterUrl: 'https://i.ytimg.com/vi/edz5ORsTsM8/maxresdefault.jpg', // Reemplaza con una URL real
+    posterUrl: 'https://i.ytimg.com/vi/edz5ORsTsM8/maxresdefault.jpg',
   },
   {
     id: 'jake-paul-chavez',
     title: 'Jake Paul vs Julio Cesar Chavez - DAZN PPV',
     league: 'DAZNPPV',
-    dateTime: '2025-06-28T15:00:00', // Sábado, 28 de Junio de 2025, 3:00 PM AST
+    matchup: 'Jake Paul vs Julio Cesar Chavez', // Valor por defecto
+    dateTime: '2025-06-28T15:00:00',
     link: '/evento-1',
     description: 'Evento de pago por evento de DAZN',
     posterUrl: 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/TMNDWSE35NFG3DNMNGGDFS5J5M.jpg',
@@ -129,23 +138,24 @@ const allEventsForHero: EventItem[] = [
     id: 'bsn-santeros-capitanes',
     title: 'BSN: Santeros de Aguada vs Capitanes de Arecibo',
     league: 'BSN',
-    dateTime: '2025-06-28T20:00:00', // Sábado, 28 de Junio de 2025, 8:00 PM AST
+    matchup: 'Santeros vs Capitanes', // Valor por defecto
+    dateTime: '2025-06-28T20:00:00',
     link: '/bsn-1',
     description: 'Partido de baloncesto entre Santeros y Capitanes.',
-    posterUrl: 'https://i.ytimg.com/vi/akpYCw9cF_E/maxresdefault.jpg', // Reemplaza con una URL real
+    posterUrl: 'https://i.ytimg.com/vi/akpYCw9cF_E/maxresdefault.jpg',
   },
   {
     id: 'mlb-yankees',
     title: 'MLB: Yankees vs Athletics',
     league: 'MLB',
-    dateTime: '2025-07-07T18:50:00', // Lunes, 7 de Julio, 6:50 PM AST
+    matchup: 'Yankees vs Athletics', // Valor por defecto
+    dateTime: '2025-07-07T18:50:00',
     link: '/mlb',
     description: 'Los Yankees en acción contra los Athletics.',
     posterUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401356109/16x9/1280x720_20220726221639.jpg&showBadge=true&package=ESPN_PLUS_MLB',
   }
 ];
 
-// Función para determinar si un evento debe aparecer en el Hero HOY
 const isHeroEventRelevant = (event: EventItem): boolean => {
   if (!event.dateTime) return false; 
 
@@ -196,7 +206,7 @@ export default function HomePage() {
     title: event.title,
     date: event.dateTime ? format(parseISO(event.dateTime), 'EEEE d \'de\' MMMM, h:mm a', { locale: es }) : event.description,
     description: event.description,
-    bgImage: event.posterUrl, // ¡Ahora usamos la posterUrl del evento!
+    bgImage: event.posterUrl,
     link: event.link,
   }));
 
