@@ -30,11 +30,11 @@ function getF1RaceDetails(): StreamDetails {
   const isLiveNow = false; 
 
   return {
-    title: 'Jake Paul vs Julio Cesar Chavez - DAZN PPV', // Título genérico de F1, ej: "Gran Premio de España"
-    description: 'Evento de pago por evento de DAZN',
-    league: 'DAZN PPV',
+    title: 'Katie Taylor vs. Amanda Serrano - Netflix PPV', // Título genérico de F1, ej: "Gran Premio de España"
+    description: 'Este evento marca un momento crucial en el boxeo: Katie Taylor y Amanda Serrano se enfrentan en el pesaje oficial antes de su esperada pelea. Esta es una cartelera histórica compuesta solo por mujeres, presentada por Most Valuable Promotions.',
+    league: 'Netflix PPV',2
     playbackUrl: 'https://tvpass.org/live/WNBCDT1/sd', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
-    posterUrl: 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/TMNDWSE35NFG3DNMNGGDFS5J5M.jpg', // Póster genérico de F1 (dominio permitido en next.config.ts)
+    posterUrl: 'https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQRxxf7fNC-uSsN6DlinZnFNwxAdwS3Lw4WExAlaMA-3mLLMc4t7tRuwIJ326z05IlYzECtJ9s4i0osG7BoI4oLXjjEaCC9y5IqUfQ38J56A7AGxPrOPrBPMA42g7CVmRxXdO2na6NEs48XytcyfhQ4Cm4_Q.jpg?r=5e1', // Póster genérico de F1 (dominio permitido en next.config.ts)
     isLive: isLiveNow, // Indica si está en vivo
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
   };
