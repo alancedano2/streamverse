@@ -23,7 +23,7 @@ const allEvents: EventItem[] = [
     id: 'PPV',
     title: 'Taylor vs Serrano - Weigh-In',
     league: 'PPV',
-    dateTime: '2025-07-010T18:00:00', // Miércoles 25 de Junio, 7:15 PM AST
+    dateTime: '2025-07-10T18:00:00', // Miércoles 25 de Junio, 7:15 PM AST
     link: '/evento-1',
     description: 'Taylor y Serrano se preparan para el pesaje de su combate estelar, encabezando una histórica cartelera femenina de boxeo presentada por Most Valuable Promotions.',
   },
