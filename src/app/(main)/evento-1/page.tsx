@@ -1,4 +1,4 @@
-// src/app/(main)/evento-2/page.tsx
+// src/app/(main)/evento-1/page.tsx
 'use client'; // ¡IMPORTANTE! Esta página DEBE ser un Client Component.
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -19,7 +19,8 @@ interface StreamDetails {
   nextEpisodeDate?: string; // Fecha del próximo evento (opcional)
 }
 
-// Función para obtener los detalles de ESTE evento F1 específico (Evento 2)
+// Función para obtener los detalles de ESTE evento F1 específico (Evento 1)
+// Nota: Se ha mantenido la función original de los detalles proporcionados.
 function getF1RaceDetails(): StreamDetails {
   const today = new Date();
   const tomorrow = new Date(today);
@@ -180,6 +181,24 @@ export default function Evento2Page() {
               )}
             </div>
           )}
+        </div>
+
+        {/* Nuevo Banner o Cuadro de Anuncio Clicable */}
+        <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700">
+          <Link href="/gaming" passHref> {/* Reemplaza '/gaming' con la URL de destino deseada */}
+            <div className="relative w-full h-48 bg-gray-700 flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.01]">
+              <Image
+                src="/images/banner-placeholder.png" // Reemplaza con la URL de tu imagen de banner
+                alt="Banner Publicitario"
+                layout="fill"
+                objectFit="cover"
+                className="opacity-70"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <p className="text-white text-3xl font-bold text-center">¡Anuncio Aquí!</p>
+              </div>
+            </div>
+          </Link>
         </div>
 
         {/* Información del Evento */}
