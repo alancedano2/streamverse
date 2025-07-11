@@ -47,7 +47,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'www.deviantart.com' }, // Added for Drive Beyond Horizons, Miles Morales
       { protocol: 'https', hostname: 'newsroom-fr.2k.com' }, // Added for NBA 2K23
       { protocol: 'https', hostname: 'newsroom.2k.com' },
-      { protocol: 'https', hostname: 'upload.wikimedia.org' } // Added for NBA 2K24
+      { protocol: 'https', hostname: 'upload.wikimedia.org' }
+      { protocol: 'https', hostname: 'https://dnm.nflximg.net'}// Added for NBA 2K24
     ]
   }
 };
