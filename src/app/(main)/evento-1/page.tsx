@@ -31,7 +31,7 @@ function getF1RaceDetails(): StreamDetails {
 
   return {
     title: 'Katie Taylor vs. Amanda Serrano - Netflix PPV', // Título genérico de F1, ej: "Gran Premio de España"
-    description: 'Este evento marca un momento crucial en el boxeo: Katie Taylor y Amanda Serrano se enfrentan en el pesaje oficial antes de su esperada pelea. Esta es una cartelera histórica compuesta solo por mujeres, presentada por Most Valuable Promotions.',
+    description: 'Una revancha histórica entre dos de las mejores boxeadoras del mundo. Katie Taylor, campeona indiscutida del peso ligero, enfrenta nuevamente a la boricua Amanda Serrano, múltiple campeona mundial. Un duelo de leyendas que promete encender el ring y definir quién es la verdadera reina del boxeo.',
     league: 'Netflix PPV',
     playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://62b7ae90565b.ngrok-free.app/LiveApp/streams/dWLk8vpJbhK6e0CU297035900555.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
     posterUrl: 'https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQRxxf7fNC-uSsN6DlinZnFNwxAdwS3Lw4WExAlaMA-3mLLMc4t7tRuwIJ326z05IlYzECtJ9s4i0osG7BoI4oLXjjEaCC9y5IqUfQ38J56A7AGxPrOPrBPMA42g7CVmRxXdO2na6NEs48XytcyfhQ4Cm4_Q.jpg?r=5e1', // Póster genérico de F1 (dominio permitido en next.config.ts)
@@ -186,18 +186,16 @@ export default function Evento2Page() {
                 src="/images/kq105_anuncio.jpg" // Ruta de la imagen actualizada
                 alt="Banner Publicitario"
                 fill={true} 
-                className="object-cover opacity-70" 
+                className="object-contain opacity-100" // Opacidad 100% y object-contain para mejor visualización
               />
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                <p className="text-white text-3xl font-bold text-center">¡Anuncio Aquí!</p>
-              </div>
+              {/* Se eliminó el texto de superposición "¡Anuncio Aquí!" */}
             </div>
           </Link>
         </div>
 
         {/* Información del Evento */}
         <div className="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
-          <h2 className="text-2xl font-bold text-white mb-3">Detalles de la Carrera</h2>
+          <h2 className="text-2xl font-bold text-white mb-3">Detalles del Evento</h2>
           <p className="text-gray-300 text-lg mb-4">{streamDetails.description}</p>
           <p className="text-gray-400 text-sm">
             Liga: <span className="font-semibold text-white">{streamDetails.league}</span>
