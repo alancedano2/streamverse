@@ -185,10 +185,10 @@ export default function Evento2Page() {
 
         {/* Nuevo Banner o Cuadro de Anuncio Clicable */}
         <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700">
-          <Link href="/gaming" passHref> {/* Reemplaza '/gaming' con la URL de destino deseada */}
+          <Link href="https://www.kq105.com/noticias/entretenimiento/kq-105-fm-se-une-a-la-cobertura-especial-me-quedo-en-pr/article_65906575-7385-40b5-9ffb-876553a982db.html" passHref> {/* Reemplaza '/gaming' con la URL de destino deseada */}
             <div className="relative w-full h-48 bg-gray-700 flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.01]">
               <Image
-                src="/images/banner-placeholder.png" // Reemplaza con la URL de tu imagen de banner
+                src="public/images/d4c952b6-72bd-435b-85fc-ddeecbe3d666.jpg" // Reemplaza con la URL de tu imagen de banner
                 alt="Banner Publicitario"
                 layout="fill"
                 objectFit="cover"
