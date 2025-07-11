@@ -4,8 +4,8 @@
 import React, { useState, useEffect } from 'react';
 import HeroSection from '@/components/HeroSection';
 import ContentCarousel from '@/components/ContentCarousel';
-import EventCalendar from '@/components/EventCalendar'; // <-- ¡Importada esta importación!
-import EventDetailsModal from '@/components/EventDetailsModal'; // Si aún usas el modal
+import EventCalendar from '@/components/EventCalendar';
+import EventDetailsModal from '@/components/EventDetailsModal';
 
 // NOTA: La función getDailyEvents de aquí ya no es estrictamente necesaria
 // si EventCalendar maneja sus propios eventos diarios y no hay un modal
@@ -68,7 +68,7 @@ export default function HomePage() {
     description: 'Revancha entre dos leyendas del boxeo: Katie Taylor vs Amanda Serrano. Títulos, orgullo y legado en juego.',
     bgImage: 'https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQRxxf7fNC-uSsN6DlinZnFNwxAdwS3Lw4WExAlaMA-3mLLMc4t7tRuwIJ326z05IlYzECtJ9s4i0osG7BoI4oLXjjEaCC9y5IqUfQ38J56A7AGxPrOPrBPMA42g7CVmRxXdO2na6NEs48XytcyfhQ4Cm4_Q.jpg?r=5e1',
     link: '/evento-1', // ✅ COMA AÑADIDA AQUÍ
-  }
+  }, // <--- COMA CORREGIDA AÑADIDA AQUÍ
   {
     id: 'WWE',
     title: 'WWE SmackDown',
