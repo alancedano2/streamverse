@@ -20,7 +20,6 @@ interface StreamDetails {
 }
 
 // Función para obtener los detalles de ESTE evento F1 específico (Evento 1)
-// Nota: Se ha mantenido la función original de los detalles proporcionados.
 function getF1RaceDetails(): StreamDetails {
   const today = new Date();
   const tomorrow = new Date(today);
@@ -28,11 +27,11 @@ function getF1RaceDetails(): StreamDetails {
 
   // Esta variable 'isLive' puedes ajustarla a 'true' si el stream está realmente en vivo.
   // Por ahora, la dejamos en 'false' ya que el 'playbackUrl' estará en blanco.
-  const isLiveNow = false; 
+  const isLiveNow = false;
 
   return {
     title: 'Katie Taylor vs. Amanda Serrano - Netflix PPV', // Título genérico de F1, ej: "Gran Premio de España"
-    description: 'Una revancha histórica entre dos de las mejores boxeadoras del mundo. Katie Taylor, campeona indiscutida del peso ligero, enfrenta nuevamente a la boricua Amanda Serrano, múltiple campeona mundial. Un duelo de leyendas que promete encender el ring y definir quién es la verdadera reina del boxeo.',
+    description: 'Este evento marca un momento crucial en el boxeo: Katie Taylor y Amanda Serrano se enfrentan en el pesaje oficial antes de su esperada pelea. Esta es una cartelera histórica compuesta solo por mujeres, presentada por Most Valuable Promotions.',
     league: 'Netflix PPV',
     playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://62b7ae90565b.ngrok-free.app/LiveApp/streams/dWLk8vpJbhK6e0CU297035900555.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
     posterUrl: 'https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQRxxf7fNC-uSsN6DlinZnFNwxAdwS3Lw4WExAlaMA-3mLLMc4t7tRuwIJ326z05IlYzECtJ9s4i0osG7BoI4oLXjjEaCC9y5IqUfQ38J56A7AGxPrOPrBPMA42g7CVmRxXdO2na6NEs48XytcyfhQ4Cm4_Q.jpg?r=5e1', // Póster genérico de F1 (dominio permitido en next.config.ts)
@@ -63,10 +62,6 @@ export default function Evento2Page() {
     } else {
       setCurrentContent('noContent');
     }
-
-    // Si tuvieras una lógica para que el estado 'isLive' cambie o la 'playbackUrl' se active a una hora específica,
-    // aquí es donde podrías añadir un 'setInterval' como en evento-1, pero simplificado para F1.
-    // Por ahora, el 'playbackUrl' lo controlarás manualmente.
 
   }, []); // El array vacío asegura que se ejecute solo una vez al montar
 
@@ -130,7 +125,7 @@ export default function Evento2Page() {
   if (!streamDetails) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen flex justify-center items-center">
-        <p className="text-xl text-gray-400">Cargando detalles del evento...</p>
+        <p className="text-xl text-gray-400">Cargando detalles de la carrera de Fórmula 1...</p>
       </div>
     );
   }
@@ -185,14 +180,13 @@ export default function Evento2Page() {
 
         {/* Nuevo Banner o Cuadro de Anuncio Clicable */}
         <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700">
-          <Link href="https://www.kq105.com/noticias/entretenimiento/kq-105-fm-se-une-a-la-cobertura-especial-me-quedo-en-pr/article_65906575-7385-40b5-9ffb-876553a982db.html" passHref> {/* Reemplaza '/gaming' con la URL de destino deseada */}
+          <Link href="https://www.kq105.com/noticias/entretenimiento/kq-105-fm-se-une-a-la-cobertura-especial-me-quedo-en-pr/article_65906575-7385-40b5-9ffb-876553a982db.html" passHref> 
             <div className="relative w-full h-48 bg-gray-700 flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.01]">
               <Image
-                src="/images/d4c952b6-72bd-435b-85fc-ddeecbe3d666.jpg" // Reemplaza con la URL de tu imagen de banner
+                src="/images/d4c952b6-72bd-435b-85fc-ddeecbe3d666.jpg" 
                 alt="Banner Publicitario"
-                layout="fill"
-                objectFit="cover"
-                className="opacity-70"
+                fill={true} 
+                className="object-cover opacity-70" 
               />
               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
                 <p className="text-white text-3xl font-bold text-center">¡Anuncio Aquí!</p>
@@ -203,7 +197,7 @@ export default function Evento2Page() {
 
         {/* Información del Evento */}
         <div className="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
-          <h2 className="text-2xl font-bold text-white mb-3">Detalles del evento</h2>
+          <h2 className="text-2xl font-bold text-white mb-3">Detalles de la Carrera</h2>
           <p className="text-gray-300 text-lg mb-4">{streamDetails.description}</p>
           <p className="text-gray-400 text-sm">
             Liga: <span className="font-semibold text-white">{streamDetails.league}</span>
