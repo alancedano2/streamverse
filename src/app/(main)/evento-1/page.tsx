@@ -183,7 +183,7 @@ export default function Evento2Page() {
           <Link href="https://www.kq105.com/noticias/entretenimiento/kq-105-fm-se-une-a-la-cobertura-especial-me-quedo-en-pr/article_65906575-7385-40b5-9ffb-876553a982db.html" passHref> 
             <div className="relative w-full h-48 bg-gray-700 flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.01]">
               <Image
-                src="/images/d4c952b6-72bd-435b-85fc-ddeecbe3d666.jpg" 
+                src="/images/kq105_anuncio.jpg" // Ruta de la imagen actualizada
                 alt="Banner Publicitario"
                 fill={true} 
                 className="object-cover opacity-70" 
