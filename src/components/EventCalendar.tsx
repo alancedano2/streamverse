@@ -25,7 +25,8 @@ const allEvents: EventItem[] = [
     league: 'WWE PLE',
     dateTime: '2025-07-12T15:00:00', // Miércoles 25 de Junio, 7:15 PM AST
     link: '/evento-1',
-    description: 'WWE will kick off their Atlanta takeover with NXT Great American Bash, set from Center Stage on Saturday afternoon.
+    // FIX: Added the missing single quote at the end of the description string.
+    description: 'WWE will kick off their Atlanta takeover with NXT Great American Bash, set from Center Stage on Saturday afternoon.',
   },
   {
     id: 'AEW',
