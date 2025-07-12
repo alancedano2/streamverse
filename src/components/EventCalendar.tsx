@@ -1,187 +1,111 @@
 // src/components/EventCalendar.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { format, parseISO } from 'date-fns';
-import { es } from 'date-fns/locale';
+import React, { useState } from 'react';
+import { Calendar } from "@/components/ui/calendar";
 
-interface EventItem {
+interface Event {
   id: string;
   title: string;
   league: string;
-  dateTime: string; // Formato ISO 8601
-  link: string; // Enlace a la página del evento
+  dateTime: string;
+  link: string;
   description: string;
 }
 
-// **Todos los eventos disponibles en tu sistema**
-// Estos son los eventos que el calendario filtrará por día.
-const allEvents: EventItem[] = [
-  // MIÉRCOLES 25 DE JUNIO DE 2025
+// Ejemplo de datos de eventos (se podrían cargar desde una API real)
+const eventsData: Event[] = [
   {
-    id: 'WWE',
-    title: 'NXT The American Great Bash 2025',
+    id: 'PPV',
+    title: 'NXT The American Great Bash',
     league: 'WWE PLE',
     dateTime: '2025-07-12T15:00:00', // Miércoles 25 de Junio, 7:15 PM AST
     link: '/evento-1',
-    description: 'WWE will kick off their Atlanta takeover with "WWE NXT" Great American Bash, set from Center Stage on Saturday afternoon.
+    description: 'WWE will kick off their Atlanta takeover with "WWE NXT" Great American Bash, set from Center Stage on Saturday afternoon.', // Corrected: Added missing closing quote
   },
   {
     id: 'AEW',
-    title: 'AEW All In',
-    league: 'AEW PPV',
-    dateTime: '2025-07-12T15:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    title: 'AEW All In 2025',
+    league: 'AEW',
+    dateTime: '2025-07-12T19:00:00',
     link: '/evento-2',
     description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
   },
   {
-    id: 'bsn-osos-criollos-calendar-wednesday',
-    title: 'BSN: Capitanes de Arecibo vs Atleticos de San German',
-    league: 'BSN',
-    dateTime: '2025-06-30T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
-    link: '/bsn-2',
-    description: 'Otro emocionante partido del BSN.',
+    id: 'MLB',
+    title: 'Yankees vs Red Sox',
+    league: 'MLB',
+    dateTime: '2025-07-13T18:00:00',
+    link: '/mlb',
+    description: 'A classic baseball rivalry continues.',
   },
   {
-    id: 'bsn-capitanes-vaqueros-calendar-wednesday',
-    title: 'BSN: Capitanes de Arecibo vs Vaqueros de Bayamón',
-    league: 'BSN',
-    dateTime: '2025-06-25T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
-    link: '/bsn-3',
-    description: 'Choque de titanes en la cancha del BSN.',
-  },
-
-  // JUEVES 26 DE JUNIO DE 2025
-  {
-    id: 'bsn-leones-santeros-calendar-thursday',
-    title: 'BSN: Leones de Ponce vs Santeros de Aguada',
-    league: 'BSN',
-    dateTime: '2025-06-26T20:00:00', // Jueves 26 de Junio, 8:00 PM AST
+    id: 'NBA',
+    title: 'NBA Finals Game 7',
+    league: 'NBA',
+    dateTime: '2025-07-14T21:00:00',
     link: '/bsn-1',
-    description: 'Partido de baloncesto entre Leones y Santeros.',
+    description: 'The final game of the NBA championship.',
   },
-  {
-    id: 'wwe',
-    title: 'WWE Night Of Champions KickOff',
-    league: 'WWE',
-    dateTime: '2025-06-26T16:00:00', // Jueves 26 de Junio, 8:00 PM AST
-    link: '/evento-1',
-    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-  },
-
-  // VIERNES 27 DE JUNIO DE 2025
-  {
-    id: 'ppv01',
-    title: 'Canelo vs. Crawford: Las Vegas Press Conference',
-    league: 'PPV',
-    dateTime: '2025-06-27T19:00:00', // Viernes 27 de Junio, 7:15 PM AST
-    link: '/evento-2',
-    description: 'Watch the Canelo vs. Crawford: Las Vegas Press Conference on Friday, June 27 at 7 PM',
-  },
-  {
-    id: 'wwe-smackdown',
-    title: 'WWE SmackDown',
-    league: 'WWE',
-    dateTime: '2025-06-27T20:00:00', // Viernes 27 de Junio, 7:15 PM AST
-    link: '/wwe-smackdown',
-    description: 'El show azul de WWE con tus superestrellas favoritas.',
-  },
-  {
-    id: 'bsnpr',
-    title: 'Criollos de Caguas vs. Osos de Manatí',
-    league: 'BSN',
-    dateTime: '2025-06-27T20:00:00', // Viernes 27 de Junio, 7:15 PM AST
-    link: '/bsn-1',
-    description: 'Partido de baloncesto entre Criollos de Caguas y Osos de Manatí.',
-  },
-  {
-    id: 'bsnpr',
-    title: 'Mets de Guaynabo vs. Cangrejeros de Santurce',
-    league: 'BSN',
-    dateTime: '2025-06-27T20:00:00', // Viernes 27 de Junio, 7:15 PM AST
-    link: '/bsn-2',
-    description: 'Partido de baloncesto entre Mets de Guaynabo y Cangrejeros de Santurce.',
-  },
-
-
-  // SÁBADO 28 DE JUNIO DE 2025
-  {
-    id: 'wwe-night-of-champions-2025-calendar-saturday',
-    title: 'Jake Paul vs Julio Cesar Chavez - DAZN PPV',
-    league: 'DAZNPPV',
-    dateTime: '2025-06-28T15:00:00', // Sábado 28 de Junio, 7:00 PM AST
-    link: '/evento-1',
-    description: 'Evento de pago por evento de DAZN',
-  },
-  {
-    id: 'bsnpr',
-    title: 'BSN: Santeros de Aguada vs Capitanes de Arecibo',
-    league: 'BSN',
-    dateTime: '2025-06-28T20:00:00', // Sábado 28 de Junio, 7:00 PM AST
-    link: '/bsn-1',
-    description: 'Partido de baloncesto entre Santeros y Capitanes.',
-  },
-  // Puedes añadir más eventos aquí para otros días
 ];
 
 export default function EventCalendar() {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [dailyEvents, setDailyEvents] = useState<EventItem[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  
+  // Función para filtrar eventos por fecha seleccionada
+  const eventsForSelectedDate = selectedDate
+    ? eventsData.filter(event => {
+        const eventDate = new Date(event.dateTime);
+        return eventDate.toDateString() === selectedDate.toDateString();
+      })
+    : [];
 
-  // Función para obtener eventos para una fecha específica
-  const getEventsForDate = (date: Date): EventItem[] => {
-    const dateString = format(date, 'yyyy-MM-dd');
-    return allEvents.filter(event => format(parseISO(event.dateTime), 'yyyy-MM-dd') === dateString);
+  // Función para manejar clics en eventos (opcional)
+  const handleEventClick = (event: Event) => {
+    // Aquí puedes redirigir al usuario o abrir un modal con los detalles del evento
+    window.location.href = event.link;
   };
 
-  useEffect(() => {
-    // Actualizar los eventos diarios cuando la fecha cambie
-    const eventsToday = getEventsForDate(currentDate);
-    // Ordenar eventos por hora
-    eventsToday.sort((a, b) => parseISO(a.dateTime).getTime() - parseISO(b.dateTime).getTime());
-    setDailyEvents(eventsToday);
-
-    // Configurar un temporizador para actualizar la fecha a la medianoche del día siguiente
-    const now = new Date();
-    const midnight = new Date(now);
-    midnight.setHours(24, 0, 0, 0); // Establece la hora a medianoche del día siguiente
-
-    const timeToMidnight = midnight.getTime() - now.getTime();
-
-    const timer = setTimeout(() => {
-      setCurrentDate(new Date()); // Actualiza la fecha a la nueva fecha (mañana)
-    }, timeToMidnight + 1000); // Añade un segundo extra para asegurar que cruza la medianoche
-
-    return () => clearTimeout(timer); // Limpia el temporizador si el componente se desmonta
-  }, [currentDate]); // Dependencia: re-ejecutar cuando currentDate cambie
-
   return (
-    <div className="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
-      <h2 className="text-3xl font-bold text-white mb-6 text-center">
-        Eventos para {format(currentDate, 'EEEE d \'de\' MMMM \'del\' yyyy', { locale: es })}
-      </h2>
-      <div className="space-y-4">
-        {dailyEvents.length > 0 ? (
-          dailyEvents.map(event => (
-            <Link href={event.link} key={event.id} className="block">
-              <div className="bg-gray-700 hover:bg-gray-600 p-4 rounded-md flex items-center justify-between transition-colors duration-200 cursor-pointer">
-                <div>
-                  <p className="text-lg font-semibold text-orange-400">{event.title}</p>
-                  <p className="text-gray-300 text-sm">{event.league}</p>
-                  <p className="text-gray-400 text-xs">{event.description}</p>
+    <div className="p-6 bg-background rounded-lg shadow-xl max-w-4xl mx-auto flex flex-col md:flex-row gap-8">
+      {/* Columna del Calendario */}
+      <div className="flex-1">
+        <h2 className="text-2xl font-bold mb-4 text-primary">Calendario de Eventos</h2>
+        <Calendar
+          mode="single"
+          selected={selectedDate}
+          onSelect={setSelectedDate}
+          className="rounded-md border p-4 bg-card shadow-lg w-full"
+        />
+      </div>
+
+      {/* Columna de la Lista de Eventos */}
+      <div className="flex-1">
+        <h3 className="text-xl font-semibold mb-4 text-secondary-foreground">
+          Eventos para {selectedDate?.toDateString() || "Selecciona una fecha"}
+        </h3>
+        <div className="space-y-4">
+          {eventsForSelectedDate.length > 0 ? (
+            eventsForSelectedDate.map((event) => (
+              <div
+                key={event.id}
+                className="p-4 border border-gray-700 rounded-lg bg-card-foreground hover:bg-gray-800 transition cursor-pointer shadow-md"
+                onClick={() => handleEventClick(event)}
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-lg font-bold text-primary">{event.title}</span>
+                  <span className="text-sm text-gray-400">{event.league}</span>
                 </div>
-                <div className="text-right flex-shrink-0 ml-4">
-                  <p className="text-gray-200 text-md">
-                    {format(parseISO(event.dateTime), 'h:mm a', { locale: es })}
-                  </p>
-                </div>
+                <p className="text-sm text-gray-300">{new Date(event.dateTime).toLocaleTimeString()}</p>
+                <p className="mt-2 text-sm text-gray-400">{event.description}</p>
               </div>
-            </Link>
-          ))
-        ) : (
-          <p className="text-gray-400 text-center text-lg">No hay eventos programados para hoy.</p>
-        )}
+            ))
+          ) : (
+            <div className="p-4 text-center text-gray-500">
+              No hay eventos programados para esta fecha.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
