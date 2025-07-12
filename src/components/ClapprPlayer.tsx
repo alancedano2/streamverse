@@ -1,11 +1,9 @@
 // src/components/ClapprPlayer.tsx
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Clappr from '@clappr/player';
-
-// You will need this if you are streaming HLS (m3u8)
-// import HlsjsPlayback from '@clappr/hlsjs-playback'; 
+import HlsjsPlayback from '@clappr/hlsjs-playback';
 
 interface ClapprPlayerProps {
     playbackUrl: string;
@@ -18,13 +16,13 @@ export default function ClapprPlayer({ playbackUrl, posterUrl }: ClapprPlayerPro
 
     useEffect(() => {
         if (playerRef.current) {
-            // Destroy existing instance if it exists
+            // Ensure any previous instance is destroyed
             if (clapprInstance.current) {
                 clapprInstance.current.destroy();
                 clapprInstance.current = null;
             }
 
-            // Initialize Clappr player
+            // Initialize Clappr player and include the HLS plugin
             clapprInstance.current = new Clappr.Player({
                 source: playbackUrl,
                 poster: posterUrl,
@@ -33,7 +31,8 @@ export default function ClapprPlayer({ playbackUrl, posterUrl }: ClapprPlayerPro
                 mute: false,
                 height: '100%',
                 width: '100%',
-                // plugins: [HlsjsPlayback], // Add HLS plugin if necessary
+                // Important: Add the HLSjsPlayback plugin
+                plugins: [HlsjsPlayback], 
             });
         }
 
@@ -46,6 +45,6 @@ export default function ClapprPlayer({ playbackUrl, posterUrl }: ClapprPlayerPro
         };
     }, [playbackUrl, posterUrl]);
 
-    // We still render the player container even if we are dynamically importing it
+    // We render the player container with a specific ID
     return <div id="clappr-player" ref={playerRef} className="w-full h-full"></div>;
 }
