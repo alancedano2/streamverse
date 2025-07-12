@@ -10,15 +10,16 @@ interface VideoPlayerProps {
     isLive: boolean;
 }
 
+const PROXY_WORKER = 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=';
+
 export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
     const videoRef = useRef<HTMLDivElement>(null);
     const playerRef = useRef<any>(null);
 
     useEffect(() => {
-        // Only initialize the player if it hasn't been initialized yet
+        // Solo inicializa si no hay player ya
         if (!playerRef.current) {
-            
-            // Create the video element and append it to the ref container
+            // Crea el elemento video y lo añade al contenedor
             const videoElement = document.createElement('video');
             videoElement.className = 'video-js vjs-default-skin';
             videoElement.autoplay = true;
@@ -30,7 +31,10 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
                 videoRef.current.appendChild(videoElement);
             }
 
-            // Video.js options with basic HLS source configuration
+            // Construye la URL con proxy
+            const proxiedSrc = PROXY_WORKER + encodeURIComponent(src);
+
+            // Opciones Video.js con configuración para HLS
             const options = {
                 autoplay: true,
                 controls: true,
@@ -38,21 +42,37 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
                 fluid: true,
                 liveui: isLive,
                 sources: [{
-                    src: src,
-                    // Use 'application/x-mpegURL' for HLS streams
-                    type: 'application/x-mpegURL', 
+                    src: proxiedSrc,
+                    type: 'application/x-mpegURL',
                 }],
                 poster: poster,
-                // Removed specific HLS configuration (hlsConfig, crossOrigin, etc.)
+                techOrder: ['html5'],
+                html5: {
+                    hls: {
+                        overrideNative: true,
+                        debug: false,
+                    },
+                    nativeAudioTracks: false,
+                    nativeVideoTracks: false,
+                },
             };
 
-            // Initialize the Video.js player
             playerRef.current = videojs(videoElement, options, () => {
                 console.log('Video.js player is ready');
             });
+        } else {
+            // Si ya existe player, solo actualiza la fuente
+            const proxiedSrc = PROXY_WORKER + encodeURIComponent(src);
+            playerRef.current.src({
+                src: proxiedSrc,
+                type: 'application/x-mpegURL',
+            });
+            playerRef.current.poster(poster);
+            playerRef.current.liveui(isLive);
+            playerRef.current.load();
         }
-        
-        // Cleanup function: destroy the player when the component unmounts
+
+        // Cleanup
         return () => {
             if (playerRef.current && !playerRef.current.isDisposed()) {
                 playerRef.current.dispose();
