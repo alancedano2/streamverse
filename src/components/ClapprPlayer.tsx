@@ -16,13 +16,13 @@ export default function ClapprPlayer({ playbackUrl, posterUrl }: ClapprPlayerPro
 
     useEffect(() => {
         if (playerRef.current) {
-            // Ensure any previous instance is destroyed
+            // Ensure Clappr instance is ready and destroyed on unmount
             if (clapprInstance.current) {
                 clapprInstance.current.destroy();
                 clapprInstance.current = null;
             }
 
-            // Initialize Clappr player and include the HLS plugin
+            // Initialize Clappr player with HLS playback plugin and cross-origin settings
             clapprInstance.current = new Clappr.Player({
                 source: playbackUrl,
                 poster: posterUrl,
@@ -31,8 +31,27 @@ export default function ClapprPlayer({ playbackUrl, posterUrl }: ClapprPlayerPro
                 mute: false,
                 height: '100%',
                 width: '100%',
-                // Important: Add the HLSjsPlayback plugin
-                plugins: [HlsjsPlayback], 
+                
+                // Set crossOrigin to anonymous for CORS handling with the proxy
+                crossOrigin: "anonymous", 
+                
+                // Include the HLS playback plugin
+                plugins: [HlsjsPlayback],
+
+                // Optimized HLS.js configuration (if HlsjsPlayback is sensitive to stream data)
+                hlsjsConfig: {
+                    // Disable credentials for XHR requests if the proxy doesn't require them
+                    xhrSetup: function (xhr, url) {
+                        xhr.withCredentials = false;
+                    },
+                    // Helps with performance and compatibility
+                    enableWorker: true,
+                    // If the stream is low latency or has synchronization issues
+                    lowLatencyMode: false,
+                    // Adjust buffer sizes for potentially problematic streams
+                    maxBufferLength: 30,
+                    maxMaxBufferLength: 60,
+                },
             });
         }
 
@@ -45,6 +64,5 @@ export default function ClapprPlayer({ playbackUrl, posterUrl }: ClapprPlayerPro
         };
     }, [playbackUrl, posterUrl]);
 
-    // We render the player container with a specific ID
     return <div id="clappr-player" ref={playerRef} className="w-full h-full"></div>;
 }
