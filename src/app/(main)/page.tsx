@@ -65,7 +65,7 @@ export default function HomePage() {
     id: 'PPV',
     title: 'NXT The American Great Bash',
     date: 'Sabado, 12 de Julio del 2025 - 3:00pm',
-    description: 'WWE will kick off their Atlanta takeover with "WWE NXT" Great American Bash, set from Center Stage on Saturday afternoon.
+    description: 'WWE will kick off their Atlanta takeover with "WWE NXT" Great American Bash, set from Center Stage on Saturday afternoon.', // Corrected missing quote
     bgImage: 'https://catch-newz.com/images/2025/07/02/wwe-nxt-great-american-bash-2025.jpg',
     link: '/evento-1', // ✅ COMA AÑADIDA AQUÍ
   }, // <--- COMA CORREGIDA AÑADIDA AQUÍ
