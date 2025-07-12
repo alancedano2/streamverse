@@ -20,20 +20,20 @@ interface EventItem {
 const allEvents: EventItem[] = [
   // MIÉRCOLES 25 DE JUNIO DE 2025
   {
-    id: 'PPV',
-    title: 'Taylor vs Serrano - Weigh-In',
-    league: 'PPV',
-    dateTime: '2025-07-10T18:00:00', // Miércoles 25 de Junio, 7:15 PM AST
+    id: 'WWE',
+    title: 'NXT The American Great Bash 2025',
+    league: 'WWE PLE',
+    dateTime: '2025-07-12T15:00:00', // Miércoles 25 de Junio, 7:15 PM AST
     link: '/evento-1',
-    description: 'Taylor y Serrano se preparan para el pesaje de su combate estelar, encabezando una histórica cartelera femenina de boxeo presentada por Most Valuable Promotions.',
+    description: 'WWE will kick off their Atlanta takeover with "WWE NXT" Great American Bash, set from Center Stage on Saturday afternoon.
   },
   {
-    id: 'bsn-indios-piratas-calendar-wednesday',
-    title: 'Macys 4th of July Fireworks Show',
-    league: 'TV',
-    dateTime: '2025-07-04T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    id: 'AEW',
+    title: 'AEW All In',
+    league: 'AEW PPV',
+    dateTime: '2025-07-12T15:00:00', // Miércoles 25 de Junio, 8:00 PM AST
     link: '/evento-2',
-    description: 'Macys 4th of July Fireworks Show',
+    description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
   },
   {
     id: 'bsn-osos-criollos-calendar-wednesday',
