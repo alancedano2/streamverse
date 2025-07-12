@@ -36,7 +36,7 @@ function getAewEventDetails(): StreamDetails {
     title: 'AEW All In 2025',
     description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
     league: 'TV',
-    // The M3U8 URL you provided (proxied)
+    // The M3U8 URL you provided
     playbackUrl: 'http://netlevel.online:8080/live/AURELIO933/AQBWS/588157.m3u8',
     posterUrl: 'https://imageio.forbes.com/specials-images/imageserve/68701f93b203da8077fed41c/AEW-All-in-Texas-at-Globe-Life-Field-in-Arlington-/960x0.jpg?format=jpg&width=960',
     isLive: isLiveNow,
@@ -105,7 +105,8 @@ export default function Evento2Page() {
   // --- 3. Initialize Clappr Player ---
   useEffect(() => {
     // We only initialize if the content type is 'clappr', we have details, the scripts are loaded, and the player isn't already running.
-    if (currentContent !== 'clappr' || !streamDetails || !streamDetails.playbackUrl || !isScriptsLoaded || clapprPlayerRef.current || !window.Clappr) {
+    // NOTE: We check for streamDetails.playbackUrl and isScriptsLoaded, which ensures the player only attempts to load the stream when both are ready.
+    if (currentContent !== 'clappr' || !streamDetails || !isScriptsLoaded || clapprPlayerRef.current || !window.Clappr) {
       // If the player exists but shouldn't be active, we destroy it.
       if (clapprPlayerRef.current) {
         clapprPlayerRef.current.destroy();
@@ -148,6 +149,7 @@ export default function Evento2Page() {
 
   // --- Rendering logic ---
 
+  // Show loading screen until stream details are available
   if (!streamDetails) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen flex justify-center items-center">
@@ -167,7 +169,10 @@ export default function Evento2Page() {
         {/* Video Player Container */}
         <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative aspect-video bg-gray-800 flex items-center justify-center">
           
-          {/* Conditional rendering for Clappr player or No Content message */}
+          {/* We display the player container if:
+            1. We are in 'clappr' mode (meaning streamDetails.playbackUrl exists) 
+            2. The Clappr scripts have loaded 
+          */}
           {currentContent === 'clappr' && isScriptsLoaded ? (
             <>
               {/* "EN VIVO" indicator */}
@@ -177,19 +182,16 @@ export default function Evento2Page() {
                 </div>
               )}
               
-              {/* Clappr Player container. Clappr injects the player into this div. */}
-              {/* We use 'playerContainerRef' to link React's rendering with Clappr's initialization */}
+              {/* Clappr Player container. This is where Clappr will initialize. */}
               <div ref={playerContainerRef} className="w-full h-full"></div>
             </>
-          ) : currentContent === 'loading' ? (
-            <div className="text-gray-400 text-xl p-4 text-center">
-                Cargando reproductor...
-            </div>
           ) : (
-            // Message when no content is available (e.g., playbackUrl is empty)
+            // This fallback is displayed if scripts are still loading OR if playbackUrl is empty.
             <div className="text-gray-400 text-xl p-4 text-center">
-              No hay stream disponible en este momento.
-              {streamDetails.nextEpisodeDate && (
+              {/* Display a "loading" message if scripts aren't ready, otherwise, show the "No stream" message */}
+              {!isScriptsLoaded ? 'Cargando reproductor...' : 'No hay stream disponible en este momento.'}
+              
+              {streamDetails.nextEpisodeDate && currentContent !== 'loading' && (
                 <p className="mt-2 text-lg">Próxima Fecha: {streamDetails.nextEpisodeDate}</p>
               )}
             </div>
