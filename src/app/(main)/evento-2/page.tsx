@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Clappr from 'clappr';
-import 'video.js/dist/video-js.css'; // Si ya no usas Video.js, puedes eliminar esta línea.
+import Clappr from '@clappr/player';
 import Image from 'next/image';
 
 interface StreamDetails {
@@ -53,7 +52,7 @@ export default function Evento2Page() {
       }
 
       clapprInstance.current = new Clappr.Player({
-        parentId: `#clappr-player`,
+        parent: playerRef.current,
         source: streamDetails.playbackUrl,
         poster: streamDetails.posterUrl,
         autoPlay: true,
@@ -91,7 +90,7 @@ export default function Evento2Page() {
               EN VIVO
             </div>
           )}
-          <div id="clappr-player" ref={playerRef} className="w-full h-full"></div>
+          <div ref={playerRef} className="w-full h-full"></div>
         </div>
 
         <div className="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
