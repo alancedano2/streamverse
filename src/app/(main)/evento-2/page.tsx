@@ -1,8 +1,15 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Clappr from '@clappr/player';
+import Clappr from 'clappr';
+// If you are only using Clappr, you might not need this import anymore:
+// import 'video.js/dist/video-js.css';
 import Image from 'next/image';
+
+// Ensure you have the necessary Clappr plugins for HLS playback (like HLS.js)
+// If you are playing an HLS stream (m3u8), Clappr needs a playback plugin.
+// You might need to install @clappr/hlsjs-playback and import it.
+// import HlsjsPlayback from '@clappr/hlsjs-playback';
 
 interface StreamDetails {
   title: string;
@@ -39,28 +46,35 @@ export default function Evento2Page() {
   const playerRef = useRef<HTMLDivElement>(null);
   const clapprInstance = useRef<any>(null);
 
+  // Load stream details only once when the component mounts
   useEffect(() => {
-    const details = getF1RaceDetails();
-    setStreamDetails(details);
+    setStreamDetails(getF1RaceDetails());
   }, []);
 
+  // Initialize Clappr player when streamDetails are available and the playerRef is attached to the DOM
   useEffect(() => {
     if (streamDetails && playerRef.current) {
+      // Ensure any previous instance is destroyed before initializing a new one
       if (clapprInstance.current) {
         clapprInstance.current.destroy();
         clapprInstance.current = null;
       }
 
+      // Initialize Clappr
       clapprInstance.current = new Clappr.Player({
-        parent: playerRef.current,
         source: streamDetails.playbackUrl,
         poster: streamDetails.posterUrl,
+        parentId: `#clappr-player`, // Use the ID of the container element
         autoPlay: true,
         mute: false,
         height: '100%',
         width: '100%',
+        // If you are playing HLS, you might need to specify the HlsjsPlayback plugin
+        // plugins: [HlsjsPlayback], 
       });
     }
+
+    // Cleanup function: Destroy the player when the component unmounts
     return () => {
       if (clapprInstance.current) {
         clapprInstance.current.destroy();
@@ -90,7 +104,8 @@ export default function Evento2Page() {
               EN VIVO
             </div>
           )}
-          <div ref={playerRef} className="w-full h-full"></div>
+          {/* Ensure the player container has the ID 'clappr-player' and the ref */}
+          <div id="clappr-player" ref={playerRef} className="w-full h-full"></div>
         </div>
 
         <div className="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
