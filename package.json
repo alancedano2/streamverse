@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "clappr": "^0.4.0",
+    "@clappr/player": "0.4.0",
     "date-fns": "^4.1.0",
     "next": "15.3.4",
     "react": "^19.0.0",
