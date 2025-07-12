@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Clappr from 'clappr';
+import Clappr from '@clappr/player';
 // If you are only using Clappr, you might not need this import anymore:
 // import 'video.js/dist/video-js.css';
 import Image from 'next/image';
