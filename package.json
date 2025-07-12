@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clappr/player": "^1.1.0",         // <-- Aquí el nuevo paquete Clappr oficial
     "@types/video.js": "^7.3.58",
-    "clappr": "^0.4.6",                     
     "date-fns": "^4.1.0",
     "next": "15.3.4",
     "react": "^19.0.0",
