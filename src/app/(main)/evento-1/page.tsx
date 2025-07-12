@@ -180,10 +180,10 @@ export default function Evento2Page() {
 
         {/* Nuevo Banner o Cuadro de Anuncio Clicable */}
         <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700">
-          <Link href="https://www.kq105.com/noticias/entretenimiento/kq-105-fm-se-une-a-la-cobertura-especial-me-quedo-en-pr/article_65906575-7385-40b5-9ffb-876553a982db.html" passHref> 
+          <Link href="/" passHref> 
             <div className="relative w-full h-48 bg-gray-700 flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.01]">
               <Image
-                src="/images/kq105_anuncio.jpg" // Ruta de la imagen actualizada
+                src="/images/placeholder.jpg" // Ruta de la imagen actualizada
                 alt="Banner Publicitario"
                 fill={true} 
                 className="object-contain opacity-100" // Opacidad 100% y object-contain para mejor visualización
