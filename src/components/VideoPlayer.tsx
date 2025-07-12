@@ -15,7 +15,10 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
     const playerRef = useRef<any>(null);
 
     useEffect(() => {
+        // Only initialize the player if it hasn't been initialized yet
         if (!playerRef.current) {
+            
+            // Create the video element and append it to the ref container
             const videoElement = document.createElement('video');
             videoElement.className = 'video-js vjs-default-skin';
             videoElement.autoplay = true;
@@ -27,6 +30,7 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
                 videoRef.current.appendChild(videoElement);
             }
 
+            // Video.js options with basic HLS source configuration
             const options = {
                 autoplay: true,
                 controls: true,
@@ -35,33 +39,20 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
                 liveui: isLive,
                 sources: [{
                     src: src,
-                    type: 'application/x-mpegURL',
+                    // Use 'application/x-mpegURL' for HLS streams
+                    type: 'application/x-mpegURL', 
                 }],
                 poster: poster,
-                html5: {
-                    hls: {
-                        crossOrigin: 'anonymous',
-                        overrideNative: true,
-                        // === Added/Adjusted configuration for delayed streams ===
-                        // A custom XHR setup to increase timeout tolerance if needed (optional)
-                        xhr: {
-                            timeout: 5000 // 5 seconds timeout for fetching (default is often 0 or low)
-                        },
-                        // Increase the retry attempts for segment loads
-                        maxRetryAttempts: 10, 
-                        // Set a low segment loader timeout to quickly detect issues, but rely on high retry attempts
-                        loader: {
-                            retryTimeout: 1000 // Retry segments faster
-                        }
-                    }
-                }
+                // Removed specific HLS configuration (hlsConfig, crossOrigin, etc.)
             };
 
+            // Initialize the Video.js player
             playerRef.current = videojs(videoElement, options, () => {
                 console.log('Video.js player is ready');
             });
         }
         
+        // Cleanup function: destroy the player when the component unmounts
         return () => {
             if (playerRef.current && !playerRef.current.isDisposed()) {
                 playerRef.current.dispose();
