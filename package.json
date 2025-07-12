@@ -9,15 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clappr/player": "^0.4.0",
-    "@clappr/hlsjs-playback": "^1.8.3", 
-    "@types/video.js": "^7.3.58",
-    "date-fns": "^4.1.0",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
-    "video.js": "^8.23.3"
+    "video.js": "^8.23.3",
+    "date-fns": "^4.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -25,6 +22,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/video.js": "^7.3.58",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
     "tailwindcss": "^4",
