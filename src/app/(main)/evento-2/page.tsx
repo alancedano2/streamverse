@@ -33,7 +33,7 @@ function getF1RaceDetails(): StreamDetails {
     title: 'AEW All In 2025', // Título genérico de F1, ej: "Gran Premio de España"
     description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
     league: 'TV',
-    playbackUrl: 'http://netlevel.online:8080/live/AURELIO933/AQBWS/588157.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
+    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=http://netlevel.online:8080/live/AURELIO933/AQBWS/588157.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
     posterUrl: 'https://imageio.forbes.com/specials-images/imageserve/68701f93b203da8077fed41c/AEW-All-in-Texas-at-Globe-Life-Field-in-Arlington-/960x0.jpg?format=jpg&width=960', // Póster genérico de F1 (dominio permitido en next.config.ts)
     isLive: isLiveNow, // Indica si está en vivo
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
