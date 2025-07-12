@@ -1,190 +1,204 @@
 // src/app/(main)/evento-2/page.tsx
-'use client'; // ¡IMPORTANTE! Esta página DEBE ser un Client Component.
+'use client'; // IMPORTANT: This MUST be a Client Component.
 
 import React, { useRef, useEffect, useState } from 'react';
-import videojs from 'video.js'; // Importamos video.js directamente
-import Player from 'video.js/dist/types/player'; // Importamos los tipos
-import 'video.js/dist/video-js.css'; // Importamos los estilos CSS de video.js
-import Link from 'next/link'; // Por si necesitas Links en la página
-import Image from 'next/image'; // Por si necesitas Images en la página
+import Link from 'next/link';
+import Image from 'next/image';
 
-// Interfaz para los detalles del stream (se mantiene igual)
+// We will use standard <script> tags for Clappr and its HLS plugin.
+// Since we are running in 'use client' mode, we will rely on the Clappr global object
+// after the scripts have loaded. We also import 'Clappr' types if available (optional).
+declare global {
+  interface Window {
+    Clappr: any;
+  }
+}
+
+// Interface for stream details
 interface StreamDetails {
   title: string;
   description: string;
   league: string;
-  playbackUrl: string; // La URL M3U8 del stream
-  posterUrl: string; // URL de la imagen del póster
-  isLive: boolean; // ¿Está el evento en vivo ahora?
-  nextEpisodeDate?: string; // Fecha del próximo evento (opcional)
+  playbackUrl: string; // The M3U8 URL
+  posterUrl: string; // Poster image URL
+  isLive: boolean; // Is the event live now?
+  nextEpisodeDate?: string; // Date of the next event (optional)
 }
 
-// Función para obtener los detalles de ESTE evento F1 específico (Evento 2)
-function getF1RaceDetails(): StreamDetails {
+// Function to get the event details (using the provided M3U8 link)
+function getAewEventDetails(): StreamDetails {
   const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1); // Calcula la fecha de mañana
-
-  // Esta variable 'isLive' puedes ajustarla a 'true' si el stream está realmente en vivo.
-  // Por ahora, la dejamos en 'false' ya que el 'playbackUrl' estará en blanco.
-  const isLiveNow = true; 
+  
+  // Set isLiveNow to true, assuming the stream is active based on your previous input.
+  const isLiveNow = true;
 
   return {
-    title: 'AEW All In 2025', // Título genérico de F1, ej: "Gran Premio de España"
+    title: 'AEW All In 2025',
     description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
     league: 'TV',
-    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=http://netlevel.online:8080/live/AURELIO933/AQBWS/588157.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
-    posterUrl: 'https://imageio.forbes.com/specials-images/imageserve/68701f93b203da8077fed41c/AEW-All-in-Texas-at-Globe-Life-Field-in-Arlington-/960x0.jpg?format=jpg&width=960', // Póster genérico de F1 (dominio permitido en next.config.ts)
-    isLive: isLiveNow, // Indica si está en vivo
-    nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
+    // The M3U8 URL you provided (proxied)
+    playbackUrl: 'http://netlevel.online:8080/live/AURELIO933/AQBWS/588157.m3u8',
+    posterUrl: 'https://imageio.forbes.com/specials-images/imageserve/68701f93b203da8077fed41c/AEW-All-in-Texas-at-Globe-Life-Field-in-Arlington-/960x0.jpg?format=jpg&width=960',
+    isLive: isLiveNow,
+    nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
   };
 }
 
-// Definimos los tipos de contenido que podemos mostrar (simplificado para F1)
-type ContentType = 'videojs' | 'noContent' | 'loading';
+// Define possible content types (video with Clappr, no content, loading)
+type ContentType = 'clappr' | 'noContent' | 'loading';
 
 export default function Evento2Page() {
   const [streamDetails, setStreamDetails] = useState<StreamDetails | null>(null);
-  const videoRef = useRef<HTMLDivElement | null>(null);
-  const playerRef = useRef<Player | null>(null);
-
-  // currentContent se inicializa a 'loading' mientras se cargan los detalles
+  const playerContainerRef = useRef<HTMLDivElement | null>(null);
+  // We'll store the Clappr instance here if needed
+  const clapprPlayerRef = useRef<any>(null); 
+  
   const [currentContent, setCurrentContent] = useState<ContentType>('loading');
+  const [isScriptsLoaded, setIsScriptsLoaded] = useState(false);
 
-  // useEffect para cargar los detalles del stream y determinar el contenido a mostrar
+  // --- 1. Load Clappr and HLS plugin scripts dynamically ---
   useEffect(() => {
-    const details = getF1RaceDetails();
+    // We only want to load the scripts once.
+    if (isScriptsLoaded || typeof window === 'undefined') {
+      return;
+    }
+
+    const loadScripts = () => {
+      // Clappr Player
+      const clapprScript = document.createElement('script');
+      clapprScript.src = 'https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js';
+      clapprScript.async = true;
+      document.body.appendChild(clapprScript);
+
+      // Clappr HLS Playback Plugin (Required for M3U8)
+      const hlsScript = document.createElement('script');
+      hlsScript.src = 'https://cdn.jsdelivr.net/npm/@clappr/hlsjs-playback@latest/dist/hlsjs-playback.min.js';
+      hlsScript.async = true;
+      
+      // We set the state only when the main Clappr script loads
+      clapprScript.onload = () => {
+        document.body.appendChild(hlsScript);
+        hlsScript.onload = () => {
+          setIsScriptsLoaded(true);
+        };
+      };
+    };
+
+    loadScripts();
+
+    // Cleanup scripts if the component is unmounted prematurely (less common, but good practice)
+    // return () => { ... }; 
+  }, [isScriptsLoaded]);
+
+  // --- 2. Load stream details ---
+  useEffect(() => {
+    const details = getAewEventDetails();
     setStreamDetails(details);
 
-    // Si hay una URL de reproducción, preparamos el reproductor; de lo contrario, mostramos "noContent".
     if (details.playbackUrl) {
-      setCurrentContent('videojs');
+      setCurrentContent('clappr');
     } else {
       setCurrentContent('noContent');
     }
+  }, []);
 
-    // Si tuvieras una lógica para que el estado 'isLive' cambie o la 'playbackUrl' se active a una hora específica,
-    // aquí es donde podrías añadir un 'setInterval' como en evento-1, pero simplificado para F1.
-    // Por ahora, el 'playbackUrl' lo controlarás manualmente.
-
-  }, []); // El array vacío asegura que se ejecute solo una vez al montar
-
-  // useEffect para inicializar y limpiar el reproductor de Video.js
+  // --- 3. Initialize Clappr Player ---
   useEffect(() => {
-    // Si no es el momento de mostrar videojs, o no tenemos detalles del stream, o no hay URL de reproducción,
-    // o el reproductor ya está inicializado, salimos de este useEffect.
-    if (currentContent !== 'videojs' || !streamDetails || !streamDetails.playbackUrl || playerRef.current) {
-      // Si el reproductor existe y no debería estar activo (ej. cambiamos a 'noContent'), lo destruimos.
-      if (playerRef.current) {
-        playerRef.current.dispose(); // Destruye la instancia del reproductor
-        playerRef.current = null;
+    // We only initialize if the content type is 'clappr', we have details, the scripts are loaded, and the player isn't already running.
+    if (currentContent !== 'clappr' || !streamDetails || !streamDetails.playbackUrl || !isScriptsLoaded || clapprPlayerRef.current || !window.Clappr) {
+      // If the player exists but shouldn't be active, we destroy it.
+      if (clapprPlayerRef.current) {
+        clapprPlayerRef.current.destroy();
+        clapprPlayerRef.current = null;
       }
       return;
     }
 
-    // Crea el elemento <video-js> dinámicamente
-    const videoElement = document.createElement('video-js');
-    videoElement.classList.add('vjs-big-play-centered'); // Para centrar el botón de play grande
-
-    // Monta el elemento de video en el div de referencia (videoRef)
-    if (videoRef.current) {
-      // Limpia cualquier contenido previo para evitar múltiples players si el componente se re-renderiza
-      while (videoRef.current.firstChild) {
-        videoRef.current.removeChild(videoRef.current.firstChild);
+    // Initialize Clappr
+    if (playerContainerRef.current && window.Clappr && window.Clappr.HlsjsPlayback) {
+      // Ensure the container is empty before initializing
+      while (playerContainerRef.current.firstChild) {
+        playerContainerRef.current.removeChild(playerContainerRef.current.firstChild);
       }
-      videoRef.current.appendChild(videoElement);
 
-      // Opciones para Video.js
-      const videoPlayerOptions = {
-        autoplay: true, // Auto-reproducir
-        controls: true, // Mostrar controles
-        responsive: true,
-        fluid: true, // El reproductor se adapta al tamaño de su contenedor manteniendo el aspecto
-        sources: [
-          {
-            src: streamDetails.playbackUrl, // Usamos la URL del stream de F1 del estado
-            type: 'application/x-mpegURL', // Tipo para HLS (streams .m3u8)
-          },
-        ],
-        poster: streamDetails.posterUrl, // Imagen de póster del evento
-      };
+      // Initialize the Clappr player instance
+      const player = new window.Clappr.Player({
+        source: streamDetails.playbackUrl,
+        parentId: playerContainerRef.current, // Use the reference instead of a string ID
+        autoPlay: true,
+        height: '100%',
+        width: '100%',
+        poster: streamDetails.posterUrl,
+        // Include the HLS playback plugin for M3U8 streams
+        plugins: [window.Clappr.HlsjsPlayback] 
+      });
 
-      // Inicializa Video.js
-      // Guardamos la instancia del reproductor en playerRef para poder limpiarla después
-      const player = (playerRef.current = videojs(videoElement, videoPlayerOptions, () => {
-        videojs.log('¡Reproductor de F1 listo para Evento 2!');
-      }));
+      // Save the Clappr instance reference
+      clapprPlayerRef.current = player;
     }
 
-    // Función de limpieza: Se ejecuta al desmontar el componente o si las dependencias cambian
+    // Cleanup function: Destroy the Clappr player when the component unmounts
     return () => {
-      if (playerRef.current) {
-        playerRef.current.dispose(); // Es crucial destruir la instancia del reproductor de Video.js
-        playerRef.current = null;
+      if (clapprPlayerRef.current) {
+        clapprPlayerRef.current.destroy();
+        clapprPlayerRef.current = null;
       }
     };
-  }, [currentContent, streamDetails]); // Las dependencias aseguran que el efecto se re-ejecute cuando cambian
+  }, [currentContent, streamDetails, isScriptsLoaded]);
 
-  // Muestra un mensaje de carga mientras los detalles del stream aún no están disponibles
+  // --- Rendering logic ---
+
   if (!streamDetails) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen flex justify-center items-center">
-        <p className="text-xl text-gray-400">Cargando detalles de la carrera de Fórmula 1...</p>
+        <p className="text-xl text-gray-400">Cargando detalles del evento...</p>
       </div>
     );
   }
 
-  // Renderiza el contenido de la página
   return (
-    <div className="relative min-h-screen bg-gray-950 text-white"> {/* El mismo fondo global de las páginas WWE */}
-      {/* Puedes añadir una imagen de fondo global para F1 aquí si lo deseas, similar a WWE Raw */}
-      {/* Ejemplo de imagen de fondo global, si la activas, ajusta su opacidad y blur
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="https://www.formula1.com/etc/designs/fom-website/images/f1_wallpaper_desktop.jpg" // URL de una imagen de F1
-          alt="F1 Background Global"
-          fill
-          className="object-cover blur-lg opacity-50" // Ajusta opacidad a tu gusto
-          priority
-        />
-      </div>
-      <div className="absolute inset-0 bg-transparent bg-opacity-0 z-0"></div>
-      */}
-
-      {/* Contenido principal de la página (z-index mayor) */}
+    <div className="relative min-h-screen bg-gray-950 text-white">
+      {/* Main content container */}
       <div className="relative z-10 container mx-auto px-4 py-8 pt-12 md:pt-16">
         <h1 className="text-4xl md:text-5xl font-extrabold text-red-600 text-center mb-8">
           {streamDetails.title}
         </h1>
 
-        {/* Contenedor del Reproductor de Video */}
+        {/* Video Player Container */}
         <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative aspect-video bg-gray-800 flex items-center justify-center">
-          {/* Condicional para mostrar el reproductor de Video.js */}
-          {currentContent === 'videojs' && streamDetails.playbackUrl ? (
+          
+          {/* Conditional rendering for Clappr player or No Content message */}
+          {currentContent === 'clappr' && isScriptsLoaded ? (
             <>
+              {/* "EN VIVO" indicator */}
               {streamDetails.isLive && (
                 <div className="absolute top-4 left-4 bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-full z-10 animate-pulse">
                   EN VIVO
                 </div>
               )}
-              <div data-vjs-player className="w-full h-full">
-                <div ref={videoRef} className="w-full h-full"></div>
-              </div>
+              
+              {/* Clappr Player container. Clappr injects the player into this div. */}
+              {/* We use 'playerContainerRef' to link React's rendering with Clappr's initialization */}
+              <div ref={playerContainerRef} className="w-full h-full"></div>
             </>
-          ) : (
-            // Mensaje cuando no hay contenido disponible (porque playbackUrl está vacío)
+          ) : currentContent === 'loading' ? (
             <div className="text-gray-400 text-xl p-4 text-center">
-              No hay stream de Fórmula 1 disponible en este momento.
+                Cargando reproductor...
+            </div>
+          ) : (
+            // Message when no content is available (e.g., playbackUrl is empty)
+            <div className="text-gray-400 text-xl p-4 text-center">
+              No hay stream disponible en este momento.
               {streamDetails.nextEpisodeDate && (
-                  <p className="mt-2 text-lg">Próxima Fecha: {streamDetails.nextEpisodeDate}</p>
+                <p className="mt-2 text-lg">Próxima Fecha: {streamDetails.nextEpisodeDate}</p>
               )}
             </div>
           )}
         </div>
 
-        {/* Información del Evento */}
+        {/* Event Information */}
         <div className="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
-          <h2 className="text-2xl font-bold text-white mb-3">Detalles de la Carrera</h2>
+          <h2 className="text-2xl font-bold text-white mb-3">Detalles del Evento</h2>
           <p className="text-gray-300 text-lg mb-4">{streamDetails.description}</p>
           <p className="text-gray-400 text-sm">
             Liga: <span className="font-semibold text-white">{streamDetails.league}</span>
