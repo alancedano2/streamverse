@@ -9,14 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "clappr": "^0.4.0",  // Corrected: changed from @clappr/player to clappr
-    // "@types/video.js": "^7.3.58", // Removed if you are not using Video.js
+    "clappr": "^0.4.0",
     "date-fns": "^4.1.0",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0"
-    // "video.js": "^8.23.3" // Removed if you are not using Video.js
+    "react-icons": "^5.5.0",
+    "video.js": "^8.23.3",
+    "@types/video.js": "^7.3.58"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
