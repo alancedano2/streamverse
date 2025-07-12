@@ -39,7 +39,7 @@ function getF1RaceDetails(): StreamDetails {
 }
 
 // Dynamically import the ClapprPlayer component, disabling Server-Side Rendering (SSR)
-const DynamicClapprPlayer = dynamic(() => import('../../components/ClapprPlayer'), {
+const DynamicClapprPlayer = dynamic(() => import('../../../components/ClapprPlayer'), {
     ssr: false,
 });
 
