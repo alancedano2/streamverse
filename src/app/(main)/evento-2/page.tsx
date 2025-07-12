@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic'; 
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
-// We do not import Clappr here.
-
+// Interface and getF1RaceDetails function remain the same
 interface StreamDetails {
     title: string;
     description: string;
@@ -24,6 +23,7 @@ function getF1RaceDetails(): StreamDetails {
         title: 'AEW All In 2025',
         description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
         league: 'TV',
+        // Using the HTTPS proxy URL
         playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=http://netlevel.online:8080/live/AURELIO933/AQBWS/588157.m3u8',
         posterUrl: 'https://imageio.forbes.com/specials-images/imageserve/68701f93b203da8077fed41c/AEW-All-in-Texas-at-Globe-Life-Field-in-Arlington-/960x0.jpg?format=jpg&width=960',
         isLive: isLiveNow,
@@ -36,9 +36,9 @@ function getF1RaceDetails(): StreamDetails {
     };
 }
 
-// Dynamically import the ClapprPlayer component, disabling Server-Side Rendering (SSR)
-// Ensure the path is correct relative to your file structure (e.g., ../../../components/ClapprPlayer)
-const DynamicClapprPlayer = dynamic(() => import('../../../components/ClapprPlayer'), {
+// Dynamically import the VideoPlayer component, disabling SSR
+// Update the import path if your VideoPlayer.tsx is in a different location
+const DynamicVideoPlayer = dynamic(() => import('../../../components/VideoPlayer'), {
     ssr: false,
 });
 
@@ -71,11 +71,12 @@ export default function Evento2Page() {
                             EN VIVO
                         </div>
                     )}
-                    {/* Use the dynamically imported player component here */}
+                    {/* Use the dynamically imported VideoPlayer */}
                     {streamDetails.playbackUrl && streamDetails.posterUrl && (
-                        <DynamicClapprPlayer
-                            playbackUrl={streamDetails.playbackUrl}
-                            posterUrl={streamDetails.posterUrl}
+                        <DynamicVideoPlayer
+                            src={streamDetails.playbackUrl}
+                            poster={streamDetails.posterUrl}
+                            isLive={streamDetails.isLive}
                         />
                     )}
                 </div>
