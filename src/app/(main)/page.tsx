@@ -63,19 +63,19 @@ export default function HomePage() {
   const heroEvents = [
   {
     id: 'PPV',
-    title: 'Taylor vs Serrano - Netflix PPV',
-    date: 'Viernes, 11 de Julio del 2025 - 8:00pm',
-    description: 'Revancha entre dos leyendas del boxeo: Katie Taylor vs Amanda Serrano. Títulos, orgullo y legado en juego.',
-    bgImage: 'https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQRxxf7fNC-uSsN6DlinZnFNwxAdwS3Lw4WExAlaMA-3mLLMc4t7tRuwIJ326z05IlYzECtJ9s4i0osG7BoI4oLXjjEaCC9y5IqUfQ38J56A7AGxPrOPrBPMA42g7CVmRxXdO2na6NEs48XytcyfhQ4Cm4_Q.jpg?r=5e1',
+    title: 'NXT The American Great Bash',
+    date: 'Sabado, 12 de Julio del 2025 - 3:00pm',
+    description: 'WWE will kick off their Atlanta takeover with "WWE NXT" Great American Bash, set from Center Stage on Saturday afternoon.
+    bgImage: 'https://catch-newz.com/images/2025/07/02/wwe-nxt-great-american-bash-2025.jpg',
     link: '/evento-1', // ✅ COMA AÑADIDA AQUÍ
   }, // <--- COMA CORREGIDA AÑADIDA AQUÍ
   {
-    id: 'WWE',
-    title: 'WWE SmackDown',
-    date: 'Viernes, 11 de Julio del 2025 - 8:00pm',
-    description: 'La acción, el drama y las rivalidades más intensas del universo WWE llegan esta noche sin interrupciones. Superestrellas como Roman Reigns, LA Knight, The Bloodline, y más, se enfrentan camino a los próximos grandes eventos.',
-    bgImage: 'https://images2.minutemediacdn.com/image/upload/c_crop,w_1080,h_607,x_0,y_211/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/wrestling_on_fannation/01j7q1skk768tjf6w260.jpg',
-    link: '/wwe-smackdown-live', // ✅ COMA AÑADIDA AQUÍ
+    id: 'AEW',
+    title: 'AEW All In 2025',
+    date: 'Sabado, 12 de Julio del 2025 - 3:00pm',
+    description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
+    bgImage: 'https://static.wixstatic.com/media/815952_d2985c855b364b5780ecbc21837bf442~mv2.jpg/v1/fill/w_1920,h_1080,al_c,q_90/AEW-All-In-r3-X.jpg',
+    link: '/evento-2', // ✅ COMA AÑADIDA AQUÍ
   }, 
 ];
 
