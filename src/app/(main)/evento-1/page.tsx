@@ -33,7 +33,7 @@ function getF1RaceDetails(): StreamDetails {
     title: 'NXT The American Great Bash', // Título genérico de F1, ej: "Gran Premio de España"
     description: 'El Center Stage Theatre de Atlanta es el recinto que albergará este histórico PLE, ahora parte de la marca de desarrollo de WWE.',
     league: 'WWE',
-    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://d9.merichunidya.com:1686/hls/cr7star003-321.ts', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
+    playbackUrl: 'https://d9.merichunidya.com:1686/hls/cr7star003-321.ts', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
     posterUrl: 'https://catch-newz.com/images/2025/07/02/wwe-nxt-great-american-bash-2025.jpg', // Póster genérico de F1 (dominio permitido en next.config.ts)
     isLive: isLiveNow, // Indica si está en vivo
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
