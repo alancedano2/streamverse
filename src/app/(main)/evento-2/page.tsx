@@ -30,13 +30,13 @@ function getF1RaceDetails(): StreamDetails {
   const isLiveNow = true; 
 
   return {
-    title: 'Macy 4th of July Fireworks Show', // Título genérico de F1, ej: "Gran Premio de España"
-    description: 'The most iconic summer celebration of the year will light up the NYC skyline on Friday, July 4, 2025.',
+    title: 'AEW All In 2025', // Título genérico de F1, ej: "Gran Premio de España"
+    description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
     league: 'TV',
-    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=http://xpaneltv.com:8080/live/ArtuDamb/63815850/80360.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
-    posterUrl: 'https://deadline.com/wp-content/uploads/2022/06/Fourth-of-July-Fireworks.jpg?w=1000', // Póster genérico de F1 (dominio permitido en next.config.ts)
+    playbackUrl: 'https://live20.bozztv.com/akamaissh101/ssh101/cr7star001/chunks.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
+    posterUrl: 'https://imageio.forbes.com/specials-images/imageserve/68701f93b203da8077fed41c/AEW-All-in-Texas-at-Globe-Life-Field-in-Arlington-/960x0.jpg?format=jpg&width=960', // Póster genérico de F1 (dominio permitido en next.config.ts)
     isLive: isLiveNow, // Indica si está en vivo
-    nextEpisodeDate: `Hoy, ${tomorrow.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
+    nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
   };
 }
 
