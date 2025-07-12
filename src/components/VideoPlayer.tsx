@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
+// Import the Video.js CSS
 import 'video.js/dist/video-js.css';
 
 interface VideoPlayerProps {
@@ -15,12 +16,12 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
     const playerRef = useRef<any>(null);
 
     useEffect(() => {
+        // Only initialize the player if it hasn't been initialized yet
         if (!playerRef.current) {
+            
+            // Create the video element and append it to the ref container
             const videoElement = document.createElement('video');
             videoElement.className = 'video-js vjs-default-skin';
-            videoElement.style.width = '100%';
-            videoElement.style.height = '100%';
-            videoElement.style.aspectRatio = '16 / 9';
             videoElement.autoplay = true;
             videoElement.controls = true;
             videoElement.muted = false;
@@ -30,25 +31,32 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
                 videoRef.current.appendChild(videoElement);
             }
 
-            // Video.js options for HLS streams
+            // Video.js options for robust HLS playback
             const options = {
                 autoplay: true,
                 controls: true,
                 responsive: true,
                 fluid: true,
-                liveui: isLive,
+                // Add explicit sources for HLS playback
                 sources: [{
                     src: src,
-                    type: 'application/x-mpegURL', // M3U8 type for HLS
+                    // Use 'application/x-mpegURL' or 'application/vnd.apple.mpegurl' for HLS
+                    type: 'application/x-mpegURL', 
                 }],
                 poster: poster,
+                liveui: isLive,
+                // Configuration specific to Video.js's HTML5 HLS implementation (VHS)
                 html5: {
                     hls: {
-                        // Configuration for HLS.js if needed (Video.js often uses it internally)
-                        overrideNative: true
-                    },
-                    // Ensure CORS is handled
-                    crossOrigin: 'anonymous'
+                        // Ensure CORS is handled when fetching the stream
+                        crossOrigin: 'anonymous',
+                        // Force Video.js to use its internal HLS engine
+                        overrideNative: true,
+                        // Set specific timeouts and retries for unreliable streams
+                        bandwidth: 511023, // Example bandwidth setting for ABR
+                        maxBufferLength: 60, // Maximum buffer length in seconds
+                        maxRetryAttempts: 5 // Maximum retry attempts for failed segments (if supported by VHS)
+                    }
                 }
             };
 
@@ -68,8 +76,8 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
     }, [src, poster, isLive]);
 
     return (
+        // The div where the player attaches itself
         <div data-vjs-player>
-            {/* The ref where the video element will be appended by Video.js */}
             <div ref={videoRef} />
         </div>
     );
