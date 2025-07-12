@@ -30,11 +30,11 @@ function getF1RaceDetails(): StreamDetails {
   const isLiveNow = false;
 
   return {
-    title: 'Katie Taylor vs. Amanda Serrano - Netflix PPV', // Título genérico de F1, ej: "Gran Premio de España"
-    description: 'Una revancha histórica entre dos de las mejores boxeadoras del mundo. Katie Taylor, campeona indiscutida del peso ligero, enfrenta nuevamente a la boricua Amanda Serrano, múltiple campeona mundial. Un duelo de leyendas que promete encender el ring y definir quién es la verdadera reina del boxeo.',
-    league: 'Netflix PPV',
+    title: 'NXT The American Great Bash', // Título genérico de F1, ej: "Gran Premio de España"
+    description: 'El Center Stage Theatre de Atlanta es el recinto que albergará este histórico PLE, ahora parte de la marca de desarrollo de WWE.',
+    league: 'WWE',
     playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://62b7ae90565b.ngrok-free.app/LiveApp/streams/dWLk8vpJbhK6e0CU297035900555.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
-    posterUrl: 'https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQRxxf7fNC-uSsN6DlinZnFNwxAdwS3Lw4WExAlaMA-3mLLMc4t7tRuwIJ326z05IlYzECtJ9s4i0osG7BoI4oLXjjEaCC9y5IqUfQ38J56A7AGxPrOPrBPMA42g7CVmRxXdO2na6NEs48XytcyfhQ4Cm4_Q.jpg?r=5e1', // Póster genérico de F1 (dominio permitido en next.config.ts)
+    posterUrl: 'https://catch-newz.com/images/2025/07/02/wwe-nxt-great-american-bash-2025.jpg', // Póster genérico de F1 (dominio permitido en next.config.ts)
     isLive: isLiveNow, // Indica si está en vivo
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
   };
