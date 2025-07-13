@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
-// Interface and getF1RaceDetails function remain the same
+// Interface for stream details
 interface StreamDetails {
     title: string;
     description: string;
@@ -14,6 +14,16 @@ interface StreamDetails {
     posterUrl: string;
     isLive: boolean;
     nextEpisodeDate?: string;
+}
+
+// Define the VideoPlayerProps interface here or import it if exported from VideoPlayer.tsx
+// This interface MUST match the props expected by the VideoPlayer component.
+interface VideoPlayerProps {
+    src: string;
+    poster: string;
+    isLive: boolean;
+    options?: any;
+    playerType: 'videojs' | 'clappr'; 
 }
 
 function getF1RaceDetails(): StreamDetails {
@@ -36,8 +46,8 @@ function getF1RaceDetails(): StreamDetails {
     };
 }
 
-// Dynamically import the VideoPlayer component, disabling SSR
-const DynamicVideoPlayer = dynamic(() => import('../../../components/VideoPlayer'), {
+// Dynamically import the VideoPlayer component, applying the VideoPlayerProps type
+const DynamicVideoPlayer = dynamic<VideoPlayerProps>(() => import('../../../components/VideoPlayer'), {
     ssr: false,
 });
 
@@ -70,8 +80,8 @@ export default function Evento2Page() {
                             EN VIVO
                         </div>
                     )}
-                    {/* Use the dynamically imported VideoPlayer and add playerType prop */}
                     {streamDetails.playbackUrl && streamDetails.posterUrl && (
+                        // We are now explicitly passing VideoPlayerProps to DynamicVideoPlayer
                         <DynamicVideoPlayer
                             src={streamDetails.playbackUrl}
                             poster={streamDetails.posterUrl}
