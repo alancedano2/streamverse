@@ -10,16 +10,16 @@ interface VideoPlayerProps {
     isLive: boolean;
 }
 
-const PROXY_WORKER = 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=';
+// Remove the PROXY_WORKER constant
 
 export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
     const videoRef = useRef<HTMLDivElement>(null);
     const playerRef = useRef<any>(null);
 
     useEffect(() => {
-        // Solo inicializa si no hay player ya
+        // Only initialize if there is no player yet
         if (!playerRef.current) {
-            // Crea el elemento video y lo añade al contenedor
+            // Create the video element and add it to the container
             const videoElement = document.createElement('video');
             videoElement.className = 'video-js vjs-default-skin';
             videoElement.autoplay = true;
@@ -31,10 +31,10 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
                 videoRef.current.appendChild(videoElement);
             }
 
-            // Construye la URL con proxy
-            const proxiedSrc = PROXY_WORKER + encodeURIComponent(src);
+            // --- CORRECTION: Use the src directly, as it will now be the full URL ---
+            const videoSrc = src;
 
-            // Opciones Video.js con configuración para HLS
+            // Video.js options with HLS configuration
             const options = {
                 autoplay: true,
                 controls: true,
@@ -42,7 +42,7 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
                 fluid: true,
                 liveui: isLive,
                 sources: [{
-                    src: proxiedSrc,
+                    src: videoSrc,
                     type: 'application/x-mpegURL',
                 }],
                 poster: poster,
@@ -61,10 +61,11 @@ export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
                 console.log('Video.js player is ready');
             });
         } else {
-            // Si ya existe player, solo actualiza la fuente
-            const proxiedSrc = PROXY_WORKER + encodeURIComponent(src);
+            // If the player already exists, just update the source
+            // --- CORRECTION: Use the src directly ---
+            const videoSrc = src;
             playerRef.current.src({
-                src: proxiedSrc,
+                src: videoSrc,
                 type: 'application/x-mpegURL',
             });
             playerRef.current.poster(poster);
