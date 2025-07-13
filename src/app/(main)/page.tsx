@@ -62,19 +62,19 @@ export default function HomePage() {
 
   const heroEvents = [
   {
-    id: 'PPV',
-    title: 'NXT The American Great Bash',
-    date: 'Sabado, 12 de Julio del 2025 - 3:00pm',
-    description: 'WWE will kick off their Atlanta takeover with "WWE NXT" Great American Bash, set from Center Stage on Saturday afternoon.', // Corrected missing quote
-    bgImage: 'https://catch-newz.com/images/2025/07/02/wwe-nxt-great-american-bash-2025.jpg',
+    id: 'MLB',
+    title: 'MLB: Yankees vs. Cubs',
+    date: 'Domingo, 13 de Julio del 2025 - 1:30pm',
+    description: 'Experimenta uno de los enfrentamientos más emocionantes de la MLB. Los icónicos New York Yankees se enfrentan a los queridos Chicago Cubs en un choque que promete drama, poder y pasión.', // Corrected missing quote
+    bgImage: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401472338/16x9/1280x720_20230623151708.jpg&showBadge=true&package=ESPN_PLUS_MLB',
     link: '/evento-1', // ✅ COMA AÑADIDA AQUÍ
   }, // <--- COMA CORREGIDA AÑADIDA AQUÍ
   {
-    id: 'AEW',
-    title: 'AEW All In 2025',
-    date: 'Sabado, 12 de Julio del 2025 - 3:00pm',
-    description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
-    bgImage: 'https://static.wixstatic.com/media/815952_d2985c855b364b5780ecbc21837bf442~mv2.jpg/v1/fill/w_1920,h_1080,al_c,q_90/AEW-All-In-r3-X.jpg',
+    id: 'WWE',
+    title: 'WWE Evolution',
+    date: 'Domingo, 13 de Julio del 2025 - 5:00pm',
+    description: 'Prepárate para la historia. WWE Evolution está de vuelta, el evento que celebra exclusivamente a las superestrellas femeninas. Después de siete años, este evento icónico regresa para redefinir la lucha libre.',
+    bgImage: 'https://www.record.com.mx/sites/default/files/articulos/2025/07/11/wwe-evolution-2025-cartelera-completa-y-donde-ver-el-evento-exclusivo-de-mujeres.webp',
     link: '/evento-2', // ✅ COMA AÑADIDA AQUÍ
   }, 
 ];
