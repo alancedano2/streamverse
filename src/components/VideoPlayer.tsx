@@ -8,24 +8,40 @@ import 'video.js/dist/video-js.css';
 import { Player as ClapprPlayer } from '@clappr/player';
 import HlsjsPlayback from '@clappr/hlsjs-playback';
 
-// Assuming VideoPlayerProps is defined elsewhere or included below
+// Updated VideoPlayerProps interface
 interface VideoPlayerProps {
-    options: any; // Define your video options structure here
+    src: string;
+    poster: string;
+    isLive: boolean;
+    // Keep options for video.js if needed, but the main props are now src, poster, and isLive
+    options?: any; 
 }
 
 export const VideoPlayer = (props: VideoPlayerProps) => {
-    // Refs for both players or the container elements
-    const videoJsRef = useRef(null);
-    const clapprRef = useRef(null);
-    const { options } = props;
+    // Refs for video.js container and Clappr container
+    const videoJsRef = useRef<HTMLVideoElement>(null);
+    const clapprRef = useRef<HTMLDivElement>(null);
+    const { src, poster, isLive, options } = props;
+
+    // Configuration for both players based on input props
+    const playerOptions = {
+        sources: [
+            { src: src, type: 'application/x-mpegURL' } // Assuming HLS stream based on previous analysis
+        ],
+        poster: poster,
+        autoplay: isLive,
+        controls: true,
+        // Merge with any optional options passed
+        ...options
+    };
 
     // useEffect for Video.js initialization
     useEffect(() => {
         const videoElement = videoJsRef.current;
 
         if (videoElement) {
-            // Video.js initialization logic
-            const player = videojs(videoElement, options);
+            // Video.js initialization logic using the combined options
+            const player = videojs(videoElement, playerOptions);
             
             // Clean up Video.js instance
             return () => {
@@ -34,23 +50,23 @@ export const VideoPlayer = (props: VideoPlayerProps) => {
                 }
             };
         }
-    }, [options]);
+    }, [src, options]); // Dependencies updated to include src and options
 
     // useEffect for Clappr initialization
     useEffect(() => {
         const clapprContainer = clapprRef.current;
 
-        if (clapprContainer && options.sources && options.sources.length > 0) {
+        if (clapprContainer && playerOptions.sources.length > 0) {
             // Clappr initialization logic
             const clapprOptions = {
-                source: options.sources[0].src,
+                source: playerOptions.sources[0].src,
                 parentId: clapprContainer,
                 width: '100%',
                 height: '100%',
                 plugins: [
                     HlsjsPlayback,
                 ],
-                // Additional Clappr options here
+                // Add any other Clappr options here
             };
 
             const clapprInstance = new ClapprPlayer(clapprOptions);
@@ -62,19 +78,21 @@ export const VideoPlayer = (props: VideoPlayerProps) => {
                 }
             };
         }
-    }, [options]);
+    }, [src, options]); // Dependencies updated to include src and options
 
     return (
         <div>
-            {/* This container is for Video.js (or you can use it for Clappr if you modify the refs above)
+            {/* You can render both player containers here. 
+            You might want to implement logic to conditionally render or hide 
+            one based on your application's requirements.
             */}
+            
+            {/* Video.js container */}
             <div data-vjs-player>
                 <video ref={videoJsRef} className="video-js vjs-default-skin" />
             </div>
 
-            {/* This container is for Clappr. 
-              You can control which player is visible in your application logic.
-            */}
+            {/* Clappr container (hidden by default in this example) */}
             <div ref={clapprRef} style={{ display: 'none' }} /> 
         </div>
     );
