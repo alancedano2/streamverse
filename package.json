@@ -16,7 +16,7 @@
     "video.js": "^8.23.3",
     "date-fns": "^4.1.0",
     "@clappr/player": "^3.1.0", 
-    "@clappr/hlsjs-playback": "^2.1.0"
+    "@clappr/hlsjs-playback": "1.0.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
