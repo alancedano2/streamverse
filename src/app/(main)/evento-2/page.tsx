@@ -1,3 +1,4 @@
+// src/app/(main)/evento-2/page.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -23,7 +24,6 @@ function getF1RaceDetails(): StreamDetails {
         title: 'WWE Evolution',
         description: 'Prepárate para la historia. WWE Evolution está de vuelta, el evento que celebra exclusivamente a las superestrellas femeninas. Después de siete años, este evento icónico regresa para redefinir la lucha libre.',
         league: 'WWE PLE',
-        // Using the HTTPS proxy URL
         playbackUrl: 'https://adjustment-rn-corrected-ing.trycloudflare.com/LiveApp/streams/dWLk8vpJbhK6e0CU297035900555.m3u8',
         posterUrl: 'https://tvazteca.brightspotcdn.com/75/ce/b41197bd46a3867b09f504e0ddf7/wwe-evolution-2025.jpg',
         isLive: isLiveNow,
@@ -37,7 +37,6 @@ function getF1RaceDetails(): StreamDetails {
 }
 
 // Dynamically import the VideoPlayer component, disabling SSR
-// Update the import path if your VideoPlayer.tsx is in a different location
 const DynamicVideoPlayer = dynamic(() => import('../../../components/VideoPlayer'), {
     ssr: false,
 });
@@ -71,12 +70,13 @@ export default function Evento2Page() {
                             EN VIVO
                         </div>
                     )}
-                    {/* Use the dynamically imported VideoPlayer */}
+                    {/* Use the dynamically imported VideoPlayer and add playerType prop */}
                     {streamDetails.playbackUrl && streamDetails.posterUrl && (
                         <DynamicVideoPlayer
                             src={streamDetails.playbackUrl}
                             poster={streamDetails.posterUrl}
                             isLive={streamDetails.isLive}
+                            playerType="clappr" // Choose "videojs" or "clappr" here
                         />
                     )}
                 </div>
