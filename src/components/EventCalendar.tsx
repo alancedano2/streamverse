@@ -21,12 +21,12 @@ const allEvents: EventItem[] = [
   // MIÉRCOLES 25 DE JUNIO DE 2025
   {
     id: 'WWE',
-    title: 'NXT The American Great Bash 2025',
+    title: 'WWE Evolution ',
     league: 'WWE PLE',
-    dateTime: '2025-07-12T15:00:00', // Miércoles 25 de Junio, 7:15 PM AST
+    dateTime: '2025-07-13T17:00:00', // Miércoles 25 de Junio, 7:15 PM AST
     link: '/evento-1',
     // FIX: Added the missing single quote at the end of the description string.
-    description: 'WWE will kick off their Atlanta takeover with NXT Great American Bash, set from Center Stage on Saturday afternoon.',
+    description: 'El universo de la lucha libre está a punto de vivir un momento histórico. Tras siete años de una espera que se hizo larga para los aficionados, WWE Evolution.',
   },
   {
     id: 'AEW',
