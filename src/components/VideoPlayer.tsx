@@ -91,6 +91,8 @@ export const VideoPlayer = (props: VideoPlayerProps) => {
                 <div 
                     id={CLAPPR_CONTAINER_ID} 
                     ref={clapprRef} 
+                    // Added w-full h-full classes to ensure the container has dimensions
+                    className="w-full h-full"
                 /> 
             )}
         </div>
