@@ -51,7 +51,8 @@ const nextConfig = {
       // Corrected the Netflix domain addition that caused the build error:
       { protocol: 'https', hostname: 'dnm.nflximg.net'},
       { protocol: 'https', hostname: 'record.com.mx'},
-      { protocol: 'https', hostname: 'staticg.sportskeeda.com'}
+      { protocol: 'https', hostname: 'staticg.sportskeeda.com'},
+      { protocol: 'https', hostname: 'tvazteca.brightspotcdn.com'}
     ]
   }
 };
