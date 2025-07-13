@@ -33,7 +33,7 @@ function getF1RaceDetails(): StreamDetails {
     title: 'MLB: Yankees vs. Cubs', // Título genérico de F1, ej: "Gran Premio de España"
     description: 'Experimenta uno de los enfrentamientos más emocionantes de la MLB. Los icónicos New York Yankees se enfrentan a los queridos Chicago Cubs en un choque que promete drama, poder y pasión.',
     league: 'MLB',
-    playbackUrl: 'https://ng-residence-shoulder-conclusions.trycloudflare.com/?url=http://flowhds.online:8080/live/AURELIO933/AQBWS/610260.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
+    playbackUrl: 'https://admit-won-hawaii-kit.trycloudflare.com/?url=http://flowhds.online:8080/live/AURELIO933/AQBWS/610260.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
     posterUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401472338/16x9/1280x720_20230623151708.jpg&showBadge=true&package=ESPN_PLUS_MLB', // Póster genérico de F1 (dominio permitido en next.config.ts)
     isLive: isLiveNow, // Indica si está en vivo
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
