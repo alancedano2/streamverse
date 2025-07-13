@@ -8,24 +8,21 @@ import 'video.js/dist/video-js.css';
 import { Player as ClapprPlayer } from '@clappr/player';
 import HlsjsPlayback from '@clappr/hlsjs-playback';
 
-// Define a unique ID for the Clappr container
 const CLAPPR_CONTAINER_ID = 'clappr-player-container';
 
-// Updated VideoPlayerProps interface
 interface VideoPlayerProps {
     src: string;
     poster: string;
     isLive: boolean;
-    options?: any; 
+    options?: any;
+    playerType: 'videojs' | 'clappr'; 
 }
 
 export const VideoPlayer = (props: VideoPlayerProps) => {
-    // Refs for video.js container and Clappr container
     const videoJsRef = useRef<HTMLVideoElement>(null);
     const clapprRef = useRef<HTMLDivElement>(null);
-    const { src, poster, isLive, options } = props;
+    const { src, poster, isLive, options, playerType } = props;
 
-    // Configuration for both players based on input props
     const playerOptions = {
         sources: [
             { src: src, type: 'application/x-mpegURL' } 
@@ -40,29 +37,25 @@ export const VideoPlayer = (props: VideoPlayerProps) => {
     useEffect(() => {
         const videoElement = videoJsRef.current;
 
-        if (videoElement) {
-            // Video.js initialization logic
+        if (playerType === 'videojs' && videoElement) {
             const player = videojs(videoElement, playerOptions);
             
-            // Clean up Video.js instance
             return () => {
                 if (player) {
                     player.dispose();
                 }
             };
         }
-    }, [src, options]); 
+    }, [playerType, src, options]);
 
     // useEffect for Clappr initialization
     useEffect(() => {
         const clapprContainer = clapprRef.current;
 
-        // Note: We are checking for clapprContainer, but initializing Clappr using the ID string below.
-        if (clapprContainer && playerOptions.sources.length > 0) {
-            // Clappr initialization logic using the container ID
+        if (playerType === 'clappr' && clapprContainer && playerOptions.sources.length > 0) {
+            // Note: We initialize Clappr using the container ID
             const clapprOptions = {
                 source: playerOptions.sources[0].src,
-                // Pass the ID string instead of the DOM element object to avoid the querySelector error
                 parentId: `#${CLAPPR_CONTAINER_ID}`, 
                 width: '100%',
                 height: '100%',
@@ -73,24 +66,33 @@ export const VideoPlayer = (props: VideoPlayerProps) => {
 
             const clapprInstance = new ClapprPlayer(clapprOptions);
 
-            // Clean up Clappr instance
             return () => {
                 if (clapprInstance) {
                     clapprInstance.destroy();
                 }
             };
         }
-    }, [src, options]); 
+    }, [playerType, src, options]); 
 
     return (
         <div>
-            {/* Video.js container */}
-            <div data-vjs-player>
-                <video ref={videoJsRef} className="video-js vjs-default-skin" />
-            </div>
+            {/* Conditionally render the Video.js player container */}
+            {playerType === 'videojs' && (
+                <div data-vjs-player>
+                    <video 
+                        ref={videoJsRef} 
+                        className="video-js vjs-default-skin" 
+                    />
+                </div>
+            )}
 
-            {/* Clappr container. We assign the unique ID here. */}
-            <div id={CLAPPR_CONTAINER_ID} ref={clapprRef} style={{ display: 'none' }} /> 
+            {/* Conditionally render the Clappr player container */}
+            {playerType === 'clappr' && (
+                <div 
+                    id={CLAPPR_CONTAINER_ID} 
+                    ref={clapprRef} 
+                /> 
+            )}
         </div>
     );
 };
