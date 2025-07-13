@@ -30,11 +30,11 @@ function getF1RaceDetails(): StreamDetails {
   const isLiveNow = false;
 
   return {
-    title: 'NXT The American Great Bash', // Título genérico de F1, ej: "Gran Premio de España"
-    description: 'El Center Stage Theatre de Atlanta es el recinto que albergará este histórico PLE, ahora parte de la marca de desarrollo de WWE.',
-    league: 'WWE',
-    playbackUrl: 'https://zvet.prospectivetoday.fun/hls/canal2.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
-    posterUrl: 'https://catch-newz.com/images/2025/07/02/wwe-nxt-great-american-bash-2025.jpg', // Póster genérico de F1 (dominio permitido en next.config.ts)
+    title: 'MLB: Yankees vs. Cubs', // Título genérico de F1, ej: "Gran Premio de España"
+    description: 'Experimenta uno de los enfrentamientos más emocionantes de la MLB. Los icónicos New York Yankees se enfrentan a los queridos Chicago Cubs en un choque que promete drama, poder y pasión.',
+    league: 'MLB',
+    playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=http://netlevel.online:8080/live/AURELIO933/AQBWS/610260.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
+    posterUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401472338/16x9/1280x720_20230623151708.jpg&showBadge=true&package=ESPN_PLUS_MLB', // Póster genérico de F1 (dominio permitido en next.config.ts)
     isLive: isLiveNow, // Indica si está en vivo
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
   };
