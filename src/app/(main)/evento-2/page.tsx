@@ -86,7 +86,7 @@ export default function Evento2Page() {
                             src={streamDetails.playbackUrl}
                             poster={streamDetails.posterUrl}
                             isLive={streamDetails.isLive}
-                            playerType="videojs" // Choose "videojs" or "clappr" here
+                            playerType="clappr" // Choose "videojs" or "clappr" here
                         />
                     )}
                 </div>
