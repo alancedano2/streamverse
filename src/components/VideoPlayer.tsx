@@ -8,12 +8,14 @@ import 'video.js/dist/video-js.css';
 import { Player as ClapprPlayer } from '@clappr/player';
 import HlsjsPlayback from '@clappr/hlsjs-playback';
 
+// Define a unique ID for the Clappr container
+const CLAPPR_CONTAINER_ID = 'clappr-player-container';
+
 // Updated VideoPlayerProps interface
 interface VideoPlayerProps {
     src: string;
     poster: string;
     isLive: boolean;
-    // Keep options for video.js if needed, but the main props are now src, poster, and isLive
     options?: any; 
 }
 
@@ -26,12 +28,11 @@ export const VideoPlayer = (props: VideoPlayerProps) => {
     // Configuration for both players based on input props
     const playerOptions = {
         sources: [
-            { src: src, type: 'application/x-mpegURL' } // Assuming HLS stream based on previous analysis
+            { src: src, type: 'application/x-mpegURL' } 
         ],
         poster: poster,
         autoplay: isLive,
         controls: true,
-        // Merge with any optional options passed
         ...options
     };
 
@@ -40,7 +41,7 @@ export const VideoPlayer = (props: VideoPlayerProps) => {
         const videoElement = videoJsRef.current;
 
         if (videoElement) {
-            // Video.js initialization logic using the combined options
+            // Video.js initialization logic
             const player = videojs(videoElement, playerOptions);
             
             // Clean up Video.js instance
@@ -50,23 +51,24 @@ export const VideoPlayer = (props: VideoPlayerProps) => {
                 }
             };
         }
-    }, [src, options]); // Dependencies updated to include src and options
+    }, [src, options]); 
 
     // useEffect for Clappr initialization
     useEffect(() => {
         const clapprContainer = clapprRef.current;
 
+        // Note: We are checking for clapprContainer, but initializing Clappr using the ID string below.
         if (clapprContainer && playerOptions.sources.length > 0) {
-            // Clappr initialization logic
+            // Clappr initialization logic using the container ID
             const clapprOptions = {
                 source: playerOptions.sources[0].src,
-                parentId: clapprContainer,
+                // Pass the ID string instead of the DOM element object to avoid the querySelector error
+                parentId: `#${CLAPPR_CONTAINER_ID}`, 
                 width: '100%',
                 height: '100%',
                 plugins: [
                     HlsjsPlayback,
                 ],
-                // Add any other Clappr options here
             };
 
             const clapprInstance = new ClapprPlayer(clapprOptions);
@@ -78,22 +80,17 @@ export const VideoPlayer = (props: VideoPlayerProps) => {
                 }
             };
         }
-    }, [src, options]); // Dependencies updated to include src and options
+    }, [src, options]); 
 
     return (
         <div>
-            {/* You can render both player containers here. 
-            You might want to implement logic to conditionally render or hide 
-            one based on your application's requirements.
-            */}
-            
             {/* Video.js container */}
             <div data-vjs-player>
                 <video ref={videoJsRef} className="video-js vjs-default-skin" />
             </div>
 
-            {/* Clappr container (hidden by default in this example) */}
-            <div ref={clapprRef} style={{ display: 'none' }} /> 
+            {/* Clappr container. We assign the unique ID here. */}
+            <div id={CLAPPR_CONTAINER_ID} ref={clapprRef} style={{ display: 'none' }} /> 
         </div>
     );
 };
