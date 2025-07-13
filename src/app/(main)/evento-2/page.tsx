@@ -20,12 +20,12 @@ function getF1RaceDetails(): StreamDetails {
     const isLiveNow = true;
 
     return {
-        title: 'AEW All In 2025',
-        description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
-        league: 'TV',
+        title: 'WWE Evolution',
+        description: 'Prepárate para la historia. WWE Evolution está de vuelta, el evento que celebra exclusivamente a las superestrellas femeninas. Después de siete años, este evento icónico regresa para redefinir la lucha libre.',
+        league: 'WWE PLE',
         // Using the HTTPS proxy URL
-        playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=http://netlevel.online:8080/live/AURELIO933/AQBWS/588157.m3u8',
-        posterUrl: 'https://imageio.forbes.com/specials-images/imageserve/68701f93b203da8077fed41c/AEW-All-in-Texas-at-Globe-Life-Field-in-Arlington-/960x0.jpg?format=jpg&width=960',
+        playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://15f7a81b018c.ngrok-free.app/LiveApp/dWLk8vpJbhK6e0CU297035900555.m3u8',
+        posterUrl: 'https://staticg.sportskeeda.com/editor/2025/07/2809f-17523026413999-1920.jpg?w=640',
         isLive: isLiveNow,
         nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', {
             weekday: 'long',
