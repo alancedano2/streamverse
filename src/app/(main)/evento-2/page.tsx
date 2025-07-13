@@ -1,99 +1,101 @@
-'use client';
+import React, { useRef, useEffect } from 'react';
 
-import React, { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
+// video.js imports
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
 
-// Interface and getF1RaceDetails function remain the same
-interface StreamDetails {
-    title: string;
-    description: string;
-    league: string;
-    playbackUrl: string;
-    posterUrl: string;
+// Clappr imports
+import { Player as ClapprPlayer } from '@clappr/player';
+import HlsjsPlayback from '@clappr/hlsjs-playback';
+
+// Updated VideoPlayerProps interface
+interface VideoPlayerProps {
+    src: string;
+    poster: string;
     isLive: boolean;
-    nextEpisodeDate?: string;
+    // Keep options for video.js if needed, but the main props are now src, poster, and isLive
+    options?: any; 
 }
 
-function getF1RaceDetails(): StreamDetails {
-    const today = new Date();
-    const isLiveNow = true;
+export const VideoPlayer = (props: VideoPlayerProps) => {
+    // Refs for video.js container and Clappr container
+    const videoJsRef = useRef<HTMLVideoElement>(null);
+    const clapprRef = useRef<HTMLDivElement>(null);
+    const { src, poster, isLive, options } = props;
 
-    return {
-        title: 'WWE Evolution',
-        description: 'Prepárate para la historia. WWE Evolution está de vuelta, el evento que celebra exclusivamente a las superestrellas femeninas. Después de siete años, este evento icónico regresa para redefinir la lucha libre.',
-        league: 'WWE PLE',
-        // Using the HTTPS proxy URL
-        playbackUrl: 'https://adjustment-rn-corrected-ing.trycloudflare.com/LiveApp/streams/dWLk8vpJbhK6e0CU297035900555.m3u8',
-        posterUrl: 'https://tvazteca.brightspotcdn.com/75/ce/b41197bd46a3867b09f504e0ddf7/wwe-evolution-2025.jpg',
-        isLive: isLiveNow,
-        nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        })}`,
+    // Configuration for both players based on input props
+    const playerOptions = {
+        sources: [
+            { src: src, type: 'application/x-mpegURL' } // Assuming HLS stream based on previous analysis
+        ],
+        poster: poster,
+        autoplay: isLive,
+        controls: true,
+        // Merge with any optional options passed
+        ...options
     };
-}
 
-// Dynamically import the VideoPlayer component, disabling SSR
-// Update the import path if your VideoPlayer.tsx is in a different location
-const DynamicVideoPlayer = dynamic(() => import('../../../components/VideoPlayer'), {
-    ssr: false,
-});
-
-
-export default function Evento2Page() {
-    const [streamDetails, setStreamDetails] = useState<StreamDetails | null>(null);
-
+    // useEffect for Video.js initialization
     useEffect(() => {
-        setStreamDetails(getF1RaceDetails());
-    }, []);
+        const videoElement = videoJsRef.current;
 
-    if (!streamDetails) {
-        return (
-            <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen flex justify-center items-center">
-                <p className="text-xl text-gray-400">Cargando detalles del evento...</p>
-            </div>
-        );
-    }
+        if (videoElement) {
+            // Video.js initialization logic using the combined options
+            const player = videojs(videoElement, playerOptions);
+            
+            // Clean up Video.js instance
+            return () => {
+                if (player) {
+                    player.dispose();
+                }
+            };
+        }
+    }, [src, options]); // Dependencies updated to include src and options
+
+    // useEffect for Clappr initialization
+    useEffect(() => {
+        const clapprContainer = clapprRef.current;
+
+        if (clapprContainer && playerOptions.sources.length > 0) {
+            // Clappr initialization logic
+            const clapprOptions = {
+                source: playerOptions.sources[0].src,
+                parentId: clapprContainer,
+                width: '100%',
+                height: '100%',
+                plugins: [
+                    HlsjsPlayback,
+                ],
+                // Add any other Clappr options here
+            };
+
+            const clapprInstance = new ClapprPlayer(clapprOptions);
+
+            // Clean up Clappr instance
+            return () => {
+                if (clapprInstance) {
+                    clapprInstance.destroy();
+                }
+            };
+        }
+    }, [src, options]); // Dependencies updated to include src and options
 
     return (
-        <div className="relative min-h-screen bg-gray-950 text-white">
-            <div className="relative z-10 container mx-auto px-4 py-8 pt-12 md:pt-16">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-orange-600 text-center mb-8">
-                    {streamDetails.title}
-                </h1>
-
-                <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative aspect-video bg-black">
-                    {streamDetails.isLive && (
-                        <div className="absolute top-4 left-4 bg-orange-600 text-white text-sm font-bold px-3 py-1 rounded-full z-10 animate-pulse">
-                            EN VIVO
-                        </div>
-                    )}
-                    {/* Use the dynamically imported VideoPlayer */}
-                    {streamDetails.playbackUrl && streamDetails.posterUrl && (
-                        <DynamicVideoPlayer
-                            src={streamDetails.playbackUrl}
-                            poster={streamDetails.posterUrl}
-                            isLive={streamDetails.isLive}
-                        />
-                    )}
-                </div>
-
-                <div className="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
-                    <h2 className="text-2xl font-bold text-white mb-3">Detalles del Evento</h2>
-                    <p className="text-gray-300 text-lg mb-4">{streamDetails.description}</p>
-                    <p className="text-gray-400 text-sm">
-                        Liga: <span className="font-semibold text-white">{streamDetails.league}</span>
-                    </p>
-                    {streamDetails.nextEpisodeDate && (
-                        <p className="text-gray-400 text-sm mt-1">
-                            Fecha del evento: <span className="font-semibold text-white">{streamDetails.nextEpisodeDate}</span>
-                        </p>
-                    )}
-                </div>
+        <div>
+            {/* You can render both player containers here. 
+            You might want to implement logic to conditionally render or hide 
+            one based on your application's requirements.
+            */}
+            
+            {/* Video.js container */}
+            <div data-vjs-player>
+                <video ref={videoJsRef} className="video-js vjs-default-skin" />
             </div>
+
+            {/* Clappr container (hidden by default in this example) */}
+            <div ref={clapprRef} style={{ display: 'none' }} /> 
         </div>
     );
-}
+};
+
+export default VideoPlayer;
