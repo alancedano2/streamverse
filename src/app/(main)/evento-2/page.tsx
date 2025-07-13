@@ -25,7 +25,7 @@ function getF1RaceDetails(): StreamDetails {
         league: 'WWE PLE',
         // Using the HTTPS proxy URL
         playbackUrl: 'https://mediaiptvproxy.fraelvillegasplay8.workers.dev/?url=https://15f7a81b018c.ngrok-free.app/LiveApp/dWLk8vpJbhK6e0CU297035900555.m3u8',
-        posterUrl: 'https://staticg.sportskeeda.com/editor/2025/07/2809f-17523026413999-1920.jpg?w=640',
+        posterUrl: 'https://tvazteca.brightspotcdn.com/75/ce/b41197bd46a3867b09f504e0ddf7/wwe-evolution-2025.jpg',
         isLive: isLiveNow,
         nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', {
             weekday: 'long',
