@@ -49,7 +49,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'newsroom.2k.com' },
       { protocol: 'https', hostname: 'upload.wikimedia.org' }, // Added comma here
       // Corrected the Netflix domain addition that caused the build error:
-      { protocol: 'https', hostname: 'dnm.nflximg.net'} 
+      { protocol: 'https', hostname: 'dnm.nflximg.net'},
+      { protocol: 'https', hostname: 'record.com.mx'}
     ]
   }
 };
