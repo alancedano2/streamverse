@@ -20,29 +20,29 @@ interface EventItem {
 const allEvents: EventItem[] = [
   // MIÉRCOLES 25 DE JUNIO DE 2025
   {
+    id: 'MLB',
+    title: 'MLB: Yankees vs. Cubs',
+    league: 'MLB',
+    dateTime: '2025-07-13T13:30:00', // Miércoles 25 de Junio, 8:00 PM AST
+    link: '/evento-1',
+    description: 'Experimenta uno de los enfrentamientos más emocionantes de la MLB. Los icónicos New York Yankees se enfrentan a los queridos Chicago Cubs en un choque que promete drama, poder y pasión.',
+  },
+  {
     id: 'WWE',
     title: 'WWE Evolution ',
     league: 'WWE PLE',
     dateTime: '2025-07-13T17:00:00', // Miércoles 25 de Junio, 7:15 PM AST
-    link: '/evento-1',
+    link: '/evento-2',
     // FIX: Added the missing single quote at the end of the description string.
     description: 'El universo de la lucha libre está a punto de vivir un momento histórico. Tras siete años de una espera que se hizo larga para los aficionados, WWE Evolution.',
   },
   {
-    id: 'AEW',
-    title: 'AEW All In',
-    league: 'AEW PPV',
-    dateTime: '2025-07-12T15:00:00', // Miércoles 25 de Junio, 8:00 PM AST
-    link: '/evento-2',
-    description: 'La All Elite Wrestling se apodera de Dallas-Fort Worth esta semana previo al máximo evento AEW All In: Texas que se realizará en el Globe Life Field el sábado 12 de julio.',
-  },
-  {
-    id: 'bsn-osos-criollos-calendar-wednesday',
-    title: 'BSN: Capitanes de Arecibo vs Atleticos de San German',
+    id: 'bsn-capitanes-vaqueros-calendar-wednesday',
+    title: 'BSN: Capitanes de Arecibo vs Vaqueros de Bayamón',
     league: 'BSN',
-    dateTime: '2025-06-30T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
-    link: '/bsn-2',
-    description: 'Otro emocionante partido del BSN.',
+    dateTime: '2025-06-25T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
+    link: '/bsn-3',
+    description: 'Choque de titanes en la cancha del BSN.',
   },
   {
     id: 'bsn-capitanes-vaqueros-calendar-wednesday',
