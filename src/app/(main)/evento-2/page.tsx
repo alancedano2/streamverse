@@ -61,13 +61,13 @@ export default function Evento2Page() {
     return (
         <div className="relative min-h-screen bg-gray-950 text-white">
             <div className="relative z-10 container mx-auto px-4 py-8 pt-12 md:pt-16">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-red-600 text-center mb-8">
+                <h1 className="text-4xl md:text-5xl font-extrabold text-orange-600 text-center mb-8">
                     {streamDetails.title}
                 </h1>
 
                 <div className="mb-8 rounded-lg overflow-hidden shadow-2xl border border-gray-700 relative aspect-video bg-black">
                     {streamDetails.isLive && (
-                        <div className="absolute top-4 left-4 bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-full z-10 animate-pulse">
+                        <div className="absolute top-4 left-4 bg-orange-600 text-white text-sm font-bold px-3 py-1 rounded-full z-10 animate-pulse">
                             EN VIVO
                         </div>
                     )}
