@@ -74,7 +74,7 @@ export default function HomePage() {
     title: 'WWE Evolution',
     date: 'Domingo, 13 de Julio del 2025 - 5:00pm',
     description: 'Prepárate para la historia. WWE Evolution está de vuelta, el evento que celebra exclusivamente a las superestrellas femeninas. Después de siete años, este evento icónico regresa para redefinir la lucha libre.',
-    bgImage: 'https://ringsideintel.com/cdn-cgi/image/width=788,height=444,fit=crop,quality=80,format=auto,onerror=redirect,metadata=none/wp-content/uploads/2025/07/wwe-evolution.webp',
+    bgImage: 'https://staticg.sportskeeda.com/editor/2025/07/2809f-17523026413999-1920.jpg?w=640',
     link: '/evento-2', // ✅ COMA AÑADIDA AQUÍ
   }, 
 ];
