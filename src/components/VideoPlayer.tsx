@@ -1,102 +1,90 @@
-import React, { useRef, useEffect } from 'react';
+'use client';
 
-// video.js imports
+import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-
-// Clappr imports
-import { Player as ClapprPlayer } from '@clappr/player';
-import HlsjsPlayback from '@clappr/hlsjs-playback';
-
-const CLAPPR_CONTAINER_ID = 'clappr-player-container';
 
 interface VideoPlayerProps {
     src: string;
     poster: string;
     isLive: boolean;
-    options?: any;
-    playerType: 'videojs' | 'clappr'; 
 }
 
-export const VideoPlayer = (props: VideoPlayerProps) => {
-    const videoJsRef = useRef<HTMLVideoElement>(null);
-    const clapprRef = useRef<HTMLDivElement>(null);
-    const { src, poster, isLive, options, playerType } = props;
+// Remove the PROXY_WORKER constant
 
-    const playerOptions = {
-        sources: [
-            { src: src, type: 'application/x-mpegURL' } 
-        ],
-        poster: poster,
-        autoplay: isLive,
-        controls: true,
-        ...options
-    };
+export default function VideoPlayer({ src, poster, isLive }: VideoPlayerProps) {
+    const videoRef = useRef<HTMLDivElement>(null);
+    const playerRef = useRef<any>(null);
 
-    // useEffect for Video.js initialization
     useEffect(() => {
-        const videoElement = videoJsRef.current;
+        // Only initialize if there is no player yet
+        if (!playerRef.current) {
+            // Create the video element and add it to the container
+            const videoElement = document.createElement('video');
+            videoElement.className = 'video-js vjs-default-skin';
+            videoElement.autoplay = true;
+            videoElement.controls = true;
+            videoElement.muted = false;
+            videoElement.preload = 'auto';
 
-        if (playerType === 'videojs' && videoElement) {
-            const player = videojs(videoElement, playerOptions);
-            
-            return () => {
-                if (player) {
-                    player.dispose();
-                }
+            if (videoRef.current) {
+                videoRef.current.appendChild(videoElement);
+            }
+
+            // --- CORRECTION: Use the src directly, as it will now be the full URL ---
+            const videoSrc = src;
+
+            // Video.js options with HLS configuration
+            const options = {
+                autoplay: true,
+                controls: true,
+                responsive: true,
+                fluid: true,
+                liveui: isLive,
+                sources: [{
+                    src: videoSrc,
+                    type: 'application/x-mpegURL',
+                }],
+                poster: poster,
+                techOrder: ['html5'],
+                html5: {
+                    hls: {
+                        overrideNative: true,
+                        debug: false,
+                    },
+                    nativeAudioTracks: false,
+                    nativeVideoTracks: false,
+                },
             };
+
+            playerRef.current = videojs(videoElement, options, () => {
+                console.log('Video.js player is ready');
+            });
+        } else {
+            // If the player already exists, just update the source
+            // --- CORRECTION: Use the src directly ---
+            const videoSrc = src;
+            playerRef.current.src({
+                src: videoSrc,
+                type: 'application/x-mpegURL',
+            });
+            playerRef.current.poster(poster);
+            playerRef.current.liveui(isLive);
+            playerRef.current.load();
         }
-    }, [playerType, src, options]);
 
-    // useEffect for Clappr initialization
-    useEffect(() => {
-        const clapprContainer = clapprRef.current;
-
-        if (playerType === 'clappr' && clapprContainer && playerOptions.sources.length > 0) {
-            // Note: We initialize Clappr using the container ID
-            const clapprOptions = {
-                source: playerOptions.sources[0].src,
-                parentId: `#${CLAPPR_CONTAINER_ID}`, 
-                width: '100%',
-                height: '100%',
-                plugins: [
-                    HlsjsPlayback,
-                ],
-            };
-
-            const clapprInstance = new ClapprPlayer(clapprOptions);
-
-            return () => {
-                if (clapprInstance) {
-                    clapprInstance.destroy();
-                }
-            };
-        }
-    }, [playerType, src, options]); 
+        // Cleanup
+        return () => {
+            if (playerRef.current && !playerRef.current.isDisposed()) {
+                playerRef.current.dispose();
+                playerRef.current = null;
+            }
+        };
+    }, [src, poster, isLive]);
 
     return (
-        <div>
-            {/* Conditionally render the Video.js player container */}
-            {playerType === 'videojs' && (
-                <div data-vjs-player>
-                    <video 
-                        ref={videoJsRef} 
-                        className="video-js vjs-default-skin" 
-                    />
-                </div>
-            )}
-
-            {/* Conditionally render the Clappr player container */}
-            {playerType === 'clappr' && (
-                <div 
-                    id={CLAPPR_CONTAINER_ID} 
-                    ref={clapprRef} 
-                    // Added w-full h-full classes to ensure the container has dimensions
-                    className="w-full h-full"
-                /> 
-            )}
+        <div data-vjs-player>
+            <div ref={videoRef} />
         </div>
     );
-};
-
-export default VideoPlayer;
+}
