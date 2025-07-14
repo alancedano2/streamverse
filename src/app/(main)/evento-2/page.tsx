@@ -24,7 +24,7 @@ function getF1RaceDetails(): StreamDetails {
         description: 'Prepárate para la historia. WWE Evolution está de vuelta, el evento que celebra exclusivamente a las superestrellas femeninas. Después de siete años, este evento icónico regresa para redefinir la lucha libre.',
         league: 'WWE PLE',
         // Using the HTTPS proxy URL
-        playbackUrl: 'https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=http://tvlatino.club:2082/live/991943952/e2zQtWgRZ5D4/559675.m3u8',
+        playbackUrl: 'https://bacterial-drug-personals-soon.trycloudflare.com/proxy?url=http://tvlatino.club:2082/live/991943952/e2zQtWgRZ5D4/559675.m3u8',
         posterUrl: 'https://tvazteca.brightspotcdn.com/75/ce/b41197bd46a3867b09f504e0ddf7/wwe-evolution-2025.jpg',
         isLive: isLiveNow,
         nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', {
