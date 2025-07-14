@@ -1,11 +1,10 @@
-// src/app/(main)/evento-2/page.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
-// Interface for stream details
+// Interface and getF1RaceDetails function remain the same
 interface StreamDetails {
     title: string;
     description: string;
@@ -16,16 +15,6 @@ interface StreamDetails {
     nextEpisodeDate?: string;
 }
 
-// Define the VideoPlayerProps interface here or import it if exported from VideoPlayer.tsx
-// This interface MUST match the props expected by the VideoPlayer component.
-interface VideoPlayerProps {
-    src: string;
-    poster: string;
-    isLive: boolean;
-    options?: any;
-    playerType: 'videojs' | 'clappr'; 
-}
-
 function getF1RaceDetails(): StreamDetails {
     const today = new Date();
     const isLiveNow = true;
@@ -34,6 +23,7 @@ function getF1RaceDetails(): StreamDetails {
         title: 'WWE Evolution',
         description: 'Prepárate para la historia. WWE Evolution está de vuelta, el evento que celebra exclusivamente a las superestrellas femeninas. Después de siete años, este evento icónico regresa para redefinir la lucha libre.',
         league: 'WWE PLE',
+        // Using the HTTPS proxy URL
         playbackUrl: 'https://adjustment-rn-corrected-ing.trycloudflare.com/LiveApp/streams/dWLk8vpJbhK6e0CU297035900555.m3u8',
         posterUrl: 'https://tvazteca.brightspotcdn.com/75/ce/b41197bd46a3867b09f504e0ddf7/wwe-evolution-2025.jpg',
         isLive: isLiveNow,
@@ -46,8 +36,9 @@ function getF1RaceDetails(): StreamDetails {
     };
 }
 
-// Dynamically import the VideoPlayer component, applying the VideoPlayerProps type
-const DynamicVideoPlayer = dynamic<VideoPlayerProps>(() => import('../../../components/VideoPlayer'), {
+// Dynamically import the VideoPlayer component, disabling SSR
+// Update the import path if your VideoPlayer.tsx is in a different location
+const DynamicVideoPlayer = dynamic(() => import('../../../components/VideoPlayer'), {
     ssr: false,
 });
 
@@ -80,13 +71,12 @@ export default function Evento2Page() {
                             EN VIVO
                         </div>
                     )}
+                    {/* Use the dynamically imported VideoPlayer */}
                     {streamDetails.playbackUrl && streamDetails.posterUrl && (
-                        // We are now explicitly passing VideoPlayerProps to DynamicVideoPlayer
                         <DynamicVideoPlayer
                             src={streamDetails.playbackUrl}
                             poster={streamDetails.posterUrl}
                             isLive={streamDetails.isLive}
-                            playerType="videojs" // Choose "videojs" or "clappr" here
                         />
                     )}
                 </div>
