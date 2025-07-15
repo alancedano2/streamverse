@@ -21,6 +21,8 @@ interface StreamDetails {
 
 // Función para obtener los detalles de ESTE evento específico (Evento 1)
 function getEvento3Details(): StreamDetails {
+  const today = new Date(); // Define 'today' here
+  const isLiveNow = true; // Define 'isLiveNow' here
   return {
     title: 'MLB: National League Vs American League',
     description: 'El clásico All-Star entre la Liga Nacional y la Liga Americana está de regreso.',
