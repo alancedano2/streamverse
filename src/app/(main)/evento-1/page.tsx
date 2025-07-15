@@ -23,7 +23,7 @@ function getF1RaceDetails(): StreamDetails {
         title: 'NBA: Minnesota Timberwolves vs Detroit Pistons',
     description: 'Duelo explosivo entre los Timberwolves y los Pistons en la Summer League.',
     league: 'NBA 2K26 Summer League',
-    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/610371.m3u8',
+    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/590581.m3u8',
     posterUrl: 'https://secure.espncdn.com/combiner/i?img=%2Fespn360%2Fimages%2Fbk%2Fnba_summer_league%2F3366098.jpg&w=640&h=360&1531306581615',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
