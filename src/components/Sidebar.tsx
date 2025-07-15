@@ -56,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, onToggleSidebar }) => 
 
             {/* NUEVO ITEM GAMING */}
             <li className="mb-2">
-              <Link href="/gaming" className="flex items-center text-lg py-2 px-3 rounded-md hover:bg-gray-700 transition-colors">
+              <Link href="https://play-streamverse.vercel.app/" className="flex items-center text-lg py-2 px-3 rounded-md hover:bg-gray-700 transition-colors">
                 <IoGameController className="text-xl mr-3 flex-shrink-0" />
                 <span className={`${isSidebarOpen ? 'block' : 'hidden lg:block'}`}>Gaming</span>
               </Link>
