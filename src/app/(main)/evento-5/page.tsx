@@ -23,7 +23,7 @@ function getF1RaceDetails(): StreamDetails {
         title: 'NBA: Toronto Raptors vs Denver Nuggets',
     description: 'Los Raptors y Nuggets se enfrentan en un partido clave de la Summer League.',
     league: 'NBA 2K26 Summer League',
-    playbackUrl: '',
+    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/610440.m3u8',
     posterUrl: 'https://secure.espncdn.com/combiner/i?img=%2Fespn360%2Fimages%2Fbk%2Fnba_summer_league%2F3366203.jpg&w=640&h=360&1531306654204',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
