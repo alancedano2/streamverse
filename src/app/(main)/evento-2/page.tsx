@@ -23,7 +23,7 @@ function getF1RaceDetails(): StreamDetails {
         title: 'NBA: Brooklyn Nets vs New York Knicks',
     description: 'Choque neoyorquino entre Nets y Knicks, directo desde la Summer League.',
     league: 'NBA 2K26 Summer League',
-    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/170950.m3u8',
+    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/610439.m3u8',
     posterUrl: 'https://artwork.espncdn.com/events/401468897/16x9/1280x720_20221215193857.jpg',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
