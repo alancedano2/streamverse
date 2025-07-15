@@ -62,21 +62,13 @@ export default function HomePage() {
 
   const heroEvents = [
   {
-    id: 'MLB',
-    title: 'MLB: Yankees vs. Cubs',
-    date: 'Domingo, 13 de Julio del 2025 - 1:30pm',
-    description: 'Experimenta uno de los enfrentamientos más emocionantes de la MLB. Los icónicos New York Yankees se enfrentan a los queridos Chicago Cubs en un choque que promete drama, poder y pasión.', // Corrected missing quote
-    bgImage: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401472338/16x9/1280x720_20230623151708.jpg&showBadge=true&package=ESPN_PLUS_MLB',
-    link: '/evento-1', // ✅ COMA AÑADIDA AQUÍ
-  }, // <--- COMA CORREGIDA AÑADIDA AQUÍ
-  {
     id: 'WWE',
-    title: 'WWE Evolution',
-    date: 'Domingo, 13 de Julio del 2025 - 5:00pm',
-    description: 'Prepárate para la historia. WWE Evolution está de vuelta, el evento que celebra exclusivamente a las superestrellas femeninas. Después de siete años, este evento icónico regresa para redefinir la lucha libre.',
-    bgImage: 'https://staticg.sportskeeda.com/editor/2025/07/2809f-17523026413999-1920.jpg?w=640',
-    link: '/evento-2', // ✅ COMA AÑADIDA AQUÍ
-  }, 
+    title: 'WWE NXT',
+    date: 'Lunes, 15 de Julio del 2025 - 8:00pm',
+    description: 'Acción sin límites con las superestrellas emergentes de WWE NXT.', // Corrected missing quote
+    bgImage: 'https://images.cwtv.com/images/masters/cw/universal/shows/wwe-nxt/show-promo.jpg',
+    link: '/wwe-nxt-live', // ✅ COMA AÑADIDA AQUÍ
+  }, // <--- COMA CORREGIDA AÑADIDA AQUÍ 
 ];
 
   const trendingEvents = [
