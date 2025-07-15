@@ -20,19 +20,13 @@ function getF1RaceDetails(): StreamDetails {
     const isLiveNow = true;
 
     return {
-        title: 'WWE Evolution',
-        description: 'Prepárate para la historia. WWE Evolution está de vuelta, el evento que celebra exclusivamente a las superestrellas femeninas. Después de siete años, este evento icónico regresa para redefinir la lucha libre.',
-        league: 'WWE PLE',
-        // Using the HTTPS proxy URL
-        playbackUrl: 'https://tu-worker.subdominio.workers.dev/proxy?url=http://smarterstv99.dyndns.tv:25461/live/N3SON3XCHANGE@NOW/GhUtuAU7rR29/39365.m3u8',
-        posterUrl: 'https://tvazteca.brightspotcdn.com/75/ce/b41197bd46a3867b09f504e0ddf7/wwe-evolution-2025.jpg',
-        isLive: isLiveNow,
-        nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        })}`,
+        title: 'NBA: Brooklyn Nets vs New York Knicks',
+    description: 'Choque neoyorquino entre Nets y Knicks, directo desde la Summer League.',
+    league: 'NBA 2K26 Summer League',
+    playbackUrl: '',
+    posterUrl: 'https://artwork.espncdn.com/events/401468897/16x9/1280x720_20221215193857.jpg',
+    isLive: isLiveNow,
+    nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
     };
 }
 
