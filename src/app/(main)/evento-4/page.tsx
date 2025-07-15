@@ -27,7 +27,7 @@ function getEvento3Details(): StreamDetails {
     title: 'MLB: National League Vs American League',
     description: 'El clásico All-Star entre la Liga Nacional y la Liga Americana está de regreso.',
     league: 'MLB',
-    playbackUrl: '',
+    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/610437.m3u8',
     posterUrl: 'https://a.espncdn.com/combiner/i?img=/i/espn/misc_logos/500/mlb.png',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
