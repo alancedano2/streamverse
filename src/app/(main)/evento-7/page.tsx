@@ -23,7 +23,7 @@ function getF1RaceDetails(): StreamDetails {
         title: 'NBA: Portland Trail Blazers vs New Orleans Pelicans',
     description: 'Trail Blazers y Pelicans se enfrentan en un duelo de futuras estrellas.',
     league: 'NBA 2K26 Summer League',
-    playbackUrl: '',
+    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/218736.m3u8',
     posterUrl: 'https://artwork.espncdn.com/events/401469096/16x9/1280x720_20230224202650.jpg',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
