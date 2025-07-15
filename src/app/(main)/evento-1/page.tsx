@@ -30,11 +30,11 @@ function getF1RaceDetails(): StreamDetails {
   const isLiveNow = false;
 
   return {
-    title: 'MLB: Yankees vs. Cubs', // Título genérico de F1, ej: "Gran Premio de España"
-    description: 'Experimenta uno de los enfrentamientos más emocionantes de la MLB. Los icónicos New York Yankees se enfrentan a los queridos Chicago Cubs en un choque que promete drama, poder y pasión.',
-    league: 'MLB',
-    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live_stream.m3u8', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
-    posterUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401472338/16x9/1280x720_20230623151708.jpg&showBadge=true&package=ESPN_PLUS_MLB', // Póster genérico de F1 (dominio permitido en next.config.ts)
+    title: 'NBA: Minnesota Timberwolves vs Detroit Pistons', // Título genérico de F1, ej: "Gran Premio de España"
+    description: 'Duelo explosivo entre los Timberwolves y los Pistons en la Summer League.',
+    league: 'NBA 2K26 Summer League',
+    playbackUrl: '', // <<-- DEJA ESTA URL EN BLANCO. ¡Aquí pegarás tu stream M3U8 cuando lo tengas!
+    posterUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=612&width=1088&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https%3A//artwork.espncdn.com/events/401793919/16x9/1280x720_20250627235550.png&showBadge=true&package=ESPN_PLUS', // Póster genérico de F1 (dominio permitido en next.config.ts)
     isLive: isLiveNow, // Indica si está en vivo
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`, // Muestra la fecha de mañana
   };
@@ -125,7 +125,7 @@ export default function Evento2Page() {
   if (!streamDetails) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen flex justify-center items-center">
-        <p className="text-xl text-gray-400">Cargando detalles de la carrera de Fórmula 1...</p>
+        <p className="text-xl text-gray-400">Cargando detalles de la carrera de evento 1...</p>
       </div>
     );
   }
