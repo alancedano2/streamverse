@@ -20,38 +20,78 @@ interface EventItem {
 const allEvents: EventItem[] = [
   // MIÉRCOLES 25 DE JUNIO DE 2025
   {
-    id: 'MLB',
-    title: 'MLB: Yankees vs. Cubs',
-    league: 'MLB',
-    dateTime: '2025-07-13T13:30:00', // Miércoles 25 de Junio, 8:00 PM AST
-    link: '/evento-1',
-    description: 'Experimenta uno de los enfrentamientos más emocionantes de la MLB. Los icónicos New York Yankees se enfrentan a los queridos Chicago Cubs en un choque que promete drama, poder y pasión.',
-  },
-  {
-    id: 'WWE',
-    title: 'WWE Evolution ',
-    league: 'WWE PLE',
-    dateTime: '2025-07-13T17:00:00', // Miércoles 25 de Junio, 7:15 PM AST
-    link: '/evento-2',
-    // FIX: Added the missing single quote at the end of the description string.
-    description: 'El universo de la lucha libre está a punto de vivir un momento histórico. Tras siete años de una espera que se hizo larga para los aficionados, WWE Evolution.',
-  },
-  {
-    id: 'bsn-capitanes-vaqueros-calendar-wednesday',
-    title: 'BSN: Capitanes de Arecibo vs Vaqueros de Bayamón',
-    league: 'BSN',
-    dateTime: '2025-06-25T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
-    link: '/bsn-3',
-    description: 'Choque de titanes en la cancha del BSN.',
-  },
-  {
-    id: 'bsn-capitanes-vaqueros-calendar-wednesday',
-    title: 'BSN: Capitanes de Arecibo vs Vaqueros de Bayamón',
-    league: 'BSN',
-    dateTime: '2025-06-25T20:00:00', // Miércoles 25 de Junio, 8:00 PM AST
-    link: '/bsn-3',
-    description: 'Choque de titanes en la cancha del BSN.',
-  },
+  id: 'NBA',
+  title: 'NBA: Minnesota Timberwolves vs Detroit Pistons',
+  league: 'NBA 2K26 Summer League',
+  dateTime: '2025-07-15T16:30:00',
+  link: '/evento-1',
+  description: 'Duelo explosivo entre los Timberwolves y los Pistons en la Summer League.',
+},
+{
+  id: 'NBA',
+  title: 'NBA: Brooklyn Nets vs New York Knicks',
+  league: 'NBA 2K26 Summer League',
+  dateTime: '2025-07-15T18:00:00',
+  link: '/evento-2',
+  description: 'Choque neoyorquino entre Nets y Knicks, directo desde la Summer League.',
+},
+{
+  id: 'NBA',
+  title: 'NBA: Oklahoma City Thunder vs Orlando Magic',
+  league: 'NBA 2K26 Summer League',
+  dateTime: '2025-07-15T18:30:00',
+  link: '/evento-3',
+  description: 'Thunder y Magic se enfrentan en un duelo de jóvenes talentos prometedores.',
+},
+{
+  id: 'MLB',
+  title: 'MLB: National League Vs American League',
+  league: 'MLB',
+  dateTime: '2025-07-15T20:00:00',
+  link: '/evento-4',
+  description: 'El clásico All-Star entre la Liga Nacional y la Liga Americana está de regreso.',
+},
+{
+  id: 'WWE',
+  title: 'WWE NXT',
+  league: 'WWE',
+  dateTime: '2025-07-15T20:00:00',
+  link: '/wwe-nxt-live',
+  description: 'Acción sin límites con las superestrellas emergentes de WWE NXT.',
+},
+{
+  id: 'NBA',
+  title: 'NBA: Toronto Raptors vs Denver Nuggets',
+  league: 'NBA 2K26 Summer League',
+  dateTime: '2025-07-15T20:00:00',
+  link: '/evento-5',
+  description: 'Los Raptors y Nuggets se enfrentan en un partido clave de la Summer League.',
+},
+{
+  id: 'NBA',
+  title: 'NBA: Philadelphia 76ers vs Washington Wizards',
+  league: 'NBA 2K26 Summer League',
+  dateTime: '2025-07-15T20:30:00',
+  link: '/evento-6',
+  description: '76ers y Wizards protagonizan una batalla intensa en la Summer League.',
+},
+{
+  id: 'NBA',
+  title: 'NBA: Portland Trail Blazers vs New Orleans Pelicans',
+  league: 'NBA 2K26 Summer League',
+  dateTime: '2025-07-15T22:00:00',
+  link: '/evento-7',
+  description: 'Trail Blazers y Pelicans se enfrentan en un duelo de futuras estrellas.',
+},
+{
+  id: 'NBA',
+  title: 'NBA: Golden State Warrions vs Memphis Grizzlies',
+  league: 'NBA 2K26 Summer League',
+  dateTime: '2025-07-15T22:30:00',
+  link: '/evento-8',
+  description: 'Warriors vs Grizzlies promete cerrar la jornada con un espectáculo vibrante.',
+},
+
 
   // JUEVES 26 DE JUNIO DE 2025
   {
