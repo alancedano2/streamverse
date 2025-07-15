@@ -22,13 +22,13 @@ interface StreamDetails {
 // Función para obtener los detalles de ESTE evento específico (Evento 1)
 function getEvento3Details(): StreamDetails {
   return {
-    title: 'WWE Night of Champions 2025',
-    description: 'Evento anual de pago por evento de WWE. No te pierdas las luchas por los títulos.',
-    league: 'WWE',
-    playbackUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8', // URL de prueba M3U8
-    posterUrl: 'http://localhost:3000/_next/image?url=https%3A%2F%2F411mania.com%2Fwp-content%2Fuploads%2F2025%2F05%2Fwwenightofchampions2025.jpg&w=1200&q=75', // Imagen de baloncesto
-    isLive: true, // Asumimos que es una repetición
-    nextEpisodeDate: '',
+    title: 'NBA: Oklahoma City Thunder vs Orlando Magic',
+    description: 'Thunder y Magic se enfrentan en un duelo de jóvenes talentos prometedores.',
+    league: 'NBA 2K26 Summer League',
+    playbackUrl: '',
+    posterUrl: 'https://artwork.espncdn.com/events/401451045/16x9/1280x720_20220704153316.jpg',
+    isLive: isLiveNow,
+    nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
   };
 }
 
