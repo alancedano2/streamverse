@@ -23,7 +23,7 @@ function getF1RaceDetails(): StreamDetails {
         title: 'NBA: Oklahoma City Thunder vs Orlando Magic',
     description: 'Thunder y Magic se enfrentan en un duelo de jóvenes talentos prometedores.',
     league: 'NBA 2K26 Summer League',
-    playbackUrl: '',
+    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/590581.m3u8',
     posterUrl: 'https://artwork.espncdn.com/events/401451045/16x9/1280x720_20220704153316.jpg',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
