@@ -26,7 +26,7 @@ function getStreamDetails(showName: 'NXT' | 'SmackDown'): StreamDetails {
       title: 'WWE NXT - Transmisión EN VIVO',
       description: 'Sigue a las futuras superestrellas de WWE en NXT cada martes. ¡Acción explosiva y nuevas rivalidades!',
       league: 'WWE NXT',
-      playbackUrl: 'https://yellow-promised-unavailable-vary.trycloudflare.com/live_stream.m3u8', // URL de prueba M3U8
+      playbackUrl: 'https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://strand-reviewer-cage-yamaha.trycloudflare.com/live/277750.m3u8', // URL de prueba M3U8
       posterUrl: 'https://images.cwtv.com/images/masters/cw/universal/shows/wwe-nxt/show-promo.jpg',
       isLive: true,
       nextEpisodeDate: 'Martes, Julio 1  , 2025 - 8:00 PM EST',
