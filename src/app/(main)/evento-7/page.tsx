@@ -20,11 +20,11 @@ function getF1RaceDetails(): StreamDetails {
     const isLiveNow = true;
 
     return {
-        title: 'NBA: Portland Trail Blazers vs New Orleans Pelicans',
-    description: 'Trail Blazers y Pelicans se enfrentan en un duelo de futuras estrellas.',
+        title: 'Golden State Warriors vs Toronto Raptors',
+    description: 'El poder del Oeste contra la velocidad del Este. ¡Un enfrentamiento de alto octanaje!',
     league: 'NBA 2K26 Summer League',
-    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/218736.m3u8',
-    posterUrl: 'https://artwork.espncdn.com/events/401469096/16x9/1280x720_20230224202650.jpg',
+    playbackUrl: 'https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://shakira-floppy-adoption-devices.trycloudflare.com/live/51272.m3u8',
+    posterUrl: 'https://artwork.espncdn.com/airings/04d11fca-adb0-452d-bd7d-06fd9bfaff70/16x9/original_20200909155727.jpg',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
     };
