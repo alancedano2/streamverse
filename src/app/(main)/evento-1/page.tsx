@@ -20,7 +20,7 @@ function getF1RaceDetails(): StreamDetails {
     const isLiveNow = true;
 
     return {
-        title: 'Detroit Pistons vs Miami Heat - NBA 2K26 Summer League',
+        title: 'Detroit Pistons vs Miami Heat',
     description: 'El primer partido emocionante de la Summer League. ¡Prepárate para la acción del baloncesto!',
     league: 'NBA 2K26 Summer League',
     playbackUrl: 'https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://shakira-floppy-adoption-devices.trycloudflare.com/live/51272.m3u8',
