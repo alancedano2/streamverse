@@ -24,11 +24,11 @@ function getEvento3Details(): StreamDetails {
   const today = new Date(); // Define 'today' here
   const isLiveNow = true; // Define 'isLiveNow' here
   return {
-    title: 'MLB: National League Vs American League',
-    description: 'El clásico All-Star entre la Liga Nacional y la Liga Americana está de regreso.',
-    league: 'MLB',
-    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/610437.m3u8',
-    posterUrl: 'https://a.espncdn.com/combiner/i?img=/i/espn/misc_logos/500/mlb.png',
+    title: 'San Antonio Spurs vs Charlotte Hornets',
+    description: 'Una batalla de futuros estrellas en la liga de verano. ¡El futuro está aquí!',
+    league: 'NBA 2K26 Summer League',
+    playbackUrl: 'https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://shakira-floppy-adoption-devices.trycloudflare.com/live/51265.m3u8',
+    posterUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401679124/16x9/1280x720_20240628183258.jpg&showBadge=true&package=ESPN_PLUS',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
   };
