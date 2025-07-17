@@ -42,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, onToggleSidebar }) => 
               </Link>
             </li>
             <li className="mb-2">
-              <Link href="/en-vivo" className="flex items-center text-lg py-2 px-3 rounded-md hover:bg-gray-700 transition-colors">
+              <Link href="http://streamverse-eventos.vercel.app/eventos" className="flex items-center text-lg py-2 px-3 rounded-md hover:bg-gray-700 transition-colors">
                 <HiPlay className="text-xl mr-3 flex-shrink-0" />
                 <span className={`${isSidebarOpen ? 'block' : 'hidden lg:block'}`}>En Vivo Ahora</span>
               </Link>
