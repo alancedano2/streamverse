@@ -20,11 +20,11 @@ function getF1RaceDetails(): StreamDetails {
     const isLiveNow = true;
 
     return {
-        title: 'NBA: Minnesota Timberwolves vs Detroit Pistons',
-    description: 'Duelo explosivo entre los Timberwolves y los Pistons en la Summer League.',
+        title: 'Detroit Pistons vs Miami Heat - NBA 2K26 Summer League',
+    description: 'El primer partido emocionante de la Summer League. ¡Prepárate para la acción del baloncesto!',
     league: 'NBA 2K26 Summer League',
-    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/51272.m3u8',
-    posterUrl: 'https://secure.espncdn.com/combiner/i?img=%2Fespn360%2Fimages%2Fbk%2Fnba_summer_league%2F3366098.jpg&w=640&h=360&1531306581615',
+    playbackUrl: 'https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://shakira-floppy-adoption-devices.trycloudflare.com/live/51272.m3u8',
+    posterUrl: 'https://hothothoops.com/wp-content/uploads/2024/03/miami-heat-detroit-pistons.png',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
     };
