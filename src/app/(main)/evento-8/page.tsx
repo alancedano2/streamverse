@@ -20,11 +20,11 @@ function getF1RaceDetails(): StreamDetails {
     const isLiveNow = true;
 
     return {
-        title: 'NBA: Golden State Warriors vs Memphis Grizzlies',
-    description: 'Warriors vs Grizzlies promete cerrar la jornada con un espectáculo vibrante.',
+        title: 'Denver Nuggets vs Los Angeles Clippers',
+    description: 'Un choque de titanes de la Conferencia Oeste, mostrando el talento emergente.',
     league: 'NBA 2K26 Summer League',
-    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/590581.m3u8',
-    posterUrl: 'https://artwork.espncdn.com/events/401703388/16x9/1280x720_20241112231719.jpg',
+    playbackUrl: 'https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://shakira-floppy-adoption-devices.trycloudflare.com/live/51266.m3u8',
+    posterUrl: 'https://www.scotiabankarena.com/assets/img/Game-40-Jan-13-vs-GSW-Squashed-7b2a3cbdf9.jpg',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
     };
