@@ -20,11 +20,11 @@ function getF1RaceDetails(): StreamDetails {
     const isLiveNow = true;
 
     return {
-        title: 'NBA: Oklahoma City Thunder vs Orlando Magic',
-    description: 'Thunder y Magic se enfrentan en un duelo de jóvenes talentos prometedores.',
+        title: 'Atlanta Hawks vs Memphis Grizzlies',
+    description: 'Jóvenes talentos chocan en un duelo de alto ritmo. ¡No te lo pierdas!',
     league: 'NBA 2K26 Summer League',
-    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/590581.m3u8',
-    posterUrl: 'https://artwork.espncdn.com/events/401451045/16x9/1280x720_20220704153316.jpg',
+    playbackUrl: 'https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://shakira-floppy-adoption-devices.trycloudflare.com/live/51272.m3u8',
+    posterUrl: 'https://oxfordeagle.com/wp-content/uploads/sites/38/2025/03/nba-best-bets-grizzlies-vs-hawks-picks-for-march-3.jpg?w=999',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
     };
