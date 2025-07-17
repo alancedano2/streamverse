@@ -20,11 +20,11 @@ function getF1RaceDetails(): StreamDetails {
     const isLiveNow = true;
 
     return {
-        title: 'NBA: Philadelphia 76ers vs Washington Wizards',
-    description: '76ers y Wizards protagonizan una batalla intensa en la Summer League.',
+        title: 'Boston Celtics vs Los Angeles Lakers',
+    description: 'La rivalidad más grande del baloncesto se enciende en la Summer League. ¡Un clásico moderno!',
     league: 'NBA 2K26 Summer League',
-    playbackUrl: 'https://turn-dependence-animated-yellow.trycloudflare.com/live/590581.m3u8',
-    posterUrl: 'https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401793923/16x9/1280x720_20250627235612.png&showBadge=true&package=ESPN_PLUS',
+    playbackUrl: 'https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://shakira-floppy-adoption-devices.trycloudflare.com/live/51265.m3u8',
+    posterUrl: 'https://artwork.espncdn.com/events/401468904/16x9/1280x720_20221215193927.jpg',
     isLive: isLiveNow,
     nextEpisodeDate: `Hoy, ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
     };
