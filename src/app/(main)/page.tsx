@@ -66,7 +66,7 @@ export default function HomePage() {
     title: 'WWE Raw',
     date: 'Lunes, 21 de Julio del 2025 - 8:00pm',
     description: '¡La noche de los lunes se enciende con WWE Raw! Prepárate para combates impresionantes, rivalidades intensas y sorpresas inesperadas con tus superestrellas favoritas.', // Corrected missing quote
-    bgImage: 'https://wrestlingnews.co/wp-content/uploads/2025/06/web-WWE-Raw-logo-2025_2025-06-02_19-55-25.jpeg',
+    bgImage: 'https://prod.cosm-cdn.io/venue-events/Sports/WWE/03_03_monday_raw/Program/All_Venues/Event_Assets/Event_Images/WWE-RAW-generic.webp',
     link: 'https://streamverse-eventos.vercel.app/eventos/wwe-raw', // ✅ COMA AÑADIDA AQUÍ
   }, // <--- COMA CORREGIDA AÑADIDA AQUÍ 
 ];
