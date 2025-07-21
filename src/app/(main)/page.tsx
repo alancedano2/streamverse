@@ -63,11 +63,11 @@ export default function HomePage() {
   const heroEvents = [
   {
     id: 'WWE',
-    title: 'WWE NXT',
-    date: 'Lunes, 15 de Julio del 2025 - 8:00pm',
-    description: 'Acción sin límites con las superestrellas emergentes de WWE NXT.', // Corrected missing quote
-    bgImage: 'https://images.cwtv.com/images/masters/cw/universal/shows/wwe-nxt/show-promo.jpg',
-    link: '/wwe-nxt-live', // ✅ COMA AÑADIDA AQUÍ
+    title: 'WWE Raw',
+    date: 'Lunes, 21 de Julio del 2025 - 8:00pm',
+    description: '¡La noche de los lunes se enciende con WWE Raw! Prepárate para combates impresionantes, rivalidades intensas y sorpresas inesperadas con tus superestrellas favoritas.', // Corrected missing quote
+    bgImage: 'https://wrestlingnews.co/wp-content/uploads/2025/06/web-WWE-Raw-logo-2025_2025-06-02_19-55-25.jpeg',
+    link: 'https://streamverse-eventos.vercel.app/eventos/wwe-raw', // ✅ COMA AÑADIDA AQUÍ
   }, // <--- COMA CORREGIDA AÑADIDA AQUÍ 
 ];
 
