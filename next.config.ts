@@ -53,7 +53,9 @@ const nextConfig = {
       { protocol: 'https', hostname: 'record.com.mx'},
       { protocol: 'https', hostname: 'staticg.sportskeeda.com'},
       { protocol: 'https', hostname: 'tvazteca.brightspotcdn.com'},
-      { protocol: 'https', hostname: 'ttps://wrestlingnews.co'}
+      { protocol: 'https', hostname: 'ttps://wrestlingnews.co'},
+      // Added for the requested image URL
+      { protocol: 'https', hostname: 'prod.cosm-cdn.io' }
     ]
   }
 };
