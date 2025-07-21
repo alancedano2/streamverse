@@ -21,11 +21,11 @@ const allEvents: EventItem[] = [
   // MIÉRCOLES 25 DE JUNIO DE 2025
 {
   id: 'MLB',
-  title: 'NBA: Miami Heat vs Milwaukee Bucks',
-  league: 'NBA 2K26 Summer League',
-  dateTime: '2025-07-18T19:00:00',
-  link: 'https://streamverse-eventos.vercel.app/eventos/nba-heat-bucks',
-  description: '¡Duelo de la Conferencia Este! El Heat se enfrenta a los Bucks en un partido clave con sus estrellas buscando la victoria. Prepárate para triples, clavadas y defensa de élite.',
+  title: 'MLB: Toronto Blue Jays vs New York Yankees',
+  league: 'MLB',
+  dateTime: '2025-07-21T19:07:00',
+  link: 'https://streamverse-eventos.vercel.app/eventos/mlb-bluejays-yankees',
+  description: '¡Un emocionante enfrentamiento de la División Este! Los Blue Jays reciben a los Yankees en un partido clave de la MLB. Prepárate para la acción del béisbol con cada lanzamiento y cada bateo.',
 },
 {
   id: 'WWE',
@@ -36,12 +36,12 @@ const allEvents: EventItem[] = [
   description: '¡Un choque de titanes en el diamante! Los Yankees reciben a los Braves en un emocionante duelo de interligas con promesas de jonrones y jugadas espectaculares. No te pierdas cada lanzamiento.',
 },
 {
-  id: 'NBA',
-  title: 'WWE SmackDown',
+  id: 'WWE',
+  title: 'WWE Monday Night Raw',
   league: 'WWE',
-  dateTime: '2025-07-18T20:00:00',
-  link: 'https://streamverse-eventos.vercel.app/eventos/wwe-smackdown',
-  description: 'Los Raptors y Nuggets se enfrentan en un partido clave de la Summer League.',
+  dateTime: '2025-07-21T20:00:00',
+  link: 'https://streamverse-eventos.vercel.app/eventos/wwe-raw',
+  description: '¡La noche de los lunes se enciende con WWE Raw! Prepárate para combates impresionantes, rivalidades intensas y sorpresas inesperadas con tus superestrellas favoritas.',
 },
 {
   id: 'NBA',
