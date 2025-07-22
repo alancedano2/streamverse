@@ -40,7 +40,7 @@ const allEvents: EventItem[] = [
   title: 'MLS All-Star Skills Challenge',
   league: 'MLS',
   dateTime: '2025-07-22T21:00:00',
-  link: 'https://streamverse-eventos.vercel.app/eventos/wwe-raw',
+  link: 'https://streamverse-eventos.vercel.app/eventos/mls-all-star-skills-challenge',
   description: '¡Prepárate para la acción y la habilidad! Las estrellas de la MLS compiten en un emocionante desafío de habilidades previo al partido de estrellas. Duelos de precisión, control de balón y más.',
 },
 {
