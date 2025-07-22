@@ -33,9 +33,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'www.pwmania.com' },
       { protocol: 'https', hostname: 'live20.bozztv.com' },
       { protocol: 'https', hostname: 'mediaiptvproxy.fraelvillegasplay8.workers.dev' },
-      { protocol: 'https', hostname: 'www.youtube.com' },
-      { protocol: 'https', hostname: 'ytimg.com' },
       { protocol: 'https', hostname: 'googleusercontent.com' },
+      { protocol: 'https', hostname: 'ytimg.com' },
       { protocol: 'https', hostname: 'ok.ru' },
       { protocol: 'https', hostname: 'bloximages.chicago2.vip.townnews.com' },
       // New and updated domains for game logos
@@ -49,13 +48,14 @@ const nextConfig = {
       { protocol: 'https', hostname: 'newsroom.2k.com' },
       { protocol: 'https', hostname: 'upload.wikimedia.org' }, // Added comma here
       // Corrected the Netflix domain addition that caused the build error:
-      { protocol: 'https', hostname: 'dnm.nflximg.net'},
-      { protocol: 'https', hostname: 'record.com.mx'},
-      { protocol: 'https', hostname: 'staticg.sportskeeda.com'},
-      { protocol: 'https', hostname: 'tvazteca.brightspotcdn.com'},
-      { protocol: 'https', hostname: 'ttps://wrestlingnews.co'},
+      { protocol: 'https', hostname: 'dnm.nflximg.net' },
+      { protocol: 'https', hostname: 'record.com.mx' },
+      { protocol: 'https', hostname: 'staticg.sportskeeda.com' },
+      { protocol: 'https', hostname: 'tvazteca.brightspotcdn.com' },
+      { protocol: 'https', hostname: 'wrestlingnews.co' }, // Corrected protocol for wrestlingnews.co
       // Added for the requested image URL
-      { protocol: 'https', hostname: 'prod.cosm-cdn.io' }
+      { protocol: 'https', hostname: 'prod.cosm-cdn.io' },
+      { protocol: 'https', hostname: 'is1-ssl.mzstatic.com' } // Added the new hostname
     ]
   }
 };
